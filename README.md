@@ -10,7 +10,15 @@ Type
 make
 ```
 
-into your console. This creates a `main` binary inside `bin/`.
+into your console. This creates a `main` binary inside `bin/` and `.o` files inside 'obj/'.
+
+To remove the compiled files, type
+
+```
+make clean
+```
+
+Sometimes things result in segfaults. Try using this and recompiling before moving on.
 
 ## TODO
 
