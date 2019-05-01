@@ -7,15 +7,22 @@ Engine::Engine() {
     m_window.create(sf::VideoMode(windowWidth, windowHeight), "Battleship");
     m_window.setFramerateLimit(60);
 
-    if (!titleFont.loadFromFile(FONT_PATH)) {
+    if (!font.loadFromFile(FONT_PATH)) {
         cout << FONT_FAILURE;
     }
-    title.setFont(titleFont);
+    fpsCounter.setFont(font);
+    fpsCounter.setCharacterSize(16);
+    fpsCounter.setString("INIT");
+    fpsCounter.setPosition(0, 0);
+    fpsCounter.setFillColor(sf::Color::Green);
+    fpsTime = sf::Time::Zero;
+    title.setFont(font);
     title.setCharacterSize(35);
     title.setString("Battleship");
-    title.setPosition(windowWidth/2 - title.getLocalBounds().width/2, 100);
+    title.setPosition(windowWidth / 2 - title.getLocalBounds().width / 2, 100);
 
-    btn.create(windowWidth/2-100, windowHeight/2-15, 200, 30, std::string("Hello"));
+    btn.create(windowWidth / 2 - 100, windowHeight / 2 - 15, 200, 30,
+               std::string("Hello"));
     btn2.create(0, 0, 100, 100, std::string("yuh"));
 
     windowFocus = false;
@@ -62,6 +69,12 @@ void Engine::input() {
 }
 
 void Engine::update(sf::Time deltaTime) {
+    fpsTime += deltaTime;
+    if (fpsTime.asSeconds() > 1) {
+        fpsCounter.setString(std::to_string(1 / deltaTime.asSeconds()));
+        fpsTime = sf::Time::Zero;
+    }
+
     btn.update(deltaTime);
     btn2.update(deltaTime);
 }
@@ -72,6 +85,7 @@ void Engine::draw() {
     m_window.draw(title);
     m_window.draw(btn);
     m_window.draw(btn2);
+    m_window.draw(fpsCounter);
 
     m_window.display();
 }

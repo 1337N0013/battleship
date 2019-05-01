@@ -12,8 +12,10 @@ class Engine {
     sf::RenderWindow m_window;
     bool windowFocus;
 
-    sf::Font titleFont;
+    sf::Font font;
+    sf::Text fpsCounter;
     sf::Text title;
+    sf::Time fpsTime;
     Button btn;
     Button btn2;
 
