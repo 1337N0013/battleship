@@ -17,6 +17,10 @@ void Button::create(const float left, const float top, const sf::Vector2f& size,
 
     sf::Time timeSinceClick = sf::Time::Zero;
     lastMousePos = sf::Vector2i(0, 0);
+    stateColors = {{Default, sf::Color::Red},
+                   {Hovered, sf::Color::Blue},
+                   {Pressed, sf::Color::Cyan},
+                   {Released, sf::Color::Green}};
 }
 
 void Button::create(const float left, const float top, const float width,

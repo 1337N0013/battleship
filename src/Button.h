@@ -67,11 +67,7 @@ class Button : public sf::Drawable, public sf::Transformable {
 
    private:
     State currentState = Default;
-    std::unordered_map<State, sf::Color> stateColors = {
-        {Default, sf::Color::Red},
-        {Hovered, sf::Color::Blue},
-        {Pressed, sf::Color::Cyan},
-        {Released, sf::Color::Green}};
+    std::unordered_map<State, sf::Color> stateColors;
 
     void centerText();
 };
