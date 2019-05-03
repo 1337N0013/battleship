@@ -2,7 +2,6 @@
 
 using std::cout;
 
-sf::Time timeSinceClick = sf::Time::Zero;
 
 void Button::create(const float left, const float top, const sf::Vector2f& size,
                     const std::string& text) {
@@ -14,8 +13,9 @@ void Button::create(const float left, const float top, const sf::Vector2f& size,
     }
     buttonText.setFont(font);
     buttonText.setString(text);
-
     setPosition(left, top);
+    
+    sf::Time timeSinceClick = sf::Time::Zero;
 }
 
 void Button::create(const float left, const float top, const float width,
