@@ -22,5 +22,5 @@ Sometimes things result in segfaults. Try using this and recompiling before movi
 
 ## TODO
 
-* Clean up Button.h
-* Figure out how to call functions using the buttons
+- [ ] Clean up Button.h
+- [ ] Figure out how to call functions using the buttons
