@@ -9,6 +9,8 @@
 using std::cout;
 
 class Button : public sf::Drawable, public sf::Transformable {
+    const float buttonReleaseTime = 0.3f;
+
     sf::RectangleShape buttonRect;
     sf::Font font;
     sf::Text buttonText;
@@ -51,9 +53,6 @@ class Button : public sf::Drawable, public sf::Transformable {
 
     sf::FloatRect getGlobalBounds();
 
-    bool isPressed();
-    bool wasPressed();
-
     void setState(const State state);
     const State getState();
     void setStateColor(const State state, const sf::Color& color);
@@ -63,7 +62,7 @@ class Button : public sf::Drawable, public sf::Transformable {
 
     void update(sf::Time deltaTime);
 
-    void handleInput(sf::Event e);
+    void handleInput(sf::Event& e);
 
    private:
     State currentState = Default;
