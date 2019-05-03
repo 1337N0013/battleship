@@ -10,7 +10,7 @@ Type
 make
 ```
 
-into your console. This creates a `main` binary inside `bin/` and `.o` files inside 'obj/'.
+into your console. This creates a `main` binary inside `bin/` and `.o` files inside `obj/`.
 
 To remove the compiled files, type
 
