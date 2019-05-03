@@ -15,6 +15,7 @@ class Button : public sf::Drawable, public sf::Transformable {
     sf::Font font;
     sf::Text buttonText;
     sf::FloatRect buttonTextBounds;
+    sf::Vector2i lastMousePos;
 
    public:
     sf::Time timeSinceClick;
