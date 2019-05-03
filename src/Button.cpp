@@ -2,7 +2,6 @@
 
 using std::cout;
 
-
 void Button::create(const float left, const float top, const sf::Vector2f& size,
                     const std::string& text) {
     buttonRect.setSize(size);
