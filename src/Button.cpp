@@ -89,13 +89,13 @@ void Button::resetTimeSinceClick() { timeSinceClick = sf::Time::Zero; }
 void Button::update(sf::Time deltaTime) {
     timeSinceClick += deltaTime;
 
-    if (currentState == State::Default) {
+    if (getState() == State::Default) {
         buttonRect.setFillColor(stateColors[State::Default]);
-    } else if (currentState == State::Hovered) {
+    } else if (getState() == State::Hovered) {
         buttonRect.setFillColor(stateColors[State::Hovered]);
-    } else if (currentState == State::Pressed) {
+    } else if (getState() == State::Pressed) {
         buttonRect.setFillColor(stateColors[State::Pressed]);
-    } else if (currentState == State::Released) {
+    } else if (getState() == State::Released) {
         if (timeSinceClick.asSeconds() > buttonReleaseTime) {
             if (getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
                 setState(State::Hovered);
@@ -111,8 +111,8 @@ void Button::handleInput(sf::Event& e) {
     switch (e.type) {
         case sf::Event::MouseMoved: {
             lastMousePos = sf::Vector2i(e.mouseMove.x, e.mouseMove.y);
-            if (currentState != State::Pressed &&
-                currentState != State::Released) {
+            if (getState() != State::Pressed &&
+                getState() != State::Released) {
                 if (getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
                     setState(State::Hovered);
                 } else {
