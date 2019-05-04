@@ -135,6 +135,7 @@ void Button::handleInput(sf::Event& e) {
             if (e.mouseButton.button == sf::Mouse::Left &&
                 getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
                 setState(State::Released);
+                resetTimeSinceClick();
             } else {
                 setState(State::Default);
             }
