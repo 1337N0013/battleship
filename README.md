@@ -2,9 +2,19 @@
 
 Final project for CMSC 21
 
+## Downloading the Project
+
+`cd` into the folder where you want to put Battleship, then enter
+```
+git clone https://github.com/1337N0013/battleship
+```
+This should create a folder named `battleship` into the current folder.
+
+You can then `cd` into the `battleship` folder.
+
 ## Compiling
 
-Type
+While in the `battleship` folder, type
 ```
 make
 ```
@@ -12,7 +22,7 @@ into your console. This creates a `main` binary inside `bin/` and `.o` files ins
 
 You can then run the binary with
 ```
-bin/main
+./bin/main
 ```
 
 ## Cleaning Compiled Files
@@ -27,3 +37,5 @@ Sometimes things (usually font loading) result in segfaults. Try using this and 
 
 - [ ] Clean up Button.h
 - [ ] Figure out how to call functions using the buttons
+- [ ] Create a scene system (main menu, options, the game itself, etc.)
+- [ ] Game logic
