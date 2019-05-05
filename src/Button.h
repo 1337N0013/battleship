@@ -54,7 +54,7 @@ class Button : public sf::Drawable, public sf::Transformable {
 
     sf::FloatRect getGlobalBounds();
 
-    void setState(const State state);
+    void setState(const State& state);
     const State getState();
     void setStateColor(const State state, const sf::Color& color);
     const sf::Color& getStateColor(const State state);

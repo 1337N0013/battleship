@@ -76,7 +76,10 @@ const sf::Color& Button::getTextColor() { return buttonText.getFillColor(); }
 
 sf::FloatRect Button::getGlobalBounds() { return buttonRect.getGlobalBounds(); }
 
-void Button::setState(const State state) { currentState = state; }
+void Button::setState(const State& state) {
+    currentState = state;
+    buttonRect.setFillColor(stateColors[state]);
+}
 const Button::State Button::getState() { return currentState; }
 void Button::setStateColor(const State state, const sf::Color& color) {
     stateColors[state] = color;
@@ -90,21 +93,13 @@ void Button::resetTimeSinceClick() { timeSinceClick = sf::Time::Zero; }
 void Button::update(sf::Time deltaTime) {
     timeSinceClick += deltaTime;
 
-    if (getState() == State::Default) {
-        buttonRect.setFillColor(stateColors[State::Default]);
-    } else if (getState() == State::Hovered) {
-        buttonRect.setFillColor(stateColors[State::Hovered]);
-    } else if (getState() == State::Pressed) {
-        buttonRect.setFillColor(stateColors[State::Pressed]);
-    } else if (getState() == State::Released) {
+    if (getState() == State::Released) {
         if (timeSinceClick.asSeconds() > buttonReleaseTime) {
             if (getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
                 setState(State::Hovered);
             } else {
                 setState(State::Default);
             }
-        } else {
-            buttonRect.setFillColor(stateColors[State::Released]);
         }
     }
 }
