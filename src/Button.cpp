@@ -2,6 +2,8 @@
 
 using std::cout;
 
+sf::Vector2i Button::lastMousePos = sf::Vector2i(0, 0);
+
 void Button::create(const float left, const float top, const sf::Vector2f& size,
                     const std::string& text) {
     buttonRect.setSize(size);
@@ -15,7 +17,6 @@ void Button::create(const float left, const float top, const sf::Vector2f& size,
     setPosition(left, top);
 
     sf::Time timeSinceClick = sf::Time::Zero;
-    lastMousePos = sf::Vector2i(0, 0);
     stateColors = {{Default, sf::Color::Red},
                    {Hovered, sf::Color::Blue},
                    {Pressed, sf::Color::Cyan},
@@ -109,10 +110,12 @@ void Button::update(sf::Time deltaTime) {
 }
 
 void Button::handleInput(sf::Event& e) {
+    if (e.type == sf::Event::MouseMoved) {
+        lastMousePos = sf::Vector2i(e.mouseMove.x, e.mouseMove.y);
+    }
     switch (getState()) {
         case State::Default: {
             if (e.type == sf::Event::MouseMoved) {
-                lastMousePos = sf::Vector2i(e.mouseMove.x, e.mouseMove.y);
                 if (getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
                     setState(State::Hovered);
                 }
@@ -121,7 +124,6 @@ void Button::handleInput(sf::Event& e) {
         }
         case State::Hovered: {
             if (e.type == sf::Event::MouseMoved) {
-                lastMousePos = sf::Vector2i(e.mouseMove.x, e.mouseMove.y);
                 if (!getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
                     setState(State::Default);
                 }
@@ -134,7 +136,6 @@ void Button::handleInput(sf::Event& e) {
         case State::Pressed: {
             if (e.type == sf::Event::MouseButtonReleased &&
                 e.mouseButton.button == sf::Mouse::Left) {
-                lastMousePos = sf::Vector2i(e.mouseButton.x, e.mouseButton.y);
                 if (getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
                     setState(State::Released);
                     resetTimeSinceClick();
