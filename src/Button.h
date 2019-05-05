@@ -63,7 +63,7 @@ class Button : public sf::Drawable, public sf::Transformable {
 
     void update(sf::Time deltaTime);
 
-    void handleInput(sf::Event& e);
+    void handleInput(sf::Event e);
 
    private:
     State currentState = Default;
