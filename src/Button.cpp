@@ -102,43 +102,50 @@ void Button::update(sf::Time deltaTime) {
             } else {
                 setState(State::Default);
             }
+        } else {
+            buttonRect.setFillColor(stateColors[State::Released]);
         }
-        buttonRect.setFillColor(stateColors[State::Released]);
     }
 }
 
 void Button::handleInput(sf::Event& e) {
-    switch (e.type) {
-        case sf::Event::MouseMoved: {
-            lastMousePos = sf::Vector2i(e.mouseMove.x, e.mouseMove.y);
-            if (getState() != State::Pressed &&
-                getState() != State::Released) {
+    switch (getState()) {
+        case State::Default: {
+            if (e.type == sf::Event::MouseMoved) {
+                lastMousePos = sf::Vector2i(e.mouseMove.x, e.mouseMove.y);
                 if (getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
                     setState(State::Hovered);
+                }
+            }
+            break;
+        }
+        case State::Hovered: {
+            if (e.type == sf::Event::MouseMoved) {
+                lastMousePos = sf::Vector2i(e.mouseMove.x, e.mouseMove.y);
+                if (!getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
+                    setState(State::Default);
+                }
+            } else if (e.type == sf::Event::MouseButtonPressed &&
+                       e.mouseButton.button == sf::Mouse::Left) {
+                setState(State::Pressed);
+            }
+            break;
+        }
+        case State::Pressed: {
+            if (e.type == sf::Event::MouseButtonReleased &&
+                e.mouseButton.button == sf::Mouse::Left) {
+                lastMousePos = sf::Vector2i(e.mouseButton.x, e.mouseButton.y);
+                if (getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
+                    setState(State::Released);
+                    resetTimeSinceClick();
                 } else {
                     setState(State::Default);
                 }
             }
             break;
         }
-        case sf::Event::MouseButtonPressed: {
-            lastMousePos = sf::Vector2i(e.mouseButton.x, e.mouseButton.y);
-            if (e.mouseButton.button == sf::Mouse::Left &&
-                getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
-                setState(State::Pressed);
-                resetTimeSinceClick();
-            }
-            break;
-        }
-        case sf::Event::MouseButtonReleased: {
-            lastMousePos = sf::Vector2i(e.mouseButton.x, e.mouseButton.y);
-            if (e.mouseButton.button == sf::Mouse::Left &&
-                getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
-                setState(State::Released);
-                resetTimeSinceClick();
-            } else {
-                setState(State::Default);
-            }
+        case State::Released: {
+            // handled in update()
             break;
         }
         default:

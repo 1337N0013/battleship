@@ -21,7 +21,7 @@ Engine::Engine() {
     title.setString("Battleship");
     title.setPosition(windowWidth / 2 - title.getLocalBounds().width / 2, 100);
 
-    btn.create(windowWidth / 2 - 100, windowHeight / 2 - 15, 200, 30,
+    btn.create(windowWidth / 2 - 150, windowHeight / 2 - 15, 300, 30,
                std::string("Hello"));
     btn2.create(0, 0, 100, 100, std::string("yuh"));
 
