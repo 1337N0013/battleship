@@ -1,3 +1,4 @@
+#include <iostream>
 #include "Button.h"
 
 using std::cout;
@@ -9,9 +10,6 @@ void Button::create(const float left, const float top, const sf::Vector2f& size,
     buttonRect.setSize(size);
     buttonRect.setFillColor(sf::Color::Red);
 
-    cout << "here in button.cpp\n";
-    // font = FontManager::getInstance().get(FontManager::ID::Normal);
-    // buttonText.setFont(font);
     buttonText.setFont(FontManager::getInstance().get(FontManager::ID::Normal));
     buttonText.setString(text);
     setPosition(left, top);

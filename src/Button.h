@@ -1,17 +1,13 @@
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <unordered_map>
 #include "FontManager.h"
 
 #ifndef BUTTON_H
 #define BUTTON_H
 
-using std::cout;
-
 class Button : public sf::Drawable, public sf::Transformable {
     const float buttonReleaseTime = 0.3f;
 
-    sf::Font font;
     sf::RectangleShape buttonRect;
     sf::Text buttonText;
     sf::FloatRect buttonTextBounds;

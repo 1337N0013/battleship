@@ -1,5 +1,5 @@
-#include "Engine.h"
 #include <iostream>
+#include "Engine.h"
 
 using std::cout;
 
@@ -7,11 +7,6 @@ Engine::Engine() {
     m_window.create(sf::VideoMode(windowWidth, windowHeight), "Battleship");
     m_window.setFramerateLimit(60);
 
-    cout << "Here\n";
-    FontManager::getInstance().load(FontManager::ID::Normal,
-                                    "res/fonts/ProFont For Powerline.ttf");
-    FontManager::getInstance().load(FontManager::ID::Bold,
-                                    "res/fonts/ProFont Bold For Powerline.ttf");
     font = FontManager::getInstance().get(FontManager::ID::Normal);
     fpsCounter.setFont(font);
     fpsCounter.setCharacterSize(16);
