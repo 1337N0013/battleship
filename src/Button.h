@@ -20,7 +20,7 @@ class Button : public sf::Drawable, public sf::Transformable {
    public:
     sf::Time timeSinceClick;
 
-    enum State { Default, Hovered, Pressed, Released };
+    enum class State { Default, Hovered, Pressed, Released };
 
     void create(const float left, const float top, const sf::Vector2f& size,
                 const std::string& text);
@@ -66,7 +66,7 @@ class Button : public sf::Drawable, public sf::Transformable {
     void handleInput(sf::Event e);
 
    private:
-    State currentState = Default;
+    State currentState;
     std::unordered_map<State, sf::Color> stateColors;
 
     void centerText();

@@ -17,10 +17,11 @@ void Button::create(const float left, const float top, const sf::Vector2f& size,
     setPosition(left, top);
 
     sf::Time timeSinceClick = sf::Time::Zero;
-    stateColors = {{Default, sf::Color::Red},
-                   {Hovered, sf::Color::Blue},
-                   {Pressed, sf::Color::Cyan},
-                   {Released, sf::Color::Green}};
+    currentState = State::Default;
+    stateColors = {{State::Default, sf::Color::Red},
+                   {State::Hovered, sf::Color::Blue},
+                   {State::Pressed, sf::Color::Cyan},
+                   {State::Released, sf::Color::Green}};
 }
 
 void Button::create(const float left, const float top, const float width,
