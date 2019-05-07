@@ -6,11 +6,11 @@ using std::cout;
 sf::Vector2i Button::lastMousePos = sf::Vector2i(0, 0);
 
 void Button::create(const float left, const float top, const sf::Vector2f& size,
-                    const std::string& text) {
+                    const std::string& text, const sf::Font& font) {
     buttonRect.setSize(size);
     buttonRect.setFillColor(sf::Color::Red);
 
-    buttonText.setFont(FontManager::getInstance().get(FontManager::ID::Normal));
+    buttonText.setFont(font);
     buttonText.setString(text);
     setPosition(left, top);
 
@@ -23,18 +23,23 @@ void Button::create(const float left, const float top, const sf::Vector2f& size,
 }
 
 void Button::create(const float left, const float top, const float width,
-                    const float height, const std::string& text) {
-    create(left, top, sf::Vector2f(width, height), text);
+                    const float height, const std::string& text,
+                    const sf::Font& font) {
+    create(left, top, sf::Vector2f(width, height), text, font);
 }
 
-Button::Button() { create(0, 0, 100, 100, std::string("default")); }
+Button::Button() {
+    sf::Font font;
+    create(0, 0, 100, 100, std::string("default"), font);
+}
 Button::Button(const float left, const float top, const sf::Vector2f& size,
-               const std::string& text) {
-    create(left, top, size, text);
+               const std::string& text, const sf::Font& font) {
+    create(left, top, size, text, font);
 }
 Button::Button(const float left, const float top, const float width,
-               const float height, const std::string& text) {
-    create(left, top, sf::Vector2f(width, height), text);
+               const float height, const std::string& text,
+               const sf::Font& font) {
+    create(left, top, sf::Vector2f(width, height), text, font);
 }
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {

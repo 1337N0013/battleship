@@ -1,5 +1,5 @@
-#include <iostream>
 #include "Engine.h"
+#include <iostream>
 
 using std::cout;
 
@@ -7,7 +7,9 @@ Engine::Engine() {
     m_window.create(sf::VideoMode(windowWidth, windowHeight), "Battleship");
     m_window.setFramerateLimit(60);
 
-    font = FontManager::getInstance().get(FontManager::ID::Normal);
+    if (!font.loadFromFile("res/fonts/ProFont For Powerline.ttf")) {
+        throw std::runtime_error("Could not load font.");
+    }
     fpsCounter.setFont(font);
     fpsCounter.setCharacterSize(16);
     fpsCounter.setString("INIT");
@@ -21,8 +23,8 @@ Engine::Engine() {
     title.setPosition(windowWidth / 2 - title.getLocalBounds().width / 2, 100);
 
     btn.create(windowWidth / 2 - 150, windowHeight / 2 - 15, 300, 30,
-               std::string("Hello"));
-    btn2.create(0, 0, 100, 100, std::string("yuh"));
+               std::string("Hello"), font);
+    btn2.create(0, 0, 100, 100, std::string("yuh"), font);
 
     windowFocus = false;
 }

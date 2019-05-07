@@ -1,6 +1,5 @@
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
-#include "FontManager.h"
 
 #ifndef BUTTON_H
 #define BUTTON_H
@@ -19,16 +18,17 @@ class Button : public sf::Drawable, public sf::Transformable {
     enum class State { Default, Hovered, Pressed, Released };
 
     void create(const float left, const float top, const sf::Vector2f& size,
-                const std::string& text);
+                const std::string& text, const sf::Font& font);
     void create(const float left, const float top, const float width,
-                const float height, const std::string& text);
+                const float height, const std::string& text,
+                const sf::Font& font);
 
     Button();
 
     Button(const float left, const float top, const sf::Vector2f& size,
-           const std::string& text);
+           const std::string& text, const sf::Font& font);
     Button(const float left, const float top, const float width,
-           const float height, const std::string& text);
+           const float height, const std::string& text, const sf::Font& font);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
