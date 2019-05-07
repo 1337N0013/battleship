@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Button.h"
-#include "Fonts.h"
+#include "FontManager.h"
 
 #ifndef ENGINE_H
 #define ENGINE_H

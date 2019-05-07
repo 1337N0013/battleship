@@ -7,9 +7,9 @@ Engine::Engine() {
     m_window.create(sf::VideoMode(windowWidth, windowHeight), "Battleship");
     m_window.setFramerateLimit(60);
 
-    if (!font.loadFromFile(FONT_PATH)) {
-        cout << FONT_FAILURE;
-    }
+    cout << "Here\n";
+    FontManager::getInstance().load(FontManager::ID::Normal, "res/fonts/ProFont For Powerline.ttf");
+    font = FontManager::getInstance().get(FontManager::ID::Normal);
     fpsCounter.setFont(font);
     fpsCounter.setCharacterSize(16);
     fpsCounter.setString("INIT");
