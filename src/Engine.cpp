@@ -8,7 +8,10 @@ Engine::Engine() {
     m_window.setFramerateLimit(60);
 
     cout << "Here\n";
-    FontManager::getInstance().load(FontManager::ID::Normal, "res/fonts/ProFont For Powerline.ttf");
+    FontManager::getInstance().load(FontManager::ID::Normal,
+                                    "res/fonts/ProFont For Powerline.ttf");
+    FontManager::getInstance().load(FontManager::ID::Bold,
+                                    "res/fonts/ProFont Bold For Powerline.ttf");
     font = FontManager::getInstance().get(FontManager::ID::Normal);
     fpsCounter.setFont(font);
     fpsCounter.setCharacterSize(16);
@@ -16,6 +19,7 @@ Engine::Engine() {
     fpsCounter.setPosition(0, 0);
     fpsCounter.setFillColor(sf::Color::Green);
     fpsTime = sf::Time::Zero;
+
     title.setFont(font);
     title.setCharacterSize(35);
     title.setString("Battleship");

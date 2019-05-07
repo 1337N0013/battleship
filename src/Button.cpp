@@ -11,7 +11,8 @@ void Button::create(const float left, const float top, const sf::Vector2f& size,
 
     cout << "here in button.cpp\n";
     // font = FontManager::getInstance().get(FontManager::ID::Normal);
-    buttonText.setFont(font);
+    // buttonText.setFont(font);
+    buttonText.setFont(FontManager::getInstance().get(FontManager::ID::Normal));
     buttonText.setString(text);
     setPosition(left, top);
 
@@ -111,7 +112,8 @@ void Button::handleInput(sf::Event e) {
     switch (getState()) {
         case State::Default: {
             if (e.type == sf::Event::MouseMoved) {
-                if (getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
+                if (getGlobalBounds().contains(lastMousePos.x,
+                                               lastMousePos.y)) {
                     setState(State::Hovered);
                 }
             }
@@ -119,7 +121,8 @@ void Button::handleInput(sf::Event e) {
         }
         case State::Hovered: {
             if (e.type == sf::Event::MouseMoved) {
-                if (!getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
+                if (!getGlobalBounds().contains(lastMousePos.x,
+                                                lastMousePos.y)) {
                     setState(State::Default);
                 }
             } else if (e.type == sf::Event::MouseButtonPressed &&
@@ -131,7 +134,8 @@ void Button::handleInput(sf::Event e) {
         case State::Pressed: {
             if (e.type == sf::Event::MouseButtonReleased &&
                 e.mouseButton.button == sf::Mouse::Left) {
-                if (getGlobalBounds().contains(lastMousePos.x, lastMousePos.y)) {
+                if (getGlobalBounds().contains(lastMousePos.x,
+                                               lastMousePos.y)) {
                     setState(State::Released);
                     resetTimeSinceClick();
                 } else {
