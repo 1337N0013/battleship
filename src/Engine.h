@@ -1,4 +1,3 @@
-#include <memory>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Scenes.h"
@@ -13,7 +12,7 @@ class Engine {
     bool windowFocus;
 
     sf::Font font;
-    std::shared_ptr<MainMenuScene> mainMenuScene;
+    std::unique_ptr<MainMenuScene> mainMenuScene;
 
     void input();
     void update(sf::Time deltaTime);
