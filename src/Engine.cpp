@@ -1,4 +1,5 @@
 #include "Engine.h"
+#include "Scene.h"
 #include <iostream>
 
 using std::cout;
@@ -10,21 +11,7 @@ Engine::Engine() {
     if (!font.loadFromFile("res/fonts/ProFont For Powerline.ttf")) {
         throw std::runtime_error("Could not load font.");
     }
-    fpsCounter.setFont(font);
-    fpsCounter.setCharacterSize(16);
-    fpsCounter.setString("INIT");
-    fpsCounter.setPosition(0, 0);
-    fpsCounter.setFillColor(sf::Color::Green);
-    fpsTime = sf::Time::Zero;
-
-    title.setFont(font);
-    title.setCharacterSize(35);
-    title.setString("Battleship");
-    title.setPosition(windowWidth / 2 - title.getLocalBounds().width / 2, 100);
-
-    btn.create(windowWidth / 2 - 150, windowHeight / 2 - 15, 300, 30,
-               std::string("Hello"), font);
-    btn2.create(0, 0, 100, 100, std::string("yuh"), font);
+    mainMenuScene.reset(new MainMenuScene(m_window, windowWidth, windowHeight, font));
 
     windowFocus = false;
 }
@@ -32,6 +19,7 @@ Engine::Engine() {
 void Engine::start() {
     sf::Clock clock;
 
+    mainMenuScene->start();
     while (m_window.isOpen()) {
         sf::Time dt = clock.restart();
 
@@ -42,25 +30,9 @@ void Engine::start() {
 }
 
 void Engine::input() {
-    // event handling
     sf::Event event;
     while (m_window.pollEvent(event)) {
-        switch (event.type) {
-            case sf::Event::Closed: {
-                m_window.close();
-                break;
-            }
-            case sf::Event::KeyPressed: {
-                if (event.key.code == sf::Keyboard::Escape) {
-                    m_window.close();
-                }
-                break;
-            }
-            default:
-                break;
-        }
-        btn.handleInput(event);
-        btn2.handleInput(event);
+        mainMenuScene->input(event);
     }
 
     // realtime handling
@@ -70,23 +42,9 @@ void Engine::input() {
 }
 
 void Engine::update(sf::Time deltaTime) {
-    fpsTime += deltaTime;
-    if (fpsTime.asSeconds() > 1) {
-        fpsCounter.setString(std::to_string(1 / deltaTime.asSeconds()));
-        fpsTime = sf::Time::Zero;
-    }
-
-    btn.update(deltaTime);
-    btn2.update(deltaTime);
+    mainMenuScene->update(deltaTime);
 }
 
 void Engine::draw() {
-    m_window.clear(sf::Color::Black);
-
-    m_window.draw(title);
-    m_window.draw(btn);
-    m_window.draw(btn2);
-    m_window.draw(fpsCounter);
-
-    m_window.display();
+    mainMenuScene->draw();
 }

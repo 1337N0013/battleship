@@ -1,6 +1,7 @@
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include "Button.h"
+#include "Scenes.h"
 
 #ifndef ENGINE_H
 #define ENGINE_H
@@ -12,11 +13,7 @@ class Engine {
     bool windowFocus;
 
     sf::Font font;
-    sf::Text fpsCounter;
-    sf::Text title;
-    sf::Time fpsTime;
-    Button btn;
-    Button btn2;
+    std::shared_ptr<MainMenuScene> mainMenuScene;
 
     void input();
     void update(sf::Time deltaTime);
