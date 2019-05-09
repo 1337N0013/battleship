@@ -8,7 +8,7 @@ class Scene {
     Scene(sf::RenderWindow& window, unsigned int width, unsigned int height,
           sf::Font& font)
         : mWindow(window), mWidth(width), mHeight(height), mFont(font) {}
-    ~Scene() {}
+    virtual ~Scene() {}
     virtual void start() = 0;
     virtual void input(sf::Event e) = 0;
     virtual void draw() = 0;
