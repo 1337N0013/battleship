@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Scenes.h"
+#include "Context.h"
 
 #ifndef ENGINE_H
 #define ENGINE_H
@@ -13,6 +14,8 @@ class Engine {
 
     sf::Font font;
     std::unique_ptr<MainMenuScene> mainMenuScene;
+
+    std::unique_ptr<Context> gameContext;
 
     void input();
     void update(sf::Time deltaTime);

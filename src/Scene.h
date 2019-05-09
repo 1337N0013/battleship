@@ -1,13 +1,16 @@
 #include <SFML/Graphics.hpp>
+#include "Context.h"
 
 #ifndef SCENE_H
 #define SCENE_H
 
 class Scene {
    public:
-    Scene(sf::RenderWindow& window, unsigned int width, unsigned int height,
-          sf::Font& font)
-        : mWindow(window), mWidth(width), mHeight(height), mFont(font) {}
+    Scene(Context& context)
+        : mWindow(context.getWindow()), mFont(context.getFont()) {
+        mWidth = mWindow.getSize().x;
+        mHeight = mWindow.getSize().y;
+    }
     virtual ~Scene() {}
     virtual void start() = 0;
     virtual void input(sf::Event e) = 0;
