@@ -1,9 +1,7 @@
-#include "Button.h"
 #include "MainMenuScene.h"
+#include "Button.h"
 
-MainMenuScene::MainMenuScene(sf::RenderWindow& window, unsigned int width,
-                             unsigned int height, sf::Font& font)
-    : Scene(window, width, height, font) {}
+MainMenuScene::MainMenuScene(Context& context) : Scene(context) {}
 
 MainMenuScene::~MainMenuScene() {}
 
