@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include "Scenes.h"
 #include "Context.h"
+#include "Scenes.h"
 
 #ifndef ENGINE_H
 #define ENGINE_H

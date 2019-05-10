@@ -1,6 +1,6 @@
 #include "Engine.h"
-#include "Scene.h"
 #include <iostream>
+#include "Scene.h"
 
 using std::cout;
 
@@ -11,7 +11,7 @@ Engine::Engine() {
     if (!font.loadFromFile("res/fonts/ProFont For Powerline.ttf")) {
         throw std::runtime_error("Could not load font.");
     }
-    
+
     gameContext.reset(new Context(m_window, font));
     mainMenuScene.reset(new MainMenuScene(*gameContext));
 
@@ -43,10 +43,6 @@ void Engine::input() {
     // }
 }
 
-void Engine::update(sf::Time deltaTime) {
-    mainMenuScene->update(deltaTime);
-}
+void Engine::update(sf::Time deltaTime) { mainMenuScene->update(deltaTime); }
 
-void Engine::draw() {
-    mainMenuScene->draw();
-}
+void Engine::draw() { mainMenuScene->draw(); }
