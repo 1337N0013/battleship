@@ -11,6 +11,7 @@ Engine::Engine() {
     if (!font.loadFromFile("res/fonts/ProFont For Powerline.ttf")) {
         throw std::runtime_error("Could not load font.");
     }
+    
     gameContext.reset(new Context(m_window, font));
     mainMenuScene.reset(new MainMenuScene(*gameContext));
 
