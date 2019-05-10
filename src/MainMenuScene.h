@@ -5,7 +5,7 @@
 #ifndef MAINMENUSCENE_H
 #define MAINMENUSCENE_H
 
-class MainMenuScene : public Scene{
+class MainMenuScene : public Scene {
    public:
     MainMenuScene(Context& context);
     ~MainMenuScene();
