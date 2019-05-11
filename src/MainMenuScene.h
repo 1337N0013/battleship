@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "Scene.h"
+#include "SceneStack.h"
 #include "Button.h"
 
 #ifndef MAINMENUSCENE_H
@@ -7,7 +8,7 @@
 
 class MainMenuScene : public Scene {
    public:
-    MainMenuScene(Context& context);
+    MainMenuScene(SceneStack& stack, Context& context);
     ~MainMenuScene();
     void start();
     void input(const sf::Event& e);

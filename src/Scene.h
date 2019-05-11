@@ -6,11 +6,8 @@
 
 class Scene {
    public:
-    Scene(Context& context)
-        : mWindow(context.getWindow()), mFont(context.getFont()) {
-        mWidth = mWindow.getSize().x;
-        mHeight = mWindow.getSize().y;
-    }
+    Scene(SceneStack& stack, Context context)
+        : mStack(stack), mContext(context) {}
     virtual ~Scene() {}
     virtual void start() = 0;
     virtual void input(const sf::Event& e) = 0;

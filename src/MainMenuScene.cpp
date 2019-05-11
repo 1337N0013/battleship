@@ -1,7 +1,7 @@
 #include "MainMenuScene.h"
 #include "Button.h"
 
-MainMenuScene::MainMenuScene(Context& context) : Scene(context) {}
+MainMenuScene::MainMenuScene(SceneStack& stack, Context context) : Scene(stack, context) {}
 
 MainMenuScene::~MainMenuScene() {}
 
