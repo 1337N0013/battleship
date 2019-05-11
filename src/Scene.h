@@ -15,10 +15,10 @@ class Scene {
     virtual void update(sf::Time deltaTime) = 0;
 
    protected:
-    sf::RenderWindow& mWindow;
-    unsigned int mWidth;
-    unsigned int mHeight;
-    sf::Font& mFont;
+    Context getContext() const { return mContext; }
+    
+    SceneStack& mStack;
+    Context mContext;
 };
 
 #endif
