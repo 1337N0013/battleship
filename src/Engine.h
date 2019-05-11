@@ -1,7 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Context.h"
-#include "Scenes.h"
+#include "MainMenuScene.h"
+#include "SceneStack.h"
 
 #ifndef ENGINE_H
 #define ENGINE_H
@@ -13,6 +14,8 @@ class Engine {
     bool windowFocus;
 
     sf::Font font;
+
+    std::unique_ptr<SceneStack> mSceneStack;
     std::unique_ptr<MainMenuScene> mainMenuScene;
 
     std::unique_ptr<Context> gameContext;

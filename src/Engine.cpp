@@ -13,7 +13,8 @@ Engine::Engine() {
     }
 
     gameContext.reset(new Context(m_window, font));
-    mainMenuScene.reset(new MainMenuScene(*gameContext));
+    mSceneStack.reset(new SceneStack(*gameContext));
+    mainMenuScene.reset(new MainMenuScene(*mSceneStack, *gameContext));
 
     windowFocus = false;
 }
