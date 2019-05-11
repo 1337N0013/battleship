@@ -15,9 +15,9 @@ void MainMenuScene::start() {
     title.setFont(mFont);
     title.setCharacterSize(35);
     title.setString("Battleship");
-    title.setPosition(mWidth / 2 - title.getLocalBounds().width / 2, 100);
+    title.setPosition(mWindowSize.x / 2 - title.getLocalBounds().width / 2, 100);
 
-    btn.create(mWidth / 2 - 150, mHeight / 2 - 15, 300, 30,
+    btn.create(mWindowSize.x / 2 - 150, mWindowSize.y / 2 - 15, 300, 30,
                std::string("Hello"), mFont);
     btn2.create(0, 0, 100, 100, std::string("yuh"), mFont);
 }

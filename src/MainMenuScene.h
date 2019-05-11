@@ -1,14 +1,14 @@
+#ifndef MAINMENUSCENE_H
+#define MAINMENUSCENE_H
+
 #include <SFML/Graphics.hpp>
 #include "Scene.h"
 #include "SceneStack.h"
 #include "Button.h"
 
-#ifndef MAINMENUSCENE_H
-#define MAINMENUSCENE_H
-
 class MainMenuScene : public Scene {
    public:
-    MainMenuScene(SceneStack& stack, Context& context);
+    MainMenuScene(SceneStack& stack, Context context);
     ~MainMenuScene();
     void start();
     void input(const sf::Event& e);
@@ -16,6 +16,10 @@ class MainMenuScene : public Scene {
     void update(sf::Time deltaTime);
 
    private:
+    sf::Font mFont = Scene::getContext().getFont();
+    sf::RenderWindow& mWindow = Scene::getContext().getWindow();
+    sf::Vector2u mWindowSize = mWindow.getSize();
+
     sf::Text fpsCounter;
     sf::Time fpsTime = sf::Time::Zero;
     sf::Text title;
