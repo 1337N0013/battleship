@@ -16,7 +16,8 @@ class Scene {
 
    protected:
     Context getContext() const { return mContext; }
-    
+
+   private:
     SceneStack& mStack;
     Context mContext;
 };
