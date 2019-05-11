@@ -1,11 +1,11 @@
+#ifndef ENGINE_H
+#define ENGINE_H
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Context.h"
 #include "MainMenuScene.h"
 #include "SceneStack.h"
-
-#ifndef ENGINE_H
-#define ENGINE_H
 
 constexpr unsigned int windowWidth = 800, windowHeight = 600;
 

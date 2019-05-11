@@ -1,7 +1,7 @@
-#include <SFML/Graphics.hpp>
-
 #ifndef CONTEXT_H
 #define CONTEXT_H
+
+#include <SFML/Graphics.hpp>
 
 class Context {
    public:

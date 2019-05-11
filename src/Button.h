@@ -1,8 +1,8 @@
-#include <SFML/Graphics.hpp>
-#include <unordered_map>
-
 #ifndef BUTTON_H
 #define BUTTON_H
+
+#include <SFML/Graphics.hpp>
+#include <unordered_map>
 
 class Button : public sf::Drawable, public sf::Transformable {
     const float buttonReleaseTime = 0.3f;

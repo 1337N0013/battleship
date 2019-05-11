@@ -1,10 +1,10 @@
+#ifndef SCENESTACK_H
+#define SCENESTACK_H
+
 #include <SFML/Graphics.hpp>
 #include "Context.h"
 #include "Scene.h"
 #include "SceneIdentifiers.h"
-
-#ifndef SCENESTACK_H
-#define SCENESTACK_H
 
 class SceneStack : private sf::NonCopyable {
    public:
