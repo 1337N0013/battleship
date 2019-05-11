@@ -10,7 +10,7 @@ class MainMenuScene : public Scene {
     MainMenuScene(Context& context);
     ~MainMenuScene();
     void start();
-    void input(sf::Event e);
+    void input(const sf::Event& e);
     void draw();
     void update(sf::Time deltaTime);
 

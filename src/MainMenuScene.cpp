@@ -22,7 +22,7 @@ void MainMenuScene::start() {
     btn2.create(0, 0, 100, 100, std::string("yuh"), mFont);
 }
 
-void MainMenuScene::input(sf::Event e) {
+void MainMenuScene::input(const sf::Event& e) {
     switch (e.type) {
         case sf::Event::Closed: {
             mWindow.close();

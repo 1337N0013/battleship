@@ -13,7 +13,7 @@ class Scene {
     }
     virtual ~Scene() {}
     virtual void start() = 0;
-    virtual void input(sf::Event e) = 0;
+    virtual void input(const sf::Event& e) = 0;
     virtual void draw() = 0;
     virtual void update(sf::Time deltaTime) = 0;
 
