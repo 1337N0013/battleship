@@ -5,7 +5,8 @@
 
 class Context {
    public:
-    Context(sf::RenderWindow& window, sf::Font& font) : mWindow(window), mFont(font) {}
+    Context(sf::RenderWindow& window, sf::Font& font)
+        : mWindow(window), mFont(font) {}
     sf::RenderWindow& getWindow() { return mWindow; }
     sf::Font& getFont() { return mFont; }
 

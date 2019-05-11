@@ -1,7 +1,8 @@
 #include "MainMenuScene.h"
 #include "Button.h"
 
-MainMenuScene::MainMenuScene(SceneStack& stack, Context context) : Scene(stack, context) {}
+MainMenuScene::MainMenuScene(SceneStack& stack, Context context)
+    : Scene(stack, context) {}
 
 MainMenuScene::~MainMenuScene() {}
 
@@ -15,7 +16,8 @@ void MainMenuScene::start() {
     title.setFont(mFont);
     title.setCharacterSize(35);
     title.setString("Battleship");
-    title.setPosition(mWindowSize.x / 2 - title.getLocalBounds().width / 2, 100);
+    title.setPosition(mWindowSize.x / 2 - title.getLocalBounds().width / 2,
+                      100);
 
     btn.create(mWindowSize.x / 2 - 150, mWindowSize.y / 2 - 15, 300, 30,
                std::string("Hello"), mFont);

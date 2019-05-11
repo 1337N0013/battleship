@@ -2,8 +2,8 @@
 #define SCENE_H
 
 #include <SFML/Graphics.hpp>
-#include "SceneStack.h"
 #include "Context.h"
+#include "SceneStack.h"
 
 class Scene {
    public:

@@ -1,14 +1,12 @@
 #ifndef SCENEIDENTIFIERS_H
 #define SCENEIDENTIFIERS_H
 
+#include <unordered_map>
 #include "MainMenuScene.h"
 #include "Scene.h"
-#include <unordered_map>
 
 namespace Scenes {
-    enum class ID {
-        MainMenu
-    };
+enum class ID { MainMenu };
 }
 
 #endif
