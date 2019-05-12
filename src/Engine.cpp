@@ -14,28 +14,35 @@ Engine::Engine() {
 
     gameContext.reset(new Context(m_window, font));
     mSceneStack.reset(new SceneStack(*gameContext));
-    mainMenuScene.reset(new MainMenuScene(*mSceneStack, *gameContext));
 
     windowFocus = false;
 }
 
 void Engine::start() {
-    sf::Clock clock;
+    mSceneStack->pushScene(Scene::ID::MainMenu);
 
-    mainMenuScene->start();
+    sf::Clock clock;
     while (m_window.isOpen()) {
         sf::Time dt = clock.restart();
 
         input();
         update(dt);
         draw();
+
+        if (mSceneStack->isEmpty()) {
+            m_window.close();
+        }
     }
+}
+
+void Engine::registerScenes() {
+    mSceneStack->registerScene<MainMenuScene>(Scene::ID::MainMenu);
 }
 
 void Engine::input() {
     sf::Event event;
     while (m_window.pollEvent(event)) {
-        mainMenuScene->input(event);
+        mSceneStack->handleEvent(event);
     }
 
     // realtime handling
@@ -44,6 +51,10 @@ void Engine::input() {
     // }
 }
 
-void Engine::update(sf::Time deltaTime) { mainMenuScene->update(deltaTime); }
+void Engine::update(sf::Time deltaTime) {
+    mSceneStack->update(deltaTime);
+}
 
-void Engine::draw() { mainMenuScene->draw(); }
+void Engine::draw() {
+    mSceneStack->draw();
+}

@@ -14,11 +14,9 @@ class Engine {
     bool windowFocus;
 
     sf::Font font;
+    std::unique_ptr<Context> gameContext;
 
     std::unique_ptr<SceneStack> mSceneStack;
-    std::unique_ptr<MainMenuScene> mainMenuScene;
-
-    std::unique_ptr<Context> gameContext;
 
     void input();
     void update(sf::Time deltaTime);
@@ -27,6 +25,7 @@ class Engine {
    public:
     Engine();
     void start();
+    void registerScenes();
 };
 
 #endif
