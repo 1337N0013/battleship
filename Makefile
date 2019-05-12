@@ -1,14 +1,17 @@
 CC = g++
 CPPFLAGS = -std=c++17 -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 
-bin/main: obj/main.o obj/Engine.o obj/SceneStack.o obj/Button.o obj/MainMenuScene.o
-	$(CC) -o bin/main obj/main.o obj/Engine.o obj/SceneStack.o obj/Button.o obj/MainMenuScene.o $(CPPFLAGS)
+bin/main: obj/main.o obj/Engine.o obj/Scene.o obj/SceneStack.o obj/Button.o obj/MainMenuScene.o
+	$(CC) -o bin/main obj/main.o obj/Engine.o obj/Scene.o obj/SceneStack.o obj/Button.o obj/MainMenuScene.o $(CPPFLAGS)
 
 obj/main.o: src/main.cpp
 	$(CC) -o obj/main.o -c src/main.cpp $(CPPFLAGS)
 
 obj/Engine.o: src/Engine.cpp src/Engine.h
 	$(CC) -o obj/Engine.o -c src/Engine.cpp $(CPPFLAGS)
+
+obj/Scene.o: src/Scene.cpp src/Scene.h
+	$(CC) -o obj/Scene.o -c src/Scene.cpp $(CCPPFLAGS)
 
 obj/SceneStack.o: src/SceneStack.cpp src/SceneStack.h
 	$(CC) -o obj/SceneStack.o -c src/SceneStack.cpp $(CPPFLAGS)
