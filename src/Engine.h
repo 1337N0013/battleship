@@ -8,12 +8,12 @@
 constexpr unsigned int windowWidth = 800, windowHeight = 600;
 
 class Engine {
-    sf::RenderWindow m_window;
+    sf::RenderWindow mWindow;
+    sf::Font mFont;
+    SceneStack mSceneStack;
 
-    sf::Font font;
-    std::unique_ptr<Context> gameContext;
-
-    std::unique_ptr<SceneStack> mSceneStack;
+    sf::Text mFpsCounter;
+    sf::Time mFpsTime;
 
     void input();
     void update(sf::Time deltaTime);
