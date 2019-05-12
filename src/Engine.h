@@ -3,7 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include "Context.h"
 #include "SceneStack.h"
 
 constexpr unsigned int windowWidth = 800, windowHeight = 600;

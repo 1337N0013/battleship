@@ -4,7 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include <unordered_map>
-#include "Context.h"
 #include "Scene.h"
 
 class SceneStack : private sf::NonCopyable {
@@ -12,7 +11,7 @@ class SceneStack : private sf::NonCopyable {
     enum class Action { Push, Pop, Clear };
 
    public:
-    explicit SceneStack(Context context);
+    explicit SceneStack(Scene::Context context);
 
     template <typename T>
     void registerScene(Scene::ID sceneID);
@@ -42,7 +41,7 @@ class SceneStack : private sf::NonCopyable {
    private:
     std::vector<std::unique_ptr<Scene>> mStack;
     std::vector<PendingChange> mPendingList;
-    Context mContext;
+    Scene::Context mContext;
     std::unordered_map<Scene::ID, std::function<std::unique_ptr<Scene>()>>
         mFactories;
 };

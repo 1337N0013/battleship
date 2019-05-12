@@ -2,12 +2,17 @@
 #define SCENE_H
 
 #include <SFML/Graphics.hpp>
-#include "Context.h"
 
 class SceneStack;
 
 class Scene {
    public:
+    struct Context {
+        Context (sf::RenderWindow& window, sf::Font& font);
+        sf::RenderWindow& window;
+        sf::Font& font;
+    };
+
     enum class ID { None, MainMenu };
 
    public:

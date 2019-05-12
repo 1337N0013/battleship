@@ -1,6 +1,7 @@
 #include "SceneStack.h"
+#include <iostream>
 
-SceneStack::SceneStack(Context context) : mContext(context) {}
+SceneStack::SceneStack(Scene::Context context) : mContext(context) {}
 
 std::unique_ptr<Scene> SceneStack::createScene(Scene::ID sceneID) {
     auto found = mFactories.find(sceneID);
