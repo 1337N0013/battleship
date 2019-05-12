@@ -18,7 +18,6 @@ class Scene {
    public:
     Scene(SceneStack& stack, Context context);
     virtual ~Scene() {}
-    virtual void start() = 0;
     virtual bool input(const sf::Event& e) = 0;
     virtual void draw() = 0;
     virtual bool update(sf::Time deltaTime) = 0;
