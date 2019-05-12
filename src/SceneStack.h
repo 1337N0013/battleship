@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <functional>
+#include <unordered_map>
 #include "Context.h"
 #include "Scene.h"
 
@@ -32,6 +33,8 @@ class SceneStack : private sf::NonCopyable {
 
    private:
     struct PendingChange {
+        explicit PendingChange(Action action,
+                               Scene::ID sceneID = Scene::ID::None);
         Action action;
         Scene::ID sceneID;
     };
@@ -40,7 +43,15 @@ class SceneStack : private sf::NonCopyable {
     std::vector<std::unique_ptr<Scene>> mStack;
     std::vector<PendingChange> mPendingList;
     Context mContext;
-    std::map<Scene::ID, std::function<std::unique_ptr<Scene>>> mFactories;
+    std::unordered_map<Scene::ID, std::function<std::unique_ptr<Scene>()>>
+        mFactories;
 };
+
+template <typename T>
+void SceneStack::registerScene(Scene::ID sceneID) {
+    mFactories[sceneID] = [this]() {
+        return std::unique_ptr<Scene>(new T(*this, mContext));
+    };
+}
 
 #endif

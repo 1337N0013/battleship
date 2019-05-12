@@ -28,7 +28,7 @@ bool MainMenuScene::input(const sf::Event& e) {
     switch (e.type) {
         case sf::Event::Closed: {
             mWindow.close();
-            break;
+            return false;
         }
         case sf::Event::KeyPressed: {
             if (e.key.code == sf::Keyboard::Escape) {
@@ -41,6 +41,7 @@ bool MainMenuScene::input(const sf::Event& e) {
     }
     btn.handleInput(e);
     btn2.handleInput(e);
+    return true;
 }
 
 void MainMenuScene::draw() {
@@ -63,4 +64,5 @@ bool MainMenuScene::update(sf::Time deltaTime) {
 
     btn.update(deltaTime);
     btn2.update(deltaTime);
+    return true;
 }

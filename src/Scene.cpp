@@ -1,4 +1,5 @@
 #include "Scene.h"
+#include "SceneStack.h"
 
 Scene::Scene(SceneStack& stack, Context context)
     : mStack(stack), mContext(context) {}

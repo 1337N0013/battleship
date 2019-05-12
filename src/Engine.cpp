@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include <iostream>
+#include "MainMenuScene.h"
 #include "Scene.h"
 
 using std::cout;
@@ -14,11 +15,10 @@ Engine::Engine() {
 
     gameContext.reset(new Context(m_window, font));
     mSceneStack.reset(new SceneStack(*gameContext));
-
-    windowFocus = false;
 }
 
 void Engine::start() {
+    registerScenes();
     mSceneStack->pushScene(Scene::ID::MainMenu);
 
     sf::Clock clock;
@@ -51,10 +51,6 @@ void Engine::input() {
     // }
 }
 
-void Engine::update(sf::Time deltaTime) {
-    mSceneStack->update(deltaTime);
-}
+void Engine::update(sf::Time deltaTime) { mSceneStack->update(deltaTime); }
 
-void Engine::draw() {
-    mSceneStack->draw();
-}
+void Engine::draw() { mSceneStack->draw(); }

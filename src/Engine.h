@@ -4,14 +4,12 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Context.h"
-#include "MainMenuScene.h"
 #include "SceneStack.h"
 
 constexpr unsigned int windowWidth = 800, windowHeight = 600;
 
 class Engine {
     sf::RenderWindow m_window;
-    bool windowFocus;
 
     sf::Font font;
     std::unique_ptr<Context> gameContext;

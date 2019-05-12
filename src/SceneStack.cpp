@@ -1,15 +1,10 @@
 #include "SceneStack.h"
 
-template <typename T>
-void SceneStack::registerScene(Scene::ID sceneID) {
-    mFactories[stateID] = [this]() {
-        return std::unique_ptr<Scene>(new T(*this, mContext));
-    }
-}
+SceneStack::SceneStack(Context context) : mContext(context) {}
 
 std::unique_ptr<Scene> SceneStack::createScene(Scene::ID sceneID) {
     auto found = mFactories.find(sceneID);
-    assert (found != mFactories.end());
+    assert(found != mFactories.end());
 
     return found->second();
 }
@@ -59,8 +54,23 @@ void SceneStack::applyPendingChanges() {
 }
 
 bool SceneStack::isEmpty() const {
-    if (mStack.size == 0) {
+    if (mStack.size() == 0) {
         return true;
     }
     return false;
+}
+
+SceneStack::PendingChange::PendingChange(Action action, Scene::ID sceneID)
+    : action(action), sceneID(sceneID) {}
+
+void SceneStack::pushScene(Scene::ID sceneID) {
+    mPendingList.push_back(PendingChange(Action::Push, sceneID));
+}
+
+void SceneStack::popScene() {
+    mPendingList.push_back(PendingChange(Action::Pop));
+}
+
+void SceneStack::clearScenes() {
+    mPendingList.push_back(PendingChange(Action::Clear));
 }
