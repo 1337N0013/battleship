@@ -31,8 +31,8 @@ void SceneStack::update(sf::Time deltaTime) {
 }
 
 void SceneStack::draw() {
-    for (auto itr = mStack.begin(); itr != mStack.end(); ++itr) {
-        (*itr)->draw();
+    for (std::unique_ptr<Scene>& scene : mStack) {
+        scene->draw();
     }
 }
 
