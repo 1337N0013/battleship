@@ -20,8 +20,6 @@ class MainMenuScene : public Scene {
     sf::RenderWindow& mWindow = Scene::getContext().getWindow();
     sf::Vector2u mWindowSize = mWindow.getSize();
 
-    sf::Text fpsCounter;
-    sf::Time fpsTime = sf::Time::Zero;
     sf::Text title;
     Button btn, btn2;
 };

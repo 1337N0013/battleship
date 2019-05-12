@@ -7,12 +7,6 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context context)
 MainMenuScene::~MainMenuScene() {}
 
 void MainMenuScene::start() {
-    fpsCounter.setFont(mFont);
-    fpsCounter.setCharacterSize(16);
-    fpsCounter.setString("INIT");
-    fpsCounter.setPosition(0, 0);
-    fpsCounter.setFillColor(sf::Color::Green);
-
     title.setFont(mFont);
     title.setCharacterSize(35);
     title.setString("Battleship");
@@ -56,12 +50,6 @@ void MainMenuScene::draw() {
 }
 
 bool MainMenuScene::update(sf::Time deltaTime) {
-    fpsTime += deltaTime;
-    if (fpsTime.asSeconds() > 1) {
-        fpsCounter.setString(std::to_string(1 / deltaTime.asSeconds()));
-        fpsTime = sf::Time::Zero;
-    }
-
     btn.update(deltaTime);
     btn2.update(deltaTime);
     return true;
