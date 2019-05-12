@@ -24,7 +24,7 @@ void MainMenuScene::start() {
     btn2.create(0, 0, 100, 100, std::string("yuh"), mFont);
 }
 
-void MainMenuScene::input(const sf::Event& e) {
+bool MainMenuScene::input(const sf::Event& e) {
     switch (e.type) {
         case sf::Event::Closed: {
             mWindow.close();
@@ -32,7 +32,7 @@ void MainMenuScene::input(const sf::Event& e) {
         }
         case sf::Event::KeyPressed: {
             if (e.key.code == sf::Keyboard::Escape) {
-                mWindow.close();
+                requestScenePop();
             }
             break;
         }
@@ -54,7 +54,7 @@ void MainMenuScene::draw() {
     mWindow.display();
 }
 
-void MainMenuScene::update(sf::Time deltaTime) {
+bool MainMenuScene::update(sf::Time deltaTime) {
     fpsTime += deltaTime;
     if (fpsTime.asSeconds() > 1) {
         fpsCounter.setString(std::to_string(1 / deltaTime.asSeconds()));

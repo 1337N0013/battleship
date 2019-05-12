@@ -11,9 +11,9 @@ class MainMenuScene : public Scene {
     MainMenuScene(SceneStack& stack, Context context);
     ~MainMenuScene();
     void start();
-    void input(const sf::Event& e);
+    bool input(const sf::Event& e);
     void draw();
-    void update(sf::Time deltaTime);
+    bool update(sf::Time deltaTime);
 
    private:
     sf::Font mFont = Scene::getContext().getFont();
