@@ -16,8 +16,8 @@ class MainMenuScene : public Scene {
     bool update(sf::Time deltaTime);
 
    private:
-    sf::Font mFont = Scene::getContext().getFont();
-    sf::RenderWindow& mWindow = Scene::getContext().getWindow();
+    sf::Font mFont = Scene::getContext().font;
+    sf::RenderWindow& mWindow = Scene::getContext().window;
     sf::Vector2u mWindowSize = mWindow.getSize();
 
     sf::Text title;
