@@ -1,18 +1,18 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+class SceneStack;
+
 #include <SFML/Graphics.hpp>
 #include "Context.h"
-
-class SceneStack;
+#include "SceneStack.h"
 
 class Scene {
    public:
-    enum class ID { MainMenu };
+    enum class ID { None, MainMenu };
 
    public:
-    Scene(SceneStack& stack, Context context)
-        : mStack(stack), mContext(context) {}
+    Scene(SceneStack& stack, Context context);
     virtual ~Scene() {}
     virtual void start() = 0;
     virtual bool input(const sf::Event& e) = 0;
@@ -24,7 +24,7 @@ class Scene {
     void requestScenePop();
     void requestSceneClear();
 
-    Context getContext() const { return mContext; }
+    Context getContext() const;
 
    private:
     SceneStack& mStack;
