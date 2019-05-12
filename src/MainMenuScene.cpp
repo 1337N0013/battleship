@@ -20,10 +20,6 @@ void MainMenuScene::start() {
 
 bool MainMenuScene::input(const sf::Event& e) {
     switch (e.type) {
-        case sf::Event::Closed: {
-            mWindow.close();
-            return false;
-        }
         case sf::Event::KeyPressed: {
             if (e.key.code == sf::Keyboard::Escape) {
                 requestScenePop();
@@ -39,14 +35,9 @@ bool MainMenuScene::input(const sf::Event& e) {
 }
 
 void MainMenuScene::draw() {
-    mWindow.clear(sf::Color::Black);
-
     mWindow.draw(title);
     mWindow.draw(btn);
     mWindow.draw(btn2);
-    mWindow.draw(fpsCounter);
-
-    mWindow.display();
 }
 
 bool MainMenuScene::update(sf::Time deltaTime) {
