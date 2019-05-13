@@ -1,22 +1,24 @@
-#include <SFML/Graphics.hpp>
-#include "Scene.h"
-#include "Button.h"
-
 #ifndef MAINMENUSCENE_H
 #define MAINMENUSCENE_H
 
+#include <SFML/Graphics.hpp>
+#include "Button.h"
+#include "Scene.h"
+#include "SceneStack.h"
+
 class MainMenuScene : public Scene {
    public:
-    MainMenuScene(Context& context);
+    MainMenuScene(SceneStack& stack, Scene::Context context);
     ~MainMenuScene();
-    void start();
-    void input(sf::Event e);
+    bool input(const sf::Event& e);
     void draw();
-    void update(sf::Time deltaTime);
+    bool update(sf::Time deltaTime);
 
    private:
-    sf::Text fpsCounter;
-    sf::Time fpsTime = sf::Time::Zero;
+    sf::Font mFont;
+    sf::RenderWindow& mWindow;
+    sf::Vector2u mWindowSize;
+
     sf::Text title;
     Button btn, btn2;
 };

@@ -1,27 +1,37 @@
-#include <SFML/Graphics.hpp>
-#include "Context.h"
-
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <SFML/Graphics.hpp>
+
+class SceneStack;
+
 class Scene {
    public:
-    Scene(Context& context)
-        : mWindow(context.getWindow()), mFont(context.getFont()) {
-        mWidth = mWindow.getSize().x;
-        mHeight = mWindow.getSize().y;
-    }
+    struct Context {
+        Context (sf::RenderWindow& window, sf::Font& font);
+        sf::RenderWindow& window;
+        sf::Font& font;
+    };
+
+    enum class ID { None, MainMenu };
+
+   public:
+    Scene(SceneStack& stack, Context context);
     virtual ~Scene() {}
-    virtual void start() = 0;
-    virtual void input(sf::Event e) = 0;
+    virtual bool input(const sf::Event& e) = 0;
     virtual void draw() = 0;
-    virtual void update(sf::Time deltaTime) = 0;
+    virtual bool update(sf::Time deltaTime) = 0;
 
    protected:
-    sf::RenderWindow& mWindow;
-    unsigned int mWidth;
-    unsigned int mHeight;
-    sf::Font& mFont;
+    void requestScenePush(Scene::ID sceneID);
+    void requestScenePop();
+    void requestSceneClear();
+
+    Context getContext() const;
+
+   private:
+    SceneStack& mStack;
+    Context mContext;
 };
 
 #endif

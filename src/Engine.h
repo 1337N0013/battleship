@@ -1,21 +1,19 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include "Context.h"
-#include "Scenes.h"
-
 #ifndef ENGINE_H
 #define ENGINE_H
+
+#include <SFML/Graphics.hpp>
+#include <SFML/Window.hpp>
+#include "SceneStack.h"
 
 constexpr unsigned int windowWidth = 800, windowHeight = 600;
 
 class Engine {
-    sf::RenderWindow m_window;
-    bool windowFocus;
+    sf::RenderWindow mWindow;
+    sf::Font mFont;
+    SceneStack mSceneStack;
 
-    sf::Font font;
-    std::unique_ptr<MainMenuScene> mainMenuScene;
-
-    std::unique_ptr<Context> gameContext;
+    sf::Text mFpsCounter;
+    sf::Time mFpsTime;
 
     void input();
     void update(sf::Time deltaTime);
@@ -24,6 +22,7 @@ class Engine {
    public:
     Engine();
     void start();
+    void registerScenes();
 };
 
 #endif
