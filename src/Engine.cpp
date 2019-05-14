@@ -11,7 +11,7 @@ Engine::Engine()
       mSceneStack(Scene::Context(mWindow, mFont)),
       mFpsCounter(),
       mFpsTime(sf::Time::Zero) {
-    mWindow.setFramerateLimit(60);
+    mWindow.setFramerateLimit(120);
 
     if (!mFont.loadFromFile("res/fonts/ProFont For Powerline.ttf")) {
         throw std::runtime_error("Could not load font.");
