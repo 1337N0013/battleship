@@ -1,5 +1,6 @@
 #include "SceneStack.h"
 #include <iostream>
+#include <assert.h>
 
 SceneStack::SceneStack(Scene::Context context) : mContext(context) {}
 
