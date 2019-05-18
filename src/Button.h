@@ -21,6 +21,8 @@ class Button : public sf::Drawable, public sf::Transformable {
 
     enum class State { Default, Hovered, Pressed, Released };
 
+    Button(const sf::Vector2f& position, const sf::Vector2f& size,
+           const std::string& text, Scene::Context context);
     Button(const float left, const float top, const sf::Vector2f& size,
            const std::string& text, Scene::Context context);
     Button(const float left, const float top, const float width,

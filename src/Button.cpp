@@ -30,6 +30,9 @@ Button::Button(const float left, const float top, const sf::Vector2f& size,
                    {State::Pressed, sf::Color::Cyan},
                    {State::Released, sf::Color::Green}};
 }
+Button::Button(const sf::Vector2f& position, const sf::Vector2f& size,
+               const std::string& text, Scene::Context context)
+    : Button(position.x, position.y, size, text, context) {}
 Button::Button(const float left, const float top, const float width,
                const float height, const std::string& text,
                Scene::Context context)
