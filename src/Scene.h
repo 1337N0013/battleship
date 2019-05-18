@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class SceneStack;
+class SceneStack;  // forward declaration, solves circular dependency
 
 class Scene {
    public:

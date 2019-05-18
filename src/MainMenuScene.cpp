@@ -7,7 +7,6 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context context)
       mFont(context.font),
       mWindow(context.window),
       mWindowSize(mWindow.getSize()),
-      title(),
       btn(mWindowSize.x / 2 - 150, mWindowSize.y / 2 - 15, 300, 30,
           std::string("Hello"), mFont),
       btn2(0, 0, 100, 100, std::string("yuh"), mFont) {
