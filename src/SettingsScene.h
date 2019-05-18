@@ -6,7 +6,7 @@
 
 class SettingsScene : public Scene {
    public:
-    SettingsScene(SceneStack& stack, Context context);
+    SettingsScene(SceneStack& stack, Context& context);
     ~SettingsScene();
     bool input(const sf::Event& e);
     void draw();
@@ -14,10 +14,15 @@ class SettingsScene : public Scene {
 
    private:
     sf::RectangleShape mBackground;
-    
     sf::Text mSettingsText;
+
     sf::Text mNumberOfShipsText;
+    Button mIncreaseShips;
+    Button mDecreaseShips;
+
     sf::Text mBoardSizeText;
+    Button mIncreaseBoard;
+    Button mDecreaseBoard;
 
     Button playButton;
 };

@@ -3,8 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
-#include "Scene.h"
 #include "Command.h"
+#include "Scene.h"
 
 class Button : public sf::Drawable, public sf::Transformable {
     const float buttonReleaseTime = 0.3f;
@@ -18,12 +18,13 @@ class Button : public sf::Drawable, public sf::Transformable {
     Scene::Context mContext;
 
    public:
-    std::unique_ptr<Command::Command> onClickCommand;
+    std::unique_ptr<Command> onClickCommand;
 
     sf::Time timeSinceClick;
 
     enum class State { Default, Hovered, Pressed, Released };
 
+    Button(const std::string& text, Scene::Context context);
     Button(const sf::Vector2f& position, const sf::Vector2f& size,
            const std::string& text, Scene::Context context);
     Button(const float left, const float top, const sf::Vector2f& size,
@@ -36,6 +37,10 @@ class Button : public sf::Drawable, public sf::Transformable {
     void setPosition(const float x, const float y);
     void setPosition(const sf::Vector2f& pos);
     const sf::Vector2f& getPosition();
+
+    void setSize(const float x, const float y);
+    void setSize(const sf::Vector2f& size);
+    const sf::Vector2f& getSize();
 
     void setText(std::string text);
     const std::string getText();

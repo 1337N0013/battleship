@@ -1,6 +1,6 @@
 #include "GameScene.h"
 
-GameScene::GameScene(SceneStack& stack, Context context) : Scene(stack, context), mWindow(context.window), mTestText("Hello", context.font) {
+GameScene::GameScene(SceneStack& stack, Context& context) : Scene(stack, context), mWindow(context.window), mTestText("Hello", context.font) {
     mBackground.setPosition(0, 0);
     sf::Vector2f windowSize(context.window.getSize().x, context.window.getSize().y);
     mBackground.setSize(windowSize);

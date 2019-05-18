@@ -18,7 +18,7 @@ class Scene {
     enum class ID { None, MainMenu, Game, Settings };
 
    public:
-    Scene(SceneStack& stack, Context context);
+    Scene(SceneStack& stack, Context& context);
     virtual ~Scene() {}
     virtual bool input(const sf::Event& e) = 0;
     virtual void draw() = 0;

@@ -5,14 +5,12 @@
 
 class GameSettings {
    public:
-    unsigned int getNumberOfShips() { return mNumberOfShips; }
-    void setNumberOfShips(unsigned int n) { mNumberOfShips = n; }
+    unsigned int getNumberOfShips();
+    void setNumberOfShips(unsigned int n);
 
-    sf::Vector2u getBoardSize() { return mBoardSize; }
-    void setBoardSize(sf::Vector2u size) { mBoardSize = size; }
-    void setBoardSize(unsigned int width, unsigned int height) {
-        mBoardSize = sf::Vector2u(width, height);
-    }
+    sf::Vector2u getBoardSize();
+    void setBoardSize(sf::Vector2u size);
+    void setBoardSize(unsigned int width, unsigned int height);
 
    private:
     unsigned int mNumberOfShips;

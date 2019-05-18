@@ -9,7 +9,7 @@
 
 class MainMenuScene : public Scene {
    public:
-    MainMenuScene(SceneStack& stack, Scene::Context context);
+    MainMenuScene(SceneStack& stack, Scene::Context& context);
     ~MainMenuScene();
     bool input(const sf::Event& e);
     void draw();
