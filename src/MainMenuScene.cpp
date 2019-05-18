@@ -10,6 +10,7 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context context)
       playButton(mWindowSize.x / 2 - 150, mWindowSize.y / 2 - 15, 300, 30,
           std::string("Play"), context),
       exitButton(0, 0, 300, 30, std::string("Exit"), context),
+      playButtonCommand(*this, Scene::ID::Game),
       exitButtonCommand(*this) {
     exitButton.setPosition(playButton.getPosition().x, playButton.getPosition().y + 50);
     title.setFont(mFont);
@@ -44,7 +45,9 @@ void MainMenuScene::draw() {
 }
 
 bool MainMenuScene::update(sf::Time deltaTime) {
-    playButton.update(deltaTime);
+    if (playButton.update(deltaTime)) {
+        playButtonCommand.execute();
+    }
     if (exitButton.update(deltaTime)) {
         exitButtonCommand.execute();
     }
