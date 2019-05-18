@@ -2,7 +2,7 @@
 #include <iostream>
 #include "Button.h"
 
-MainMenuScene::MainMenuScene(SceneStack& stack, Context context)
+MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
       mFont(context.font),
       mWindow(context.window),

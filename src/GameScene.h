@@ -5,7 +5,7 @@
 
 class GameScene : public Scene {
    public:
-    GameScene(SceneStack& stack, Context context);
+    GameScene(SceneStack& stack, Context& context);
     ~GameScene();
 
     bool input(const sf::Event& e);
