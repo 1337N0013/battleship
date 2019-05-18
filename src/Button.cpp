@@ -7,10 +7,7 @@ sf::Vector2i Button::lastMousePos = sf::Vector2i(0, 0);
 
 Button::Button(const float left, const float top, const sf::Vector2f& size,
                const std::string& text, Scene::Context context)
-    : buttonRect(),
-      buttonText(),
-      buttonTextBounds(),
-      mContext(context),
+    : mContext(context),
       mFont(context.font) {
     buttonRect.setSize(size);
     buttonRect.setFillColor(sf::Color::Red);
