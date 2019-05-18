@@ -53,7 +53,7 @@ class Button : public sf::Drawable, public sf::Transformable {
 
     void resetTimeSinceClick();
 
-    void update(sf::Time deltaTime);
+    bool update(sf::Time deltaTime);
 
     bool handleInput(sf::Event e);
 

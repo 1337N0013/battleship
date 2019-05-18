@@ -87,7 +87,7 @@ const sf::Color& Button::getStateColor(const State state) {
 
 void Button::resetTimeSinceClick() { timeSinceClick = sf::Time::Zero; }
 
-void Button::update(sf::Time deltaTime) {
+bool Button::update(sf::Time deltaTime) {
     timeSinceClick += deltaTime;
 
     if (getState() == State::Released) {
@@ -98,7 +98,10 @@ void Button::update(sf::Time deltaTime) {
                 setState(State::Default);
             }
         }
+        return true;
     }
+
+    return false;
 }
 
 bool Button::handleInput(sf::Event e) {
