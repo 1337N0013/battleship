@@ -1,5 +1,6 @@
 #include "SceneStack.h"
 #include <iostream>
+#include <assert.h>
 
 SceneStack::SceneStack(Scene::Context context) : mContext(context) {}
 
@@ -11,10 +12,13 @@ std::unique_ptr<Scene> SceneStack::createScene(Scene::ID sceneID) {
 }
 
 void SceneStack::handleEvent(const sf::Event& event) {
-    for (auto itr = mStack.rbegin(); itr != mStack.rend(); ++itr) {
-        if (!(*itr)->input(event)) {
-            return;
-        }
+    // for (auto itr = mStack.rbegin(); itr != mStack.rend(); ++itr) {
+    //     if (!(*itr)->input(event)) {
+    //         return;
+    //     }
+    // }
+    if (!mStack.empty()) {
+        mStack.back()->input(event);
     }
 
     applyPendingChanges();

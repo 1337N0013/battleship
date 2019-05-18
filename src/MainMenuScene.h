@@ -5,10 +5,11 @@
 #include "Button.h"
 #include "Scene.h"
 #include "SceneStack.h"
+#include "Command.h"
 
 class MainMenuScene : public Scene {
    public:
-    MainMenuScene(SceneStack& stack, Scene::Context context);
+    MainMenuScene(SceneStack& stack, Scene::Context& context);
     ~MainMenuScene();
     bool input(const sf::Event& e);
     void draw();
@@ -20,7 +21,7 @@ class MainMenuScene : public Scene {
     sf::Vector2u mWindowSize;
 
     sf::Text title;
-    Button btn, btn2;
+    Button playButton, exitButton;
 };
 
 #endif

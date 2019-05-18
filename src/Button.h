@@ -3,38 +3,44 @@
 
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
+#include "Command.h"
+#include "Scene.h"
 
 class Button : public sf::Drawable, public sf::Transformable {
     const float buttonReleaseTime = 0.3f;
 
     sf::RectangleShape buttonRect;
+    sf::Font mFont;
     sf::Text buttonText;
     sf::FloatRect buttonTextBounds;
     static sf::Vector2i lastMousePos;
 
+    Scene::Context mContext;
+
    public:
+    std::unique_ptr<Command> onClickCommand;
+
     sf::Time timeSinceClick;
 
     enum class State { Default, Hovered, Pressed, Released };
 
-    void create(const float left, const float top, const sf::Vector2f& size,
-                const std::string& text, const sf::Font& font);
-    void create(const float left, const float top, const float width,
-                const float height, const std::string& text,
-                const sf::Font& font);
-
-    Button();
-
+    Button(const std::string& text, Scene::Context context);
+    Button(const sf::Vector2f& position, const sf::Vector2f& size,
+           const std::string& text, Scene::Context context);
     Button(const float left, const float top, const sf::Vector2f& size,
-           const std::string& text, const sf::Font& font);
+           const std::string& text, Scene::Context context);
     Button(const float left, const float top, const float width,
-           const float height, const std::string& text, const sf::Font& font);
+           const float height, const std::string& text, Scene::Context context);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     void setPosition(const float x, const float y);
     void setPosition(const sf::Vector2f& pos);
     const sf::Vector2f& getPosition();
+
+    void setSize(const float x, const float y);
+    void setSize(const sf::Vector2f& size);
+    const sf::Vector2f& getSize();
 
     void setText(std::string text);
     const std::string getText();
@@ -57,9 +63,9 @@ class Button : public sf::Drawable, public sf::Transformable {
 
     void resetTimeSinceClick();
 
-    void update(sf::Time deltaTime);
+    bool update(sf::Time deltaTime);
 
-    void handleInput(sf::Event e);
+    bool handleInput(sf::Event e);
 
    private:
     State currentState;
