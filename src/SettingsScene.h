@@ -14,7 +14,11 @@ class SettingsScene : public Scene {
 
    private:
     sf::RectangleShape mBackground;
+    
     sf::Text mSettingsText;
+    sf::Text mNumberOfShipsText;
+    sf::Text mBoardSizeText;
+
     Button playButton;
 };
 
