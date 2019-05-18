@@ -12,8 +12,14 @@ GameScene::GameScene(SceneStack& stack, Context context) : Scene(stack, context)
 GameScene::~GameScene() {}
 
 bool GameScene::input(const sf::Event& e) {
-    if (e.type == sf::Event::KeyReleased && e.key.code == sf::Keyboard::Escape) {
-        requestScenePop();
+    switch (e.type) {
+        case sf::Event::KeyReleased: {
+            if (e.key.code == sf::Keyboard::Escape) {
+                requestScenePop();
+            }
+        }
+        default:
+            break;
     }
     return true;
 }

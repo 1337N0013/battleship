@@ -2,8 +2,8 @@ CC = g++
 CPP_PREFLAGS = -std=c++17
 LINK_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 
-bin/main: obj/main.o obj/Engine.o obj/Scene.o obj/SceneStack.o obj/Command.o obj/Button.o obj/MainMenuScene.o obj/GameScene.o
-	$(CC) $(CPP_PREFLAGS) -o bin/main obj/main.o obj/Engine.o obj/Scene.o obj/SceneStack.o obj/Command.o obj/Button.o obj/MainMenuScene.o obj/GameScene.o $(LINK_FLAGS)
+bin/main: obj/main.o obj/Engine.o obj/Scene.o obj/SceneStack.o obj/Command.o obj/Button.o obj/MainMenuScene.o obj/GameScene.o obj/SettingsScene.o
+	$(CC) $(CPP_PREFLAGS) -o bin/main obj/main.o obj/Engine.o obj/Scene.o obj/SceneStack.o obj/Command.o obj/Button.o obj/MainMenuScene.o obj/GameScene.o obj/SettingsScene.o $(LINK_FLAGS)
 
 obj/main.o: src/main.cpp
 	$(CC) $(CPP_PREFLAGS) -o obj/main.o -c src/main.cpp $(LINK_FLAGS)
@@ -25,6 +25,9 @@ obj/MainMenuScene.o: src/MainMenuScene.cpp src/MainMenuScene.h
 
 obj/GameScene.o: src/GameScene.cpp src/GameScene.h
 	$(CC) $(CPP_PREFLAGS) -o obj/GameScene.o -c src/GameScene.cpp $(LINK_FLAGS)
+
+obj/SettingsScene.o: src/SettingsScene.cpp src/SettingsScene.h
+	$(CC) $(CPP_PREFLAGS) -o obj/SettingsScene.o -c src/SettingsScene.cpp $(LINK_FLAGS)
 
 obj/Button.o: src/Button.cpp src/Button.h
 	$(CC) $(CPP_PREFLAGS) -o obj/Button.o -c src/Button.cpp $(LINK_FLAGS)

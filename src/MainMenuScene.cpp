@@ -20,7 +20,7 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context context)
                       100);
 
     playButton.onClickCommand.reset(
-        new Command::ChangeScene(*this, Scene::ID::Game));
+        new Command::ChangeScene(*this, Scene::ID::Settings));
     exitButton.onClickCommand.reset(new Command::RemoveScene(*this));
 }
 
