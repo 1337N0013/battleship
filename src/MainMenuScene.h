@@ -21,9 +21,9 @@ class MainMenuScene : public Scene {
     sf::Vector2u mWindowSize;
 
     sf::Text title;
-    Button btn, btn2;
+    Button playButton, exitButton;
 
-    Command::RemoveScene btnCommand;
+    Command::RemoveScene exitButtonCommand;
 };
 
 #endif

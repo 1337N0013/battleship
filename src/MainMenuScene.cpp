@@ -7,10 +7,11 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context context)
       mFont(context.font),
       mWindow(context.window),
       mWindowSize(mWindow.getSize()),
-      btn(mWindowSize.x / 2 - 150, mWindowSize.y / 2 - 15, 300, 30,
-          std::string("Hello"), context),
-      btn2(0, 0, 100, 100, std::string("yuh"), context),
-      btnCommand(*this) {
+      playButton(mWindowSize.x / 2 - 150, mWindowSize.y / 2 - 15, 300, 30,
+          std::string("Play"), context),
+      exitButton(0, 0, 300, 30, std::string("Exit"), context),
+      exitButtonCommand(*this) {
+    exitButton.setPosition(playButton.getPosition().x, playButton.getPosition().y + 50);
     title.setFont(mFont);
     title.setCharacterSize(35);
     title.setString("Battleship");
@@ -31,21 +32,21 @@ bool MainMenuScene::input(const sf::Event& e) {
         default:
             break;
     }
-    btn.handleInput(e);
-    btn2.handleInput(e);
+    playButton.handleInput(e);
+    exitButton.handleInput(e);
     return true;
 }
 
 void MainMenuScene::draw() {
     mWindow.draw(title);
-    mWindow.draw(btn);
-    mWindow.draw(btn2);
+    mWindow.draw(playButton);
+    mWindow.draw(exitButton);
 }
 
 bool MainMenuScene::update(sf::Time deltaTime) {
-    if (btn.update(deltaTime)) {
-        btnCommand.execute();
+    playButton.update(deltaTime);
+    if (exitButton.update(deltaTime)) {
+        exitButtonCommand.execute();
     }
-    btn2.update(deltaTime);
     return true;
 }
