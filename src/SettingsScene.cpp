@@ -23,21 +23,21 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
     mNumberOfShipsText.setPosition(100, 200);
     mDecreaseShips.setPosition(450, 200);
     mDecreaseShips.setSize(buttonSize);
-    mDecreaseShips.onClickCommand.reset(new Command::DecreaseShips(context));
+    mDecreaseShips.onClickCommand.reset(new SettingsCommand::DecreaseShips(context));
     mIncreaseShips.setPosition(500, 200);
     mIncreaseShips.setSize(buttonSize);
-    mIncreaseShips.onClickCommand.reset(new Command::IncreaseShips(context));
+    mIncreaseShips.onClickCommand.reset(new SettingsCommand::IncreaseShips(context));
 
     mBoardSizeText.setPosition(100, 250);
     mDecreaseBoard.setPosition(450, 250);
     mDecreaseBoard.setSize(buttonSize);
-    mDecreaseBoard.onClickCommand.reset(new Command::DecreaseBoard(context));
+    mDecreaseBoard.onClickCommand.reset(new SettingsCommand::DecreaseBoard(context));
     mIncreaseBoard.setPosition(500, 250);
     mIncreaseBoard.setSize(buttonSize);
-    mIncreaseBoard.onClickCommand.reset(new Command::IncreaseBoard(context));
+    mIncreaseBoard.onClickCommand.reset(new SettingsCommand::IncreaseBoard(context));
 
     playButton.onClickCommand.reset(
-        new Command::ChangeScene(*this, Scene::ID::Game));
+        new SceneCommand::ChangeScene(*this, Scene::ID::Game));
 }
 
 SettingsScene::~SettingsScene() {}

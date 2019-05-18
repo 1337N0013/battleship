@@ -1,8 +1,9 @@
 #include "Command.h"
 
-namespace Command {
-
 Command::~Command() {}
+
+namespace SceneCommand {
+
 ChangeScene::~ChangeScene() {}
 ChangeScene::ChangeScene(Scene& currentScene, Scene::ID sceneID)
     : mScene(currentScene), mSceneID(sceneID) {}
@@ -15,11 +16,16 @@ RemoveScene::RemoveScene(Scene& currentScene) : mScene(currentScene) {}
 RemoveScene::~RemoveScene() {}
 void RemoveScene::execute() { mScene.requestScenePop(); }
 
+}  // namespace SceneCommand
+
+namespace SettingsCommand {
+
 IncreaseShips::IncreaseShips(Scene::Context& context) : mContext(context) {}
 IncreaseShips::~IncreaseShips() {}
 void IncreaseShips::execute() {
     unsigned int ships = mContext.gameSettings.getNumberOfShips();
-    const unsigned int tiles = mContext.gameSettings.getBoardSize().x * mContext.gameSettings.getBoardSize().y;
+    const unsigned int tiles = mContext.gameSettings.getBoardSize().x *
+                               mContext.gameSettings.getBoardSize().y;
     if (tiles / 2 == ships) {
         return;
     }
@@ -57,4 +63,4 @@ void DecreaseBoard::execute() {
     mContext.gameSettings.setBoardSize(size);
 }
 
-}  // namespace Command
+}  // namespace SettingsCommand

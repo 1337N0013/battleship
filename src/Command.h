@@ -4,13 +4,13 @@
 #include "Scene.h"
 #include "SceneStack.h"
 
-namespace Command {
-
 class Command {
    public:
     virtual ~Command();
     virtual void execute() = 0;
 };
+
+namespace SceneCommand {
 
 class ChangeScene : public Command {
    public:
@@ -33,6 +33,10 @@ class RemoveScene : public Command {
     Scene& mScene;
 };
 
+}  // namespace SceneCommand
+
+namespace SettingsCommand {
+
 class IncreaseShips : public Command {
    public:
     IncreaseShips(Scene::Context& context);
@@ -54,12 +58,12 @@ class DecreaseShips : public Command {
 };
 
 class IncreaseBoard : public Command {
-public:
+   public:
     IncreaseBoard(Scene::Context& context);
     ~IncreaseBoard();
     void execute();
 
-private:
+   private:
     Scene::Context& mContext;
 };
 
@@ -73,6 +77,6 @@ class DecreaseBoard : public Command {
     Scene::Context& mContext;
 };
 
-}  // namespace Command
+}  // namespace SettingsCommand
 
 #endif

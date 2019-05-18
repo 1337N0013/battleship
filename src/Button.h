@@ -18,7 +18,7 @@ class Button : public sf::Drawable, public sf::Transformable {
     Scene::Context mContext;
 
    public:
-    std::unique_ptr<Command::Command> onClickCommand;
+    std::unique_ptr<Command> onClickCommand;
 
     sf::Time timeSinceClick;
 
