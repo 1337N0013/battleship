@@ -13,11 +13,15 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context context)
       playButtonCommand(*this, Scene::ID::Game),
       exitButtonCommand(*this) {
     exitButton.setPosition(playButton.getPosition().x, playButton.getPosition().y + 50);
+    
     title.setFont(mFont);
     title.setCharacterSize(35);
     title.setString("Battleship");
     title.setPosition(mWindowSize.x / 2 - title.getLocalBounds().width / 2,
                       100);
+    
+    playButton.onClickCommand.reset(&playButtonCommand);
+    exitButton.onClickCommand.reset(&exitButtonCommand);
 }
 
 MainMenuScene::~MainMenuScene() {}
@@ -33,12 +37,8 @@ bool MainMenuScene::input(const sf::Event& e) {
         default:
             break;
     }
-    if (playButton.handleInput(e)) {
-        playButtonCommand.execute();
-    }
-    if (exitButton.handleInput(e)) {
-        exitButtonCommand.execute();
-    }
+    playButton.handleInput(e);
+    exitButton.handleInput(e);
     return true;
 }
 

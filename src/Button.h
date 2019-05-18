@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
 #include "Scene.h"
+#include "Command.h"
 
 class Button : public sf::Drawable, public sf::Transformable {
     const float buttonReleaseTime = 0.3f;
@@ -17,6 +18,8 @@ class Button : public sf::Drawable, public sf::Transformable {
     Scene::Context mContext;
 
    public:
+    std::unique_ptr<Command::Command> onClickCommand;
+
     sf::Time timeSinceClick;
 
     enum class State { Default, Hovered, Pressed, Released };
