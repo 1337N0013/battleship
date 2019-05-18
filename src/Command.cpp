@@ -10,7 +10,7 @@ ChangeScene::ChangeScene(Scene& currentScene, Scene::ID sceneID)
     : mScene(currentScene), mSceneID(sceneID) {}
 
 void ChangeScene::execute() {
-    mScene.requestScenePop();
+    // mScene.requestScenePop();
     mScene.requestScenePush(mSceneID);
 }
 

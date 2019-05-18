@@ -8,15 +8,20 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context context)
       mWindow(context.window),
       mWindowSize(mWindow.getSize()),
       playButton(mWindowSize.x / 2 - 150, mWindowSize.y / 2 - 15, 300, 30,
-          std::string("Play"), context),
-      exitButton(0, 0, 300, 30, std::string("Exit"), context),
-      exitButtonCommand(*this) {
-    exitButton.setPosition(playButton.getPosition().x, playButton.getPosition().y + 50);
+                 std::string("Play"), context),
+      exitButton(0, 0, 300, 30, std::string("Exit"), context) {
+    exitButton.setPosition(playButton.getPosition().x,
+                           playButton.getPosition().y + 50);
+
     title.setFont(mFont);
     title.setCharacterSize(35);
     title.setString("Battleship");
     title.setPosition(mWindowSize.x / 2 - title.getLocalBounds().width / 2,
                       100);
+
+    playButton.onClickCommand.reset(
+        new Command::ChangeScene(*this, Scene::ID::Game));
+    exitButton.onClickCommand.reset(new Command::RemoveScene(*this));
 }
 
 MainMenuScene::~MainMenuScene() {}
@@ -45,8 +50,6 @@ void MainMenuScene::draw() {
 
 bool MainMenuScene::update(sf::Time deltaTime) {
     playButton.update(deltaTime);
-    if (exitButton.update(deltaTime)) {
-        exitButtonCommand.execute();
-    }
+    exitButton.update(deltaTime);
     return true;
 }

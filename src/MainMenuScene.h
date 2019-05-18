@@ -22,8 +22,6 @@ class MainMenuScene : public Scene {
 
     sf::Text title;
     Button playButton, exitButton;
-
-    Command::RemoveScene exitButtonCommand;
 };
 
 #endif
