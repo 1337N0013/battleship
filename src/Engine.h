@@ -4,12 +4,14 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "SceneStack.h"
+#include "GameSettings.h"
 
 constexpr unsigned int windowWidth = 800, windowHeight = 600;
 
 class Engine {
     sf::RenderWindow mWindow;
     sf::Font mFont;
+    GameSettings mGameSettings;
     SceneStack mSceneStack;
 
     sf::Text mFpsCounter;

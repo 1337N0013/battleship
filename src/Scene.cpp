@@ -4,8 +4,8 @@
 Scene::Scene(SceneStack& stack, Context context)
     : mStack(stack), mContext(context) {}
 
-Scene::Context::Context(sf::RenderWindow& window, sf::Font& font)
-    : window(window), font(font) {}
+Scene::Context::Context(sf::RenderWindow& window, sf::Font& font, GameSettings& gameSettings)
+    : window(window), font(font), gameSettings(gameSettings) {}
 
 void Scene::requestScenePush(Scene::ID sceneID) { mStack.pushScene(sceneID); }
 void Scene::requestScenePop() { mStack.popScene(); }
