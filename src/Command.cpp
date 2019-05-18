@@ -4,14 +4,22 @@ namespace Command {
 
 Command::~Command() {}
 
-ChangeState::~ChangeState() {}
+ChangeScene::~ChangeScene() {}
 
-ChangeState::ChangeState(Scene& currentScene, Scene::ID sceneID)
+ChangeScene::ChangeScene(Scene& currentScene, Scene::ID sceneID)
     : mScene(currentScene), mSceneID(sceneID) {}
 
-void ChangeState::execute() {
+void ChangeScene::execute() {
     mScene.requestScenePop();
     mScene.requestScenePush(mSceneID);
+}
+
+RemoveScene::RemoveScene(Scene& currentScene) : mScene(currentScene) {}
+
+RemoveScene::~RemoveScene() {}
+
+void RemoveScene::execute() {
+    mScene.requestScenePop();
 }
 
 }  // namespace Command

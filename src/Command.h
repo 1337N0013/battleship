@@ -12,15 +12,25 @@ class Command {
     virtual void execute() = 0;
 };
 
-class ChangeState : public Command {
+class ChangeScene : public Command {
    public:
-    ChangeState(Scene& currentScene, Scene::ID sceneID);
-    ~ChangeState();
+    ChangeScene(Scene& currentScene, Scene::ID sceneID);
+    ~ChangeScene();
     void execute();
 
    private:
     Scene& mScene;
     Scene::ID mSceneID;
+};
+
+class RemoveScene : public Command {
+   public:
+    RemoveScene(Scene& currentScene);
+    ~RemoveScene();
+    void execute();
+
+   private:
+    Scene& mScene;
 };
 
 }  // namespace Command
