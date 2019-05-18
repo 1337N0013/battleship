@@ -5,12 +5,21 @@ using std::cout;
 
 sf::Vector2i Button::lastMousePos = sf::Vector2i(0, 0);
 
-void Button::create(const float left, const float top, const sf::Vector2f& size,
-                    const std::string& text, const sf::Font& font) {
+// Button::Button() {
+//     sf::Font font;
+//     create(0, 0, 100, 100, std::string("default"), font);
+// }
+Button::Button(const float left, const float top, const sf::Vector2f& size,
+               const std::string& text, Scene::Context context)
+    : buttonRect(),
+      buttonText(),
+      buttonTextBounds(),
+      mContext(context),
+      mFont(context.font) {
     buttonRect.setSize(size);
     buttonRect.setFillColor(sf::Color::Red);
 
-    buttonText.setFont(font);
+    buttonText.setFont(mFont);
     buttonText.setString(text);
     setPosition(left, top);
 
@@ -21,26 +30,13 @@ void Button::create(const float left, const float top, const sf::Vector2f& size,
                    {State::Pressed, sf::Color::Cyan},
                    {State::Released, sf::Color::Green}};
 }
-
-void Button::create(const float left, const float top, const float width,
-                    const float height, const std::string& text,
-                    const sf::Font& font) {
-    create(left, top, sf::Vector2f(width, height), text, font);
-}
-
-Button::Button() {
-    sf::Font font;
-    create(0, 0, 100, 100, std::string("default"), font);
-}
-Button::Button(const float left, const float top, const sf::Vector2f& size,
-               const std::string& text, const sf::Font& font) {
-    create(left, top, size, text, font);
-}
+Button::Button(const sf::Vector2f& position, const sf::Vector2f& size,
+               const std::string& text, Scene::Context context)
+    : Button(position.x, position.y, size, text, context) {}
 Button::Button(const float left, const float top, const float width,
                const float height, const std::string& text,
-               const sf::Font& font) {
-    create(left, top, sf::Vector2f(width, height), text, font);
-}
+               Scene::Context context)
+    : Button(left, top, sf::Vector2f(width, height), text, context) {}
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(buttonRect, states);
@@ -94,7 +90,7 @@ const sf::Color& Button::getStateColor(const State state) {
 
 void Button::resetTimeSinceClick() { timeSinceClick = sf::Time::Zero; }
 
-void Button::update(sf::Time deltaTime) {
+bool Button::update(sf::Time deltaTime) {
     timeSinceClick += deltaTime;
 
     if (getState() == State::Released) {
@@ -105,10 +101,13 @@ void Button::update(sf::Time deltaTime) {
                 setState(State::Default);
             }
         }
+        return true;
     }
+
+    return false;
 }
 
-void Button::handleInput(sf::Event e) {
+bool Button::handleInput(sf::Event e) {
     if (e.type == sf::Event::MouseMoved) {
         lastMousePos = sf::Vector2i(e.mouseMove.x, e.mouseMove.y);
     }
@@ -148,12 +147,13 @@ void Button::handleInput(sf::Event e) {
             break;
         }
         case State::Released: {
-            // handled in update()
+            return true;
             break;
         }
         default:
             break;
     }
+    return false;
 }
 
 void Button::centerText() {

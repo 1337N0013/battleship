@@ -5,6 +5,7 @@
 #include "Button.h"
 #include "Scene.h"
 #include "SceneStack.h"
+#include "Command.h"
 
 class MainMenuScene : public Scene {
    public:
@@ -20,7 +21,9 @@ class MainMenuScene : public Scene {
     sf::Vector2u mWindowSize;
 
     sf::Text title;
-    Button btn, btn2;
+    Button playButton, exitButton;
+
+    Command::RemoveScene exitButtonCommand;
 };
 
 #endif

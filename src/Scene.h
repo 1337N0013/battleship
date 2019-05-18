@@ -22,7 +22,6 @@ class Scene {
     virtual void draw() = 0;
     virtual bool update(sf::Time deltaTime) = 0;
 
-   protected:
     void requestScenePush(Scene::ID sceneID);
     void requestScenePop();
     void requestSceneClear();
