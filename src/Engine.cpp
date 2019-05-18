@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "MainMenuScene.h"
 #include "GameScene.h"
+#include "SettingsScene.h"
 
 using std::cout;
 
@@ -46,6 +47,7 @@ void Engine::start() {
 void Engine::registerScenes() {
     mSceneStack.registerScene<MainMenuScene>(Scene::ID::MainMenu);
     mSceneStack.registerScene<GameScene>(Scene::ID::Game);
+    mSceneStack.registerScene<SettingsScene>(Scene::ID::Settings);
 }
 
 void Engine::input() {

@@ -13,7 +13,7 @@ class Scene {
         sf::Font& font;
     };
 
-    enum class ID { None, MainMenu, Game };
+    enum class ID { None, MainMenu, Game, Settings };
 
    public:
     Scene(SceneStack& stack, Context context);
