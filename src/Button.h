@@ -3,32 +3,30 @@
 
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
+#include "Scene.h"
 
 class Button : public sf::Drawable, public sf::Transformable {
     const float buttonReleaseTime = 0.3f;
 
     sf::RectangleShape buttonRect;
+    sf::Font mFont;
     sf::Text buttonText;
     sf::FloatRect buttonTextBounds;
     static sf::Vector2i lastMousePos;
+
+    Scene::Context mContext;
 
    public:
     sf::Time timeSinceClick;
 
     enum class State { Default, Hovered, Pressed, Released };
 
-    void create(const float left, const float top, const sf::Vector2f& size,
-                const std::string& text, const sf::Font& font);
-    void create(const float left, const float top, const float width,
-                const float height, const std::string& text,
-                const sf::Font& font);
-
-    Button();
+//     Button();
 
     Button(const float left, const float top, const sf::Vector2f& size,
-           const std::string& text, const sf::Font& font);
+           const std::string& text, Scene::Context context);
     Button(const float left, const float top, const float width,
-           const float height, const std::string& text, const sf::Font& font);
+           const float height, const std::string& text, Scene::Context context);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

@@ -8,8 +8,8 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context context)
       mWindow(context.window),
       mWindowSize(mWindow.getSize()),
       btn(mWindowSize.x / 2 - 150, mWindowSize.y / 2 - 15, 300, 30,
-          std::string("Hello"), mFont),
-      btn2(0, 0, 100, 100, std::string("yuh"), mFont) {
+          std::string("Hello"), context),
+      btn2(0, 0, 100, 100, std::string("yuh"), context) {
     title.setFont(mFont);
     title.setCharacterSize(35);
     title.setString("Battleship");
