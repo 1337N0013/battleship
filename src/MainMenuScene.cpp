@@ -33,8 +33,12 @@ bool MainMenuScene::input(const sf::Event& e) {
         default:
             break;
     }
-    playButton.handleInput(e);
-    exitButton.handleInput(e);
+    if (playButton.handleInput(e)) {
+        playButtonCommand.execute();
+    }
+    if (exitButton.handleInput(e)) {
+        exitButtonCommand.execute();
+    }
     return true;
 }
 
@@ -45,11 +49,7 @@ void MainMenuScene::draw() {
 }
 
 bool MainMenuScene::update(sf::Time deltaTime) {
-    if (playButton.update(deltaTime)) {
-        playButtonCommand.execute();
-    }
-    if (exitButton.update(deltaTime)) {
-        exitButtonCommand.execute();
-    }
+    playButton.update(deltaTime);
+    exitButton.update(deltaTime);
     return true;
 }

@@ -11,6 +11,9 @@ class GameScene : public Scene {
     bool input(const sf::Event& e);
     void draw();
     bool update(sf::Time deltaTime);
+
+   private:
+    sf::Text mTestText;
 };
 
 #endif
