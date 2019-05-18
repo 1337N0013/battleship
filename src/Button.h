@@ -21,8 +21,6 @@ class Button : public sf::Drawable, public sf::Transformable {
 
     enum class State { Default, Hovered, Pressed, Released };
 
-//     Button();
-
     Button(const float left, const float top, const sf::Vector2f& size,
            const std::string& text, Scene::Context context);
     Button(const float left, const float top, const float width,
@@ -57,7 +55,7 @@ class Button : public sf::Drawable, public sf::Transformable {
 
     void update(sf::Time deltaTime);
 
-    void handleInput(sf::Event e);
+    bool handleInput(sf::Event e);
 
    private:
     State currentState;

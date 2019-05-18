@@ -101,7 +101,7 @@ void Button::update(sf::Time deltaTime) {
     }
 }
 
-void Button::handleInput(sf::Event e) {
+bool Button::handleInput(sf::Event e) {
     if (e.type == sf::Event::MouseMoved) {
         lastMousePos = sf::Vector2i(e.mouseMove.x, e.mouseMove.y);
     }
@@ -141,12 +141,13 @@ void Button::handleInput(sf::Event e) {
             break;
         }
         case State::Released: {
-            // handled in update()
+            return true;
             break;
         }
         default:
             break;
     }
+    return false;
 }
 
 void Button::centerText() {
