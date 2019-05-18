@@ -6,10 +6,10 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
       mSettingsText("Settings", context.font),
       mNumberOfShipsText("hello", context.font),
       mBoardSizeText("BOARD SIZE", context.font),
-      mIncreaseShips("Increase", context),
-      mDecreaseShips("Decrease", context),
-      mIncreaseBoard("Increase", context),
-      mDecreaseBoard("Decrease", context),
+      mIncreaseShips("+", context),
+      mDecreaseShips("-", context),
+      mIncreaseBoard("+", context),
+      mDecreaseBoard("-", context),
       playButton(100, 500, 300, 30, "Play", context) {
     mBackground.setPosition(0, 0);
     sf::Vector2f windowSize(context.window.getSize().x,
@@ -18,13 +18,13 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
     mBackground.setFillColor(sf::Color::Black);
     mSettingsText.setPosition(100, 100);
 
-    sf::Vector2f buttonSize(130, 45);
+    sf::Vector2f buttonSize(45, 45);
 
     mNumberOfShipsText.setPosition(100, 200);
     mDecreaseShips.setPosition(450, 200);
     mDecreaseShips.setSize(buttonSize);
     mDecreaseShips.onClickCommand.reset(new Command::DecreaseShips(context));
-    mIncreaseShips.setPosition(600, 200);
+    mIncreaseShips.setPosition(500, 200);
     mIncreaseShips.setSize(buttonSize);
     mIncreaseShips.onClickCommand.reset(new Command::IncreaseShips(context));
 
@@ -32,7 +32,7 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
     mDecreaseBoard.setPosition(450, 250);
     mDecreaseBoard.setSize(buttonSize);
     mDecreaseBoard.onClickCommand.reset(new Command::DecreaseBoard(context));
-    mIncreaseBoard.setPosition(600, 250);
+    mIncreaseBoard.setPosition(500, 250);
     mIncreaseBoard.setSize(buttonSize);
     mIncreaseBoard.onClickCommand.reset(new Command::IncreaseBoard(context));
 
@@ -84,7 +84,7 @@ bool SettingsScene::update(sf::Time deltaTime) {
     if (getContext().gameSettings.getNumberOfShips() > tiles / 2) {
         getContext().gameSettings.setNumberOfShips(tiles/2);
     }
-    
+
     mNumberOfShipsText.setString(
         std::string("Number of ships: ") +
         std::to_string(getContext().gameSettings.getNumberOfShips()));
