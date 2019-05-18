@@ -135,9 +135,9 @@ bool Button::handleInput(sf::Event e) {
                 if (getGlobalBounds().contains(lastMousePos.x,
                                                lastMousePos.y)) {
                     setState(State::Released);
+                    resetTimeSinceClick();
                     onClickCommand->execute();
                     return true;
-                    resetTimeSinceClick();
                 } else {
                     setState(State::Default);
                 }
