@@ -9,7 +9,8 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context context)
       mWindowSize(mWindow.getSize()),
       btn(mWindowSize.x / 2 - 150, mWindowSize.y / 2 - 15, 300, 30,
           std::string("Hello"), context),
-      btn2(0, 0, 100, 100, std::string("yuh"), context) {
+      btn2(0, 0, 100, 100, std::string("yuh"), context),
+      btnCommand(*this) {
     title.setFont(mFont);
     title.setCharacterSize(35);
     title.setString("Battleship");
@@ -42,7 +43,9 @@ void MainMenuScene::draw() {
 }
 
 bool MainMenuScene::update(sf::Time deltaTime) {
-    btn.update(deltaTime);
+    if (btn.update(deltaTime)) {
+        btnCommand.execute();
+    }
     btn2.update(deltaTime);
     return true;
 }
