@@ -13,6 +13,8 @@ class GameScene : public Scene {
     bool update(sf::Time deltaTime);
 
    private:
+    sf::RenderWindow& mWindow;
+    sf::RectangleShape mBackground;
     sf::Text mTestText;
 };
 
