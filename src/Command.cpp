@@ -1,11 +1,17 @@
 #include "Command.h"
 
 namespace Command {
-ChangeState::ChangeState(SceneStack& sceneStack, Scene::ID sceneID)
-    : mStack(sceneStack), mSceneID(sceneID) {}
+
+Command::~Command() {}
+
+ChangeState::~ChangeState() {}
+
+ChangeState::ChangeState(Scene& currentScene, Scene::ID sceneID)
+    : mScene(currentScene), mSceneID(sceneID) {}
 
 void ChangeState::execute() {
-    mStack.popScene();
-    mStack.pushScene(mSceneID);
+    mScene.requestScenePop();
+    mScene.requestScenePush(mSceneID);
 }
+
 }  // namespace Command

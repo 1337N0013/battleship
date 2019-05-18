@@ -5,6 +5,7 @@
 #include "SceneStack.h"
 
 namespace Command {
+
 class Command {
    public:
     virtual ~Command();
@@ -13,13 +14,15 @@ class Command {
 
 class ChangeState : public Command {
    public:
-    ChangeState(SceneStack& sceneStack, Scene::ID sceneID);
+    ChangeState(Scene& currentScene, Scene::ID sceneID);
+    ~ChangeState();
     void execute();
 
    private:
-    SceneStack& mStack;
+    Scene& mScene;
     Scene::ID mSceneID;
 };
+
 }  // namespace Command
 
-#endif COMMAND_H
+#endif
