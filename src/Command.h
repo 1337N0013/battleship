@@ -33,6 +33,46 @@ class RemoveScene : public Command {
     Scene& mScene;
 };
 
+class IncreaseShips : public Command {
+   public:
+    IncreaseShips(Scene::Context& context);
+    ~IncreaseShips();
+    void execute();
+
+   private:
+    Scene::Context& mContext;
+};
+
+class DecreaseShips : public Command {
+   public:
+    DecreaseShips(Scene::Context& context);
+    ~DecreaseShips();
+    void execute();
+
+   private:
+    Scene::Context& mContext;
+};
+
+class IncreaseBoard : public Command {
+public:
+    IncreaseBoard(Scene::Context& context);
+    ~IncreaseBoard();
+    void execute();
+
+private:
+    Scene::Context& mContext;
+};
+
+class DecreaseBoard : public Command {
+   public:
+    DecreaseBoard(Scene::Context& context);
+    ~DecreaseBoard();
+    void execute();
+
+   private:
+    Scene::Context& mContext;
+};
+
 }  // namespace Command
 
 #endif
