@@ -6,7 +6,7 @@
 #include "SceneStack.h"
 #include "GameSettings.h"
 
-constexpr unsigned int windowWidth = 800, windowHeight = 600;
+constexpr unsigned int windowWidth = 1024, windowHeight = 768;
 
 class Engine {
     sf::RenderWindow mWindow;
