@@ -11,4 +11,4 @@ void Scene::requestScenePush(Scene::ID sceneID) { mStack.pushScene(sceneID); }
 void Scene::requestScenePop() { mStack.popScene(); }
 void Scene::requestSceneClear() { mStack.clearScenes(); }
 
-Scene::Context Scene::getContext() const { return mContext; }
+Scene::Context& Scene::getContext() { return mContext; }

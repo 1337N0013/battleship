@@ -28,11 +28,11 @@ class Scene {
     void requestScenePop();
     void requestSceneClear();
 
-    Context getContext() const;
+    Context& getContext();
 
    private:
     SceneStack& mStack;
-    Context mContext;
+    Context& mContext;
 };
 
 #endif
