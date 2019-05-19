@@ -6,11 +6,11 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
       mSettingsText("Settings", context.font),
       mNumberOfShipsText("", context.font),
       mBoardSizeText("", context.font),
-      mIncreaseShips("+", context),
-      mDecreaseShips("-", context),
-      mIncreaseBoard("+", context),
-      mDecreaseBoard("-", context),
-      playButton(100, context.window.getSize().y-100, 300, 30, "Play", context) {
+      mIncreaseShips("+", context.font),
+      mDecreaseShips("-", context.font),
+      mIncreaseBoard("+", context.font),
+      mDecreaseBoard("-", context.font),
+      playButton(100, context.window.getSize().y-100, 300, 30, "Play", context.font) {
     mBackground.setPosition(0, 0);
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
@@ -37,7 +37,7 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
     mIncreaseBoard.onClickCommand.reset(new SettingsCommand::IncreaseBoard(context));
 
     playButton.onClickCommand.reset(
-        new SceneCommand::ChangeScene(*this, Scene::ID::Game));
+        new SceneCommand::ChangeAndRemoveScene(*this, Scene::ID::Game));
 }
 
 SettingsScene::~SettingsScene() {}

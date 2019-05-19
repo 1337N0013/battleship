@@ -10,12 +10,10 @@ class Button : public sf::Drawable, public sf::Transformable {
     const float buttonReleaseTime = 0.3f;
 
     sf::RectangleShape buttonRect;
-    sf::Font mFont;
+    sf::Font& mFont;
     sf::Text buttonText;
     sf::FloatRect buttonTextBounds;
     static sf::Vector2i lastMousePos;
-
-    Scene::Context mContext;
 
    public:
     std::unique_ptr<Command> onClickCommand;
@@ -24,13 +22,13 @@ class Button : public sf::Drawable, public sf::Transformable {
 
     enum class State { Default, Hovered, Pressed, Released };
 
-    Button(const std::string& text, Scene::Context context);
+    Button(const std::string& text, sf::Font& font);
     Button(const sf::Vector2f& position, const sf::Vector2f& size,
-           const std::string& text, Scene::Context context);
+           const std::string& text, sf::Font& font);
     Button(const float left, const float top, const sf::Vector2f& size,
-           const std::string& text, Scene::Context context);
+           const std::string& text, sf::Font& font);
     Button(const float left, const float top, const float width,
-           const float height, const std::string& text, Scene::Context context);
+           const float height, const std::string& text, sf::Font& font);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
