@@ -10,7 +10,7 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
       mDecreaseShips("-", context.font),
       mIncreaseBoard("+", context.font),
       mDecreaseBoard("-", context.font),
-      playButton(100, context.window.getSize().y-100, 300, 30, "Play", context.font) {
+      playButton(100, context.window.getSize().y-100-30, 300, 30, "Play", context.font) {
     mBackground.setPosition(0, 0);
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
