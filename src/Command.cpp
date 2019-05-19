@@ -7,20 +7,27 @@ namespace SceneCommand {
 ChangeScene::~ChangeScene() {}
 ChangeScene::ChangeScene(Scene& currentScene, Scene::ID sceneID)
     : mScene(currentScene), mSceneID(sceneID) {}
-void ChangeScene::execute() {
-    mScene.requestScenePush(mSceneID);
-}
+void ChangeScene::execute() { mScene.requestScenePush(mSceneID); }
 
 RemoveScene::RemoveScene(Scene& currentScene) : mScene(currentScene) {}
 RemoveScene::~RemoveScene() {}
 void RemoveScene::execute() { mScene.requestScenePop(); }
 
-ChangeAndRemoveScene::~ChangeAndRemoveScene() {}
-ChangeAndRemoveScene::ChangeAndRemoveScene(Scene& currentScene, Scene::ID sceneID)
+ChangeAndRemoveScene::ChangeAndRemoveScene(Scene& currentScene,
+                                           Scene::ID sceneID)
     : mScene(currentScene), mSceneID(sceneID) {}
+ChangeAndRemoveScene::~ChangeAndRemoveScene() {}
 void ChangeAndRemoveScene::execute() {
     mScene.requestScenePop();
     mScene.requestScenePush(mSceneID);
+}
+
+ReturnToMainMenu::ReturnToMainMenu(Scene& currentScene)
+    : mScene(currentScene) {}
+ReturnToMainMenu::~ReturnToMainMenu() {}
+void ReturnToMainMenu::execute() {
+    mScene.requestSceneClear();
+    mScene.requestScenePush(Scene::ID::MainMenu);
 }
 
 }  // namespace SceneCommand

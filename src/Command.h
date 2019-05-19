@@ -44,6 +44,16 @@ class ChangeAndRemoveScene : public Command {
     Scene::ID mSceneID;
 };
 
+class ReturnToMainMenu : public Command {
+   public:
+    ReturnToMainMenu(Scene& currentScene);
+    ~ReturnToMainMenu();
+    void execute();
+
+   private:
+    Scene& mScene;
+};
+
 }  // namespace SceneCommand
 
 namespace SettingsCommand {
