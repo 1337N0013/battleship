@@ -33,6 +33,17 @@ class RemoveScene : public Command {
     Scene& mScene;
 };
 
+class ChangeAndRemoveScene : public Command {
+   public:
+    ChangeAndRemoveScene(Scene& currentScene, Scene::ID sceneID);
+    ~ChangeAndRemoveScene();
+    void execute();
+
+   private:
+    Scene& mScene;
+    Scene::ID mSceneID;
+};
+
 }  // namespace SceneCommand
 
 namespace SettingsCommand {
