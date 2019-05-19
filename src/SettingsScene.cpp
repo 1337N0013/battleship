@@ -47,6 +47,14 @@ bool SettingsScene::input(const sf::Event& e) {
         case sf::Event::KeyReleased: {
             if (e.key.code == sf::Keyboard::Escape) {
                 requestScenePop();
+            } else if (e.key.code == sf::Keyboard::Up) {
+                SettingsCommand::IncreaseShips(getContext()).execute();
+            } else if (e.key.code == sf::Keyboard::Down) {
+                SettingsCommand::DecreaseShips(getContext()).execute();
+            } else if (e.key.code == sf::Keyboard::Right) {
+                SettingsCommand::IncreaseBoard(getContext()).execute();
+            } else if (e.key.code == sf::Keyboard::Left) {
+                SettingsCommand::DecreaseBoard(getContext()).execute();
             }
         }
         default:
