@@ -68,7 +68,7 @@ bool SettingsScene::input(const sf::Event& e) {
 
     playButton.handleInput(e);
 
-    return true;
+    return false;
 }
 
 void SettingsScene::draw() {
@@ -110,5 +110,5 @@ bool SettingsScene::update(sf::Time deltaTime) {
 
     playButton.update(deltaTime);
 
-    return true;
+    return false;
 }
