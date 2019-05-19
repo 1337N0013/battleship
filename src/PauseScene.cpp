@@ -3,26 +3,51 @@
 PauseScene::PauseScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
       mPauseText("Paused", context.font),
-      mExitButton("Exit", context.font) {
+      mContinueButton("Continue", context.font),
+      mExitButton("Quit", context.font) {
+    mBackground.setSize(sf::Vector2f(context.window.getSize().x, context.window.getSize().y));
+    mBackground.setFillColor(sf::Color(0, 0, 0, 200));
+
     mPauseText.setPosition(100, 100);
 
-    mExitButton.setPosition(100, 450);
-    mExitButton.setSize(300, 50);
+    sf::Vector2f buttonSize(300, 30);
+
+    mExitButton.setPosition(100, context.window.getSize().y - 100 - 30);
+    mExitButton.setSize(buttonSize);
+    mExitButton.onClickCommand.reset(new SceneCommand::ReturnToMainMenu(*this));
+
+    mContinueButton.setPosition(100, mExitButton.getPosition().y-50);
+    mContinueButton.setSize(buttonSize);
+    mContinueButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this));
 }
 
 PauseScene::~PauseScene() {}
 
 bool PauseScene::input(const sf::Event& e) {
+    switch(e.type) {
+        case sf::Event::KeyReleased: {
+            if (e.key.code == sf::Keyboard::Escape) {
+                requestScenePop();
+            }
+            break;
+        }
+        default:
+            break;
+    }
+    mContinueButton.handleInput(e);
     mExitButton.handleInput(e);
-    return true;
+    return false;
 }
 
 void PauseScene::draw() {
+    getContext().window.draw(mBackground);
     getContext().window.draw(mPauseText);
+    getContext().window.draw(mContinueButton);
     getContext().window.draw(mExitButton);
 }
 
 bool PauseScene::update(sf::Time deltaTime) {
+    mContinueButton.update(deltaTime);
     mExitButton.update(deltaTime);
-    return true;
+    return false;
 }

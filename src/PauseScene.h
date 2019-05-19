@@ -13,7 +13,9 @@ class PauseScene : public Scene {
     bool update(sf::Time deltaTime);
 
    private:
+    sf::RectangleShape mBackground;
     sf::Text mPauseText;
+    Button mContinueButton;
     Button mExitButton;
 };
 

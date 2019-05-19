@@ -15,7 +15,7 @@ class Scene {
         GameSettings& gameSettings;
     };
 
-    enum class ID { None, MainMenu, Game, Settings };
+    enum class ID { None, MainMenu, Game, Settings, Pause };
 
    public:
     Scene(SceneStack& stack, Context& context);
