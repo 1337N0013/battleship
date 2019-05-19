@@ -4,8 +4,8 @@
 SettingsScene::SettingsScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
       mSettingsText("Settings", context.font),
-      mNumberOfShipsText("hello", context.font),
-      mBoardSizeText("BOARD SIZE", context.font),
+      mNumberOfShipsText("", context.font),
+      mBoardSizeText("", context.font),
       mIncreaseShips("+", context),
       mDecreaseShips("-", context),
       mIncreaseBoard("+", context),
