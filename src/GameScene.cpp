@@ -15,7 +15,7 @@ bool GameScene::input(const sf::Event& e) {
     switch (e.type) {
         case sf::Event::KeyReleased: {
             if (e.key.code == sf::Keyboard::Escape) {
-                requestScenePop();
+                requestScenePush(Scene::ID::Pause);
             }
         }
         default:

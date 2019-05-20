@@ -4,13 +4,13 @@
 SettingsScene::SettingsScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
       mSettingsText("Settings", context.font),
-      mNumberOfShipsText("hello", context.font),
-      mBoardSizeText("BOARD SIZE", context.font),
-      mIncreaseShips("+", context),
-      mDecreaseShips("-", context),
-      mIncreaseBoard("+", context),
-      mDecreaseBoard("-", context),
-      playButton(100, context.window.getSize().y-100, 300, 30, "Play", context) {
+      mNumberOfShipsText("", context.font),
+      mBoardSizeText("", context.font),
+      mIncreaseShips("+", context.font),
+      mDecreaseShips("-", context.font),
+      mIncreaseBoard("+", context.font),
+      mDecreaseBoard("-", context.font),
+      playButton(100, context.window.getSize().y-100-30, 300, 30, "Play", context.font) {
     mBackground.setPosition(0, 0);
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
@@ -37,7 +37,7 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
     mIncreaseBoard.onClickCommand.reset(new SettingsCommand::IncreaseBoard(context));
 
     playButton.onClickCommand.reset(
-        new SceneCommand::ChangeScene(*this, Scene::ID::Game));
+        new SceneCommand::ChangeAndRemoveScene(*this, Scene::ID::Game));
 }
 
 SettingsScene::~SettingsScene() {}
@@ -47,6 +47,14 @@ bool SettingsScene::input(const sf::Event& e) {
         case sf::Event::KeyReleased: {
             if (e.key.code == sf::Keyboard::Escape) {
                 requestScenePop();
+            } else if (e.key.code == sf::Keyboard::Up) {
+                SettingsCommand::IncreaseShips(getContext()).execute();
+            } else if (e.key.code == sf::Keyboard::Down) {
+                SettingsCommand::DecreaseShips(getContext()).execute();
+            } else if (e.key.code == sf::Keyboard::Right) {
+                SettingsCommand::IncreaseBoard(getContext()).execute();
+            } else if (e.key.code == sf::Keyboard::Left) {
+                SettingsCommand::DecreaseBoard(getContext()).execute();
             }
         }
         default:
@@ -60,7 +68,7 @@ bool SettingsScene::input(const sf::Event& e) {
 
     playButton.handleInput(e);
 
-    return true;
+    return false;
 }
 
 void SettingsScene::draw() {
@@ -102,5 +110,5 @@ bool SettingsScene::update(sf::Time deltaTime) {
 
     playButton.update(deltaTime);
 
-    return true;
+    return false;
 }

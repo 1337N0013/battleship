@@ -6,8 +6,8 @@ using std::cout;
 sf::Vector2i Button::lastMousePos = sf::Vector2i(0, 0);
 
 Button::Button(const float left, const float top, const sf::Vector2f& size,
-               const std::string& text, Scene::Context context)
-    : mContext(context), mFont(context.font) {
+               const std::string& text, sf::Font& font)
+    : mFont(font) {
     buttonRect.setSize(size);
     buttonRect.setFillColor(sf::Color::Red);
 
@@ -23,14 +23,14 @@ Button::Button(const float left, const float top, const sf::Vector2f& size,
                    {State::Released, sf::Color::Green}};
 }
 Button::Button(const sf::Vector2f& position, const sf::Vector2f& size,
-               const std::string& text, Scene::Context context)
-    : Button(position.x, position.y, size, text, context) {}
+               const std::string& text, sf::Font& font)
+    : Button(position.x, position.y, size, text, font) {}
 Button::Button(const float left, const float top, const float width,
                const float height, const std::string& text,
-               Scene::Context context)
-    : Button(left, top, sf::Vector2f(width, height), text, context) {}
-Button::Button(const std::string& text, Scene::Context context)
-    : Button(0, 0, 100, 100, text, context) {}
+               sf::Font& font)
+    : Button(left, top, sf::Vector2f(width, height), text, font) {}
+Button::Button(const std::string& text, sf::Font& font)
+    : Button(0, 0, 100, 100, text, font) {}
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(buttonRect, states);

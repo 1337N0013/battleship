@@ -15,7 +15,7 @@ class Scene {
         GameSettings& gameSettings;
     };
 
-    enum class ID { None, MainMenu, Game, Settings };
+    enum class ID { None, MainMenu, Game, Settings, Pause };
 
    public:
     Scene(SceneStack& stack, Context& context);
@@ -28,11 +28,11 @@ class Scene {
     void requestScenePop();
     void requestSceneClear();
 
-    Context getContext() const;
+    Context& getContext();
 
    private:
     SceneStack& mStack;
-    Context mContext;
+    Context& mContext;
 };
 
 #endif

@@ -4,6 +4,7 @@
 #include "MainMenuScene.h"
 #include "GameScene.h"
 #include "SettingsScene.h"
+#include "PauseScene.h"
 
 using std::cout;
 
@@ -52,6 +53,7 @@ void Engine::registerScenes() {
     mSceneStack.registerScene<MainMenuScene>(Scene::ID::MainMenu);
     mSceneStack.registerScene<GameScene>(Scene::ID::Game);
     mSceneStack.registerScene<SettingsScene>(Scene::ID::Settings);
+    mSceneStack.registerScene<PauseScene>(Scene::ID::Pause);
 }
 
 void Engine::input() {
