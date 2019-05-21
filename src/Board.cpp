@@ -12,8 +12,8 @@ Board::Board(Scene::Context& context)
 
             mCells[i][j].setSize(sf::Vector2f(69, 69));
             mCells[i][j].setPosition(69 * i + 40, 69 * j + 40);
-            mCells[i][j].setOutlineThickness(2);
-            mCells[i][j].setOutlineColor(sf::Color::Black);
+            mCells[i][j].rectangle.setOutlineThickness(2);
+            mCells[i][j].rectangle.setOutlineColor(sf::Color::Black);
 
             const int boardSize = context.gameSettings.getBoardSize().x;
             int xOffset = (10 / 2 - boardSize / 2);
