@@ -8,7 +8,7 @@ BoardCell::BoardCell(Scene::Context& context)
 BoardCell::BoardCell(const BoardCell& bc)
     : Button("", bc.mContext.font),
       mContext(bc.mContext),
-      mCurrentState(State::Inactive) {}
+      mCurrentState(bc.mCurrentState) {}
 
 void BoardCell::input(sf::Event e) { handleInput(e); }
 
