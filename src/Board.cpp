@@ -2,8 +2,7 @@
 #include <iostream>
 
 Board::Board(Scene::Context& context)
-    : mData(10, std::vector<CellState>(10)),
-      mContext(context),
+    : mContext(context),
       mCells() {
     for (int i = 0; i < 10; i++) {
         std::vector<BoardCell> row;
@@ -15,8 +14,6 @@ Board::Board(Scene::Context& context)
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
             std::cout << i << ", " << j << std::endl;
-            mData[i][j] = Board::CellState::Inactive;
-
             mCells[i][j].setSize(sf::Vector2f(69, 69));
             mCells[i][j].setPosition(69 * i + 40, 69 * j + 40);
             mCells[i][j].rectangle.setOutlineThickness(2);

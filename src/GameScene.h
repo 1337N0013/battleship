@@ -13,8 +13,6 @@ class GameScene : public Scene {
     bool input(const sf::Event& e);
     void draw();
     bool update(sf::Time deltaTime);
-    Board::CellState getCell(unsigned int x, unsigned int y);
-    void setCell(Board::CellState state, unsigned int x, unsigned int y);
 
    private:
     struct GameState {

@@ -7,9 +7,6 @@
 
 class Board : public sf::Drawable {
    public:
-    enum class CellState { None, Ship, Hit, Miss, Inactive };  // i guess i never miss yah
-
-   public:
     Board(Scene::Context& context);
     ~Board();
 
@@ -19,7 +16,7 @@ class Board : public sf::Drawable {
 
    private:
     Scene::Context& mContext;
-    std::vector<std::vector<CellState>> mData;
+    std::vector<std::vector<BoardCell::State>> mData;
 
     std::vector<std::vector<BoardCell>> mCells;
 };
