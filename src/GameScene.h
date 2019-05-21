@@ -23,14 +23,17 @@ class GameScene : public Scene {
     };
 
    private:
-    struct PlayerBoards {
-        PlayerBoards(GameSettings& gameSettings);
+    // struct PlayerBoards {
+    //     PlayerBoards(GameSettings& gameSettings);
 
-        std::vector<std::vector<Board::CellState>> player1;
-        std::vector<std::vector<Board::CellState>> player2;
-    };
+    //     std::vector<std::vector<Board::CellState>> player1;
+    //     std::vector<std::vector<Board::CellState>> player2;
+    // };
 
-    PlayerBoards mPlayerBoards;
+    Board player1Board;
+    Board player2Board;
+
+    // PlayerBoards mPlayerBoards;
 
     // std::vector<std::vector<Board::CellState>> mPlayer1Board;
     // std::vector<std::vector<Board::CellState>> mPlayer2Board;

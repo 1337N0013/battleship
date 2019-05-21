@@ -2,15 +2,21 @@
 #define BOARD_H
 
 #include <SFML/Graphics.hpp>
+#include "Scene.h"
 
 class Board : public sf::Drawable {
    public:
-    enum class CellState { None, Ship, Hit, Miss };  // i guess i never miss yah
+    enum class CellState { None, Ship, Hit, Miss, Inactive };  // i guess i never miss yah
 
    public:
-    Board(std::vector<std::vector<CellState>>);
+    Board(Scene::Context& context);
+    ~Board();
+
+    void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
    private:
+    Scene::Context& mContext;
+    std::vector<std::vector<CellState>> mContents;
 };
 
 #endif
