@@ -10,6 +10,14 @@ BoardCell::BoardCell(const BoardCell& bc)
       mContext(bc.mContext),
       mCurrentState(bc.mCurrentState) {}
 
+void BoardCell::setState(BoardCell::State state) {
+    mCurrentState = state;
+}
+
+BoardCell::State BoardCell::getState() {
+    return mCurrentState;
+}
+
 void BoardCell::input(sf::Event e) { handleInput(e); }
 
 void BoardCell::draw(sf::RenderTarget& target, sf::RenderStates states) const {

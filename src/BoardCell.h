@@ -18,11 +18,14 @@ class BoardCell : public Button {
     BoardCell(Scene::Context& context);
     BoardCell(const BoardCell&);
 
+    void setState(State state);
+    State getState();
+
     void input(sf::Event e);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
    private:
-    State mCurrentState;
+    BoardCell::State mCurrentState;
     Scene::Context& mContext;
 };
 

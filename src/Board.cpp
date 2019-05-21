@@ -33,9 +33,9 @@ Board::Board(Scene::Context& context)
             }
             if (i >= xOffset && i < xOffset + boardSize && j >= yOffset &&
                 j < yOffset + boardSize) {
-                mCells[i][j].setFillColor(sf::Color::Blue);
+                mCells[i][j].setState(BoardCell::State::None);
             } else {
-                mCells[i][j].setFillColor(sf::Color::Red);
+                mCells[i][j].setState(BoardCell::State::Inactive);
             }
         }
     }
