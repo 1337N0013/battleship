@@ -1,7 +1,9 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
+#include "Board.h"
 #include "Scene.h"
+#include "GameSettings.h"
 
 class GameScene : public Scene {
    public:
@@ -11,8 +13,28 @@ class GameScene : public Scene {
     bool input(const sf::Event& e);
     void draw();
     bool update(sf::Time deltaTime);
+    Board::CellState getCell(unsigned int x, unsigned int y);
+    void setCell(Board::CellState state, unsigned int x, unsigned int y);
 
    private:
+    struct GameState {
+        unsigned int numberOfShips[2];
+        bool turn;
+    };
+
+   private:
+    struct PlayerBoards {
+        PlayerBoards(GameSettings& gameSettings);
+
+        std::vector<std::vector<Board::CellState>> player1;
+        std::vector<std::vector<Board::CellState>> player2;
+    };
+
+    PlayerBoards mPlayerBoards;
+
+    // std::vector<std::vector<Board::CellState>> mPlayer1Board;
+    // std::vector<std::vector<Board::CellState>> mPlayer2Board;
+
     sf::RenderWindow& mWindow;
     sf::RectangleShape mBackground;
     sf::Text mTestText;
