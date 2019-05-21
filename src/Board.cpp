@@ -20,7 +20,7 @@ Board::Board(Scene::Context& context)
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
             std::cout << i << ", " << j << std::endl;
-            mCells[i][j].setSize(sf::Vector2f(69, 69));
+            mCells[i][j].setSize(sf::Vector2f(64, 64));
             mCells[i][j].setPosition(69 * i + 40, 69 * j + 40);
             mCells[i][j].rectangle.setOutlineThickness(2);
             mCells[i][j].rectangle.setOutlineColor(sf::Color::Black);
