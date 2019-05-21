@@ -30,7 +30,7 @@ class Button : public sf::Drawable, public sf::Transformable {
     Button(const float left, const float top, const float width,
            const float height, const std::string& text, sf::Font& font);
 
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     void setPosition(const float x, const float y);
     void setPosition(const sf::Vector2f& pos);
@@ -61,9 +61,9 @@ class Button : public sf::Drawable, public sf::Transformable {
 
     void resetTimeSinceClick();
 
-    bool update(sf::Time deltaTime);
+    virtual bool update(sf::Time deltaTime);
 
-    bool handleInput(sf::Event e);
+    virtual bool handleInput(sf::Event e);
 
    private:
     State currentState;
