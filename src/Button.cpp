@@ -30,7 +30,9 @@ Button::Button(const float left, const float top, const float width,
                sf::Font& font)
     : Button(left, top, sf::Vector2f(width, height), text, font) {}
 Button::Button(const std::string& text, sf::Font& font)
-    : Button(0, 0, 100, 100, text, font) {}
+    : Button(0, 0, 100, 100, text, font) {
+        onClickCommand.reset(new EmptyCommand());
+    }
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(rectangle, states);
