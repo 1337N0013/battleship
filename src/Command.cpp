@@ -60,6 +60,9 @@ IncreaseBoard::IncreaseBoard(Scene::Context& context) : mContext(context) {}
 IncreaseBoard::~IncreaseBoard() {}
 void IncreaseBoard::execute() {
     sf::Vector2u size = mContext.gameSettings.getBoardSize();
+    if (size.x >= 10 || size.y >= 10) {
+        return;
+    }
     size.x++;
     size.y++;
     mContext.gameSettings.setBoardSize(size);
