@@ -28,6 +28,7 @@ bool GameScene::input(const sf::Event& e) {
         default:
             break;
     }
+    player1Board.input(e);
     return true;
 }
 
@@ -37,7 +38,9 @@ void GameScene::draw() {
     mWindow.draw(player1Board);
 }
 
-bool GameScene::update(sf::Time deltaTime) { return true; }
+bool GameScene::update(sf::Time deltaTime) { 
+    player1Board.update(deltaTime);
+    return true; }
 
 // GameScene::PlayerBoards::PlayerBoards(GameSettings& gameSettings)
 //     : player1(gameSettings.getBoardSize().x,
