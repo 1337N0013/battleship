@@ -34,6 +34,7 @@ bool GameScene::input(const sf::Event& e) {
 void GameScene::draw() {
     mWindow.draw(mBackground);
     mWindow.draw(mTestText);
+    mWindow.draw(player1Board);
 }
 
 bool GameScene::update(sf::Time deltaTime) { return true; }
