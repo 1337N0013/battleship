@@ -16,7 +16,6 @@ class Board : public sf::Drawable {
 
    private:
     Scene::Context& mContext;
-    std::vector<std::vector<BoardCell::State>> mData;
 
     std::vector<std::vector<BoardCell>> mCells;
 };
