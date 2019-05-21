@@ -7,8 +7,12 @@
 class BoardCell : public Button {
     public:
     BoardCell(Scene::Context& context);
+    BoardCell(const BoardCell&);
 
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+    private:
+    Scene::Context& mContext;
 };
 
 #endif

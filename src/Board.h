@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Scene.h"
+#include "BoardCell.h"
 
 class Board : public sf::Drawable {
    public:
@@ -18,7 +19,7 @@ class Board : public sf::Drawable {
     Scene::Context& mContext;
     std::vector<std::vector<CellState>> mData;
 
-    std::vector<std::vector<sf::RectangleShape>> mCells;
+    std::vector<std::vector<BoardCell>> mCells;
 };
 
 #endif

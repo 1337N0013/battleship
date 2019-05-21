@@ -4,7 +4,14 @@
 Board::Board(Scene::Context& context)
     : mData(10, std::vector<CellState>(10)),
       mContext(context),
-      mCells(10, std::vector<sf::RectangleShape>(10)) {
+      mCells() {
+    for (int i = 0; i < 10; i++) {
+        std::vector<BoardCell> row;
+        for (int j = 0; j < 10; j++) {
+            row.emplace_back(BoardCell(context));
+        }
+        mCells.push_back(row);
+    }
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
             std::cout << i << ", " << j << std::endl;
@@ -34,9 +41,9 @@ Board::Board(Scene::Context& context)
 Board::~Board() {}
 
 void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    for (auto row : mCells) {
-        for (auto cell : row) {
-            target.draw(cell, states);
+    for (auto i = mCells.begin(); i != mCells.end(); i++) {
+        for (auto j = i->begin(); j != i->end(); j++) {
+            target.draw(*j, states);
         }
     }
 }
