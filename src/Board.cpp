@@ -4,6 +4,10 @@
 Board::Board(Scene::Context& context)
     : mContext(context),
       mCells() {
+    // initialize mCells first
+    // attempting to insert this loop into the following loop
+    // causes some weird error where only one square
+    // is drawn on the screen
     for (int i = 0; i < 10; i++) {
         std::vector<BoardCell> row;
         for (int j = 0; j < 10; j++) {
@@ -11,6 +15,8 @@ Board::Board(Scene::Context& context)
         }
         mCells.push_back(row);
     }
+    
+    // set properties of each cell
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
             std::cout << i << ", " << j << std::endl;
