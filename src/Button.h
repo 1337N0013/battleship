@@ -9,13 +9,14 @@
 class Button : public sf::Drawable, public sf::Transformable {
     const float buttonReleaseTime = 0.3f;
 
-    sf::RectangleShape buttonRect;
     sf::Font& mFont;
-    sf::Text buttonText;
-    sf::FloatRect buttonTextBounds;
+    sf::FloatRect labelBounds;
     static sf::Vector2i lastMousePos;
 
    public:
+    sf::RectangleShape rectangle;
+    sf::Text label;
+
     std::unique_ptr<Command> onClickCommand;
 
     sf::Time timeSinceClick;

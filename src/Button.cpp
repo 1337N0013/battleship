@@ -8,11 +8,11 @@ sf::Vector2i Button::lastMousePos = sf::Vector2i(0, 0);
 Button::Button(const float left, const float top, const sf::Vector2f& size,
                const std::string& text, sf::Font& font)
     : mFont(font) {
-    buttonRect.setSize(size);
-    buttonRect.setFillColor(sf::Color::Red);
+    rectangle.setSize(size);
+    rectangle.setFillColor(sf::Color::Red);
 
-    buttonText.setFont(mFont);
-    buttonText.setString(text);
+    label.setFont(mFont);
+    label.setString(text);
     setPosition(left, top);
 
     sf::Time timeSinceClick = sf::Time::Zero;
@@ -33,61 +33,61 @@ Button::Button(const std::string& text, sf::Font& font)
     : Button(0, 0, 100, 100, text, font) {}
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
-    target.draw(buttonRect, states);
-    target.draw(buttonText, states);
+    target.draw(rectangle, states);
+    target.draw(label, states);
 }
 
 void Button::setPosition(const float x, const float y) {
-    buttonRect.setPosition(x, y);
+    rectangle.setPosition(x, y);
     centerText();
 }
 void Button::setPosition(const sf::Vector2f& pos) { setPosition(pos.x, pos.y); }
-const sf::Vector2f& Button::getPosition() { return buttonRect.getPosition(); }
+const sf::Vector2f& Button::getPosition() { return rectangle.getPosition(); }
 
 void Button::setSize(const float x, const float y) {
-    buttonRect.setSize(sf::Vector2f(x, y));
+    rectangle.setSize(sf::Vector2f(x, y));
     centerText();
 }
 void Button::setSize(const sf::Vector2f& size) {
-    buttonRect.setSize(size);
+    rectangle.setSize(size);
     centerText();
 }
 const sf::Vector2f& Button::getSize() {
-    return buttonRect.getSize();
+    return rectangle.getSize();
 }
 
 void Button::setText(std::string text) {
-    buttonText.setString(text);
+    label.setString(text);
     centerText();
 }
-const std::string Button::getText() { return buttonText.getString(); }
+const std::string Button::getText() { return label.getString(); }
 
 void Button::setCharacterSize(unsigned int size) {
-    buttonText.setCharacterSize(size);
+    label.setCharacterSize(size);
     centerText();
 }
 unsigned int Button::getCharacterSize() {
-    return buttonText.getCharacterSize();
+    return label.getCharacterSize();
 }
 
 void Button::setFillColor(const sf::Color& color) {
-    buttonRect.setFillColor(color);
+    rectangle.setFillColor(color);
 }
-const sf::Color& Button::getFillColor() { return buttonRect.getFillColor(); }
+const sf::Color& Button::getFillColor() { return rectangle.getFillColor(); }
 
 void Button::setTextColor(const sf::Color& color) {
-    buttonText.setFillColor(color);
+    label.setFillColor(color);
 }
-const sf::Color& Button::getTextColor() { return buttonText.getFillColor(); }
+const sf::Color& Button::getTextColor() { return label.getFillColor(); }
 
-sf::FloatRect Button::getGlobalBounds() { return buttonRect.getGlobalBounds(); }
+sf::FloatRect Button::getGlobalBounds() { return rectangle.getGlobalBounds(); }
 
 void Button::setState(const State& state) {
     if (state == State::Released) {
         resetTimeSinceClick();
     }
     currentState = state;
-    buttonRect.setFillColor(stateColors[state]);
+    rectangle.setFillColor(stateColors[state]);
 }
 const Button::State Button::getState() { return currentState; }
 void Button::setStateColor(const State state, const sf::Color& color) {
@@ -171,11 +171,11 @@ bool Button::handleInput(sf::Event e) {
 }
 
 void Button::centerText() {
-    buttonTextBounds = buttonText.getLocalBounds();
-    sf::Vector2f rectPos = buttonRect.getPosition();
-    sf::FloatRect rectBounds = buttonRect.getLocalBounds();
-    buttonText.setOrigin(buttonTextBounds.left + buttonTextBounds.width / 2,
-                         buttonTextBounds.top + buttonTextBounds.height / 2);
-    buttonText.setPosition(rectPos.x + rectBounds.width / 2,
+    labelBounds = label.getLocalBounds();
+    sf::Vector2f rectPos = rectangle.getPosition();
+    sf::FloatRect rectBounds = rectangle.getLocalBounds();
+    label.setOrigin(labelBounds.left + labelBounds.width / 2,
+                         labelBounds.top + labelBounds.height / 2);
+    label.setPosition(rectPos.x + rectBounds.width / 2,
                            rectPos.y + rectBounds.height / 2);
 }
