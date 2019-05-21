@@ -83,6 +83,9 @@ const sf::Color& Button::getTextColor() { return buttonText.getFillColor(); }
 sf::FloatRect Button::getGlobalBounds() { return buttonRect.getGlobalBounds(); }
 
 void Button::setState(const State& state) {
+    if (state == State::Released) {
+        resetTimeSinceClick();
+    }
     currentState = state;
     buttonRect.setFillColor(stateColors[state]);
 }
