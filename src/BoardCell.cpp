@@ -10,15 +10,25 @@ BoardCell::BoardCell(const BoardCell& bc)
       mContext(bc.mContext),
       mCurrentState(bc.mCurrentState) {}
 
-void BoardCell::setState(BoardCell::State state) {
-    mCurrentState = state;
+void BoardCell::setState(BoardCell::State state) { mCurrentState = state; }
+
+BoardCell::State BoardCell::getState() { return mCurrentState; }
+
+bool BoardCell::input(sf::Event e) {
+    if (mCurrentState == State::Inactive) {
+        return false;
+    }
+    Button::handleInput(e);
+    return true;
 }
 
-BoardCell::State BoardCell::getState() {
-    return mCurrentState;
+bool BoardCell::update(sf::Time deltaTime) {
+    if (mCurrentState == State::Inactive) {
+        return false;
+    }
+    Button::update(deltaTime);
+    return true;
 }
-
-void BoardCell::input(sf::Event e) { handleInput(e); }
 
 void BoardCell::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     Button::draw(target, states);

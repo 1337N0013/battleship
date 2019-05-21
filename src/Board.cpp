@@ -34,6 +34,7 @@ Board::Board(Scene::Context& context)
             if (i >= xOffset && i < xOffset + boardSize && j >= yOffset &&
                 j < yOffset + boardSize) {
                 mCells[i][j].setState(BoardCell::State::None);
+                mCells[i][j].setFillColor(sf::Color::Magenta);
             } else {
                 mCells[i][j].setState(BoardCell::State::Inactive);
             }

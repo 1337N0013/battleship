@@ -21,7 +21,8 @@ class BoardCell : public Button {
     void setState(State state);
     State getState();
 
-    void input(sf::Event e);
+    bool input(sf::Event e);
+    bool update(sf::Time deltaTime);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
    private:
