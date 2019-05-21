@@ -2,6 +2,12 @@
 
 Command::~Command() {}
 
+EmptyCommand::EmptyCommand() {}
+
+EmptyCommand::~EmptyCommand() {}
+
+void EmptyCommand::execute() {}
+
 namespace SceneCommand {
 
 ChangeScene::~ChangeScene() {}

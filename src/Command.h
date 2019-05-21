@@ -10,6 +10,13 @@ class Command {
     virtual void execute() = 0;
 };
 
+class EmptyCommand : public Command {
+   public:
+    EmptyCommand();
+    ~EmptyCommand();
+    void execute();
+};
+
 namespace SceneCommand {
 
 class ChangeScene : public Command {
