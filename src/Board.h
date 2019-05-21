@@ -13,6 +13,8 @@ class Board : public sf::Drawable {
     Board(Scene::Context& context);
     ~Board();
 
+    bool input(sf::Event e);
+    bool update(sf::Time deltaTime);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
    private:

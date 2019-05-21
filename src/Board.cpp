@@ -40,6 +40,24 @@ Board::Board(Scene::Context& context)
 
 Board::~Board() {}
 
+bool Board::input(sf::Event e) {
+    for (auto i = mCells.begin(); i != mCells.end(); i++) {
+        for (auto j = i->begin(); j != i->end(); j++) {
+            j->input(e);
+        }
+    }
+    return true;
+}
+
+bool Board::update(sf::Time deltaTime) {
+    for (auto i = mCells.begin(); i != mCells.end(); i++) {
+        for (auto j = i->begin(); j != i->end(); j++) {
+            j->update(deltaTime);
+        }
+    }
+    return true;
+}
+
 void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     for (auto i = mCells.begin(); i != mCells.end(); i++) {
         for (auto j = i->begin(); j != i->end(); j++) {

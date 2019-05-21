@@ -4,6 +4,10 @@ BoardCell::BoardCell(Scene::Context& context) : Button("", context.font), mConte
 
 BoardCell::BoardCell(const BoardCell& bc) : Button("", bc.mContext.font), mContext(bc.mContext) {}
 
+void BoardCell::input(sf::Event e) {
+    handleInput(e);
+}
+
 void BoardCell::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     Button::draw(target, states);
 }

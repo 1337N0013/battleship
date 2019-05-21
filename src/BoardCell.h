@@ -9,6 +9,7 @@ class BoardCell : public Button {
     BoardCell(Scene::Context& context);
     BoardCell(const BoardCell&);
 
+    void input(sf::Event e);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
     private:
