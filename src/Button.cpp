@@ -1,5 +1,6 @@
 #include "Button.h"
 #include <iostream>
+#include "Command.h"
 
 using std::cout;
 
@@ -26,13 +27,13 @@ Button::Button(const sf::Vector2f& position, const sf::Vector2f& size,
                const std::string& text, sf::Font& font)
     : Button(position.x, position.y, size, text, font) {}
 Button::Button(const float left, const float top, const float width,
-               const float height, const std::string& text,
-               sf::Font& font)
+               const float height, const std::string& text, sf::Font& font)
     : Button(left, top, sf::Vector2f(width, height), text, font) {}
 Button::Button(const std::string& text, sf::Font& font)
     : Button(0, 0, 100, 100, text, font) {
-        onClickCommand.reset(new EmptyCommand());
-    }
+    onClickCommand.reset(new EmptyCommand());
+}
+Button::~Button() {}
 
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     target.draw(rectangle, states);
@@ -54,9 +55,7 @@ void Button::setSize(const sf::Vector2f& size) {
     rectangle.setSize(size);
     centerText();
 }
-const sf::Vector2f& Button::getSize() {
-    return rectangle.getSize();
-}
+const sf::Vector2f& Button::getSize() { return rectangle.getSize(); }
 
 void Button::setText(std::string text) {
     label.setString(text);
@@ -68,18 +67,14 @@ void Button::setCharacterSize(unsigned int size) {
     label.setCharacterSize(size);
     centerText();
 }
-unsigned int Button::getCharacterSize() {
-    return label.getCharacterSize();
-}
+unsigned int Button::getCharacterSize() { return label.getCharacterSize(); }
 
 void Button::setFillColor(const sf::Color& color) {
     rectangle.setFillColor(color);
 }
 const sf::Color& Button::getFillColor() { return rectangle.getFillColor(); }
 
-void Button::setTextColor(const sf::Color& color) {
-    label.setFillColor(color);
-}
+void Button::setTextColor(const sf::Color& color) { label.setFillColor(color); }
 const sf::Color& Button::getTextColor() { return label.getFillColor(); }
 
 sf::FloatRect Button::getGlobalBounds() { return rectangle.getGlobalBounds(); }
@@ -160,7 +155,8 @@ bool Button::handleInput(sf::Event e) {
             break;
         }
         case State::Released: {
-            if (e.type == sf::Event::MouseButtonPressed && e.mouseButton.button == sf::Mouse::Left) {
+            if (e.type == sf::Event::MouseButtonPressed &&
+                e.mouseButton.button == sf::Mouse::Left) {
                 setState(State::Pressed);
             }
             return true;
@@ -177,7 +173,7 @@ void Button::centerText() {
     sf::Vector2f rectPos = rectangle.getPosition();
     sf::FloatRect rectBounds = rectangle.getLocalBounds();
     label.setOrigin(labelBounds.left + labelBounds.width / 2,
-                         labelBounds.top + labelBounds.height / 2);
+                    labelBounds.top + labelBounds.height / 2);
     label.setPosition(rectPos.x + rectBounds.width / 2,
-                           rectPos.y + rectBounds.height / 2);
+                      rectPos.y + rectBounds.height / 2);
 }

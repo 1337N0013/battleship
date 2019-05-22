@@ -3,8 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
-#include "Command.h"
 #include "Scene.h"
+
+class Command;
 
 class Button : public sf::Drawable, public sf::Transformable {
     const float buttonReleaseTime = 0.3f;
@@ -30,8 +31,10 @@ class Button : public sf::Drawable, public sf::Transformable {
            const std::string& text, sf::Font& font);
     Button(const float left, const float top, const float width,
            const float height, const std::string& text, sf::Font& font);
+    ~Button();
 
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    virtual void draw(sf::RenderTarget& target,
+                      sf::RenderStates states) const override;
 
     void setPosition(const float x, const float y);
     void setPosition(const sf::Vector2f& pos);
