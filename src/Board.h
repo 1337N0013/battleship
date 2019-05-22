@@ -12,6 +12,9 @@ class Board : public sf::Drawable {
     ~Board();
     std::vector<BoardCell>& operator[](int row);
 
+    unsigned int getNumberOfShips();
+    void setBattlePhase();
+
     bool input(sf::Event e);
     bool update(sf::Time deltaTime);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;

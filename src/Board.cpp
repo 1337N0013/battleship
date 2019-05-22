@@ -51,6 +51,26 @@ std::vector<BoardCell>& Board::operator[](int row) {
     return mCells[row];
 }
 
+unsigned int Board::getNumberOfShips() {
+    unsigned int sum = 0;
+    for (auto i = mCells.begin(); i != mCells.end(); i++) {
+        for (auto j = i->begin(); j != i->end(); j++) {
+            if (j->getState() == BoardCell::State::Ship) {
+                sum++;
+            }
+        }
+    }
+    return sum;
+}
+
+void Board::setBattlePhase() {
+    for (auto i = mCells.begin(); i != mCells.end(); i++) {
+        for (auto j = i->begin(); j != i->end(); j++) {
+            j->onClickCommand.reset(new GameCommands::Attack(mGameState, *j));
+        }
+    }
+}
+
 bool Board::input(sf::Event e) {
     for (auto i = mCells.begin(); i != mCells.end(); i++) {
         for (auto j = i->begin(); j != i->end(); j++) {
