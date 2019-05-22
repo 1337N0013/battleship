@@ -1,14 +1,19 @@
+#include "Command.h"
 #include "BoardCell.h"
 
 BoardCell::BoardCell(Scene::Context& context)
     : Button("", context.font),
       mContext(context),
-      mCurrentState(State::Inactive) {}
+      mCurrentState(State::Inactive) {
+    onClickCommand.reset(new EmptyCommand());
+}
 
 BoardCell::BoardCell(const BoardCell& bc)
     : Button("", bc.mContext.font),
       mContext(bc.mContext),
-      mCurrentState(bc.mCurrentState) {}
+      mCurrentState(bc.mCurrentState) {
+    onClickCommand.reset(new EmptyCommand());
+}
 
 void BoardCell::setState(BoardCell::State state) { mCurrentState = state; }
 
