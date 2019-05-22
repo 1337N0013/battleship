@@ -1,5 +1,5 @@
-#include "SettingsScene.h"
 #include "Command.h"
+#include "SettingsScene.h"
 
 SettingsScene::SettingsScene(SceneStack& stack, Context& context)
     : Scene(stack, context),

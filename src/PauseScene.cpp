@@ -1,3 +1,4 @@
+#include "Command.h"
 #include "PauseScene.h"
 
 PauseScene::PauseScene(SceneStack& stack, Context& context)

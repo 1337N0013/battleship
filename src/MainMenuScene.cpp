@@ -1,6 +1,6 @@
+#include "Command.h"
 #include "MainMenuScene.h"
 #include <iostream>
-#include "Button.h"
 
 MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
     : Scene(stack, context),

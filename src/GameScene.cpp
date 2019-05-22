@@ -38,20 +38,7 @@ void GameScene::draw() {
     mWindow.draw(player1Board);
 }
 
-bool GameScene::update(sf::Time deltaTime) { 
+bool GameScene::update(sf::Time deltaTime) {
     player1Board.update(deltaTime);
-    return true; }
-
-// GameScene::PlayerBoards::PlayerBoards(GameSettings& gameSettings)
-//     : player1(gameSettings.getBoardSize().x,
-//               std::vector<Board::CellState>(gameSettings.getBoardSize().x)),
-//       player2(gameSettings.getBoardSize().x,
-//               std::vector<Board::CellState>(gameSettings.getBoardSize().x)) {
-//     for (int i = 0; i < player1.size(); i++) {
-//         for (int j = 0; j < player1[i].size(); j++) {
-//             std::cout << i << ", " << j << std::endl;
-//             player1[i][j] = Board::CellState::Inactive;
-//             player2[i][j] = Board::CellState::Inactive;
-//         }
-//     }
-// }
+    return true;
+}
