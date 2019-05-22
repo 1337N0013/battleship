@@ -2,8 +2,8 @@
 #define GAMESCENE_H
 
 // #include "Board.h"
-#include "Scene.h"
 #include "GameSettings.h"
+#include "Scene.h"
 
 class Board;
 
@@ -11,11 +11,19 @@ class GameScene : public Scene {
    public:
     struct GameState {
         GameState(GameSettings& gameSettings);
+
+        unsigned int getTurn();
+        unsigned int getPlayer();
+        void incrementTurn();
+        void resetTurnsToZero();
+
         enum class Phase { Preparation, Battle };
-        unsigned int numberOfShips[2];
-        bool turn;
-        unsigned int maxShips;
         Phase currentPhase;
+        unsigned int numberOfShips[2];
+        unsigned int maxShips;
+
+       private:
+        int turn;
     };
 
    public:
@@ -36,8 +44,7 @@ class GameScene : public Scene {
     //     std::vector<std::vector<Board::CellState>> player2;
     // };
 
-    std::unique_ptr<Board> player1Board;
-    std::unique_ptr<Board> player2Board;
+    std::unique_ptr<Board> playerBoards[2];
 
     // PlayerBoards mPlayerBoards;
 
