@@ -1,6 +1,13 @@
 #include "Command.h"
+#include <iostream>
 
 Command::~Command() {}
+
+EmptyCommand::EmptyCommand() {}
+
+EmptyCommand::~EmptyCommand() {}
+
+void EmptyCommand::execute() {}
 
 namespace SceneCommand {
 
@@ -60,6 +67,9 @@ IncreaseBoard::IncreaseBoard(Scene::Context& context) : mContext(context) {}
 IncreaseBoard::~IncreaseBoard() {}
 void IncreaseBoard::execute() {
     sf::Vector2u size = mContext.gameSettings.getBoardSize();
+    if (size.x >= 10 || size.y >= 10) {
+        return;
+    }
     size.x++;
     size.y++;
     mContext.gameSettings.setBoardSize(size);
@@ -78,3 +88,19 @@ void DecreaseBoard::execute() {
 }
 
 }  // namespace SettingsCommand
+
+namespace GameCommands {
+
+PlaceShip::PlaceShip(BoardCell cell) : mCell(cell) {}
+PlaceShip::PlaceShip(Board board, sf::Vector2u coord) : mCell(board[coord.x][coord.y]) {}
+PlaceShip::PlaceShip(Board board, unsigned int x, unsigned int y) : mCell(board[x][y]) {}
+PlaceShip::~PlaceShip() {}
+void PlaceShip::execute() {
+    std::cout << "(" << mCell.getCoord().x << ", " << mCell.getCoord().y << ")\n";
+    if (mCell.getState() == BoardCell::State::None) {
+        std::cout << "MADE (" << mCell.getCoord().x << ", " << mCell.getCoord().y << ") SHIP\n";
+        mCell.setState(BoardCell::State::Ship);
+    }
+}
+
+}  // namespace GameCommands

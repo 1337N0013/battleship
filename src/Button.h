@@ -3,19 +3,21 @@
 
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
-#include "Command.h"
 #include "Scene.h"
+
+class Command;
 
 class Button : public sf::Drawable, public sf::Transformable {
     const float buttonReleaseTime = 0.3f;
 
-    sf::RectangleShape buttonRect;
     sf::Font& mFont;
-    sf::Text buttonText;
-    sf::FloatRect buttonTextBounds;
+    sf::FloatRect labelBounds;
     static sf::Vector2i lastMousePos;
 
    public:
+    sf::RectangleShape rectangle;
+    sf::Text label;
+
     std::unique_ptr<Command> onClickCommand;
 
     sf::Time timeSinceClick;
@@ -29,8 +31,10 @@ class Button : public sf::Drawable, public sf::Transformable {
            const std::string& text, sf::Font& font);
     Button(const float left, const float top, const float width,
            const float height, const std::string& text, sf::Font& font);
+    ~Button();
 
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+    virtual void draw(sf::RenderTarget& target,
+                      sf::RenderStates states) const override;
 
     void setPosition(const float x, const float y);
     void setPosition(const sf::Vector2f& pos);
@@ -61,9 +65,9 @@ class Button : public sf::Drawable, public sf::Transformable {
 
     void resetTimeSinceClick();
 
-    bool update(sf::Time deltaTime);
+    virtual bool update(sf::Time deltaTime);
 
-    bool handleInput(sf::Event e);
+    virtual bool handleInput(sf::Event e);
 
    private:
     State currentState;

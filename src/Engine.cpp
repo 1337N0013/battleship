@@ -9,7 +9,7 @@
 using std::cout;
 
 Engine::Engine()
-    : mWindow(sf::VideoMode(windowWidth, windowHeight), "Battleship"),
+    : mWindow(sf::VideoMode(windowWidth, windowHeight), "Battleship", sf::Style::Titlebar | sf::Style::Close),
       mFont(),
       mGameSettings(),
       mSceneStack(Scene::Context(mWindow, mFont, mGameSettings)),
