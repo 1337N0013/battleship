@@ -113,14 +113,29 @@ namespace GameCommands {
 
 class PlaceShip : public Command {
    public:
-    PlaceShip(BoardCell cell);
-    PlaceShip(Board board, sf::Vector2u coord);
-    PlaceShip(Board board, unsigned int x, unsigned int y);
+    PlaceShip(GameScene::GameState& state, BoardCell& cell);
+    PlaceShip(GameScene::GameState& state, Board board, sf::Vector2u coord);
+    PlaceShip(GameScene::GameState& state, Board board, unsigned int x, unsigned int y);
     ~PlaceShip();
     void execute();
 
    private:
-    BoardCell mCell;
+    GameScene::GameState& mGameState;
+    BoardCell& mCell;
+};
+
+class Attack : public Command {
+   public:
+    Attack(GameScene::GameState& state, BoardCell& cell);
+    Attack(GameScene::GameState& state, Board board, sf::Vector2u coord);
+    Attack(GameScene::GameState& state, Board board, unsigned int x,
+              unsigned int y);
+    ~Attack();
+    void execute();
+
+   private:
+    GameScene::GameState& mGameState;
+    BoardCell& mCell;
 };
 
 }  // namespace GameCommands

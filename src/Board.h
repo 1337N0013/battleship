@@ -4,21 +4,26 @@
 #include <SFML/Graphics.hpp>
 #include "BoardCell.h"
 #include "Scene.h"
+#include "GameScene.h"
 
 class Board : public sf::Drawable {
    public:
-    Board(Scene::Context& context);
+    Board(GameScene::GameState& state, Scene::Context& context);
     ~Board();
     std::vector<BoardCell>& operator[](int row);
+
+    unsigned int getNumberOfShips();
+    void setBattlePhase();
 
     bool input(sf::Event e);
     bool update(sf::Time deltaTime);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
    private:
-    Scene::Context& mContext;
-
     std::vector<std::vector<BoardCell>> mCells;
+    GameScene::GameState& mGameState;
+    
+    Scene::Context& mContext;
 };
 
 #endif

@@ -2,7 +2,7 @@
 #include "Board.h"
 #include <iostream>
 
-Board::Board(Scene::Context& context) : mContext(context), mCells() {
+Board::Board(GameScene::GameState& state, Scene::Context& context) : mContext(context), mGameState(state), mCells() {
     // initialize mCells first
     // attempting to insert this loop into the following loop
     // causes some weird error where only one square
@@ -23,6 +23,7 @@ Board::Board(Scene::Context& context) : mContext(context), mCells() {
             mCells[i][j].setPosition(69 * i + 40, 69 * j + 40);
             mCells[i][j].rectangle.setOutlineThickness(2);
             mCells[i][j].rectangle.setOutlineColor(sf::Color::Black);
+            mCells[i][j].onClickCommand.reset(new GameCommands::PlaceShip(mGameState, mCells[i][j]));
 
             const int boardSize = context.gameSettings.getBoardSize().x;
             int xOffset = (10 / 2 - boardSize / 2);
@@ -34,11 +35,8 @@ Board::Board(Scene::Context& context) : mContext(context), mCells() {
             if (i >= xOffset && i < xOffset + boardSize && j >= yOffset &&
                 j < yOffset + boardSize) {
                 mCells[i][j].setState(BoardCell::State::None);
-                mCells[i][j].onClickCommand.reset(new GameCommands::PlaceShip(mCells[i][j]));
                 mCells[i][j].setFillColor(sf::Color::Magenta);
-            }/*  else {
-                mCells[i][j].setState(BoardCell::State::Inactive);
-            } */
+            }
 
             if (mCells[i][j].getState() == BoardCell::State::None) {
                 std::cout << i << ", " << j << " = NONE\n";
@@ -51,6 +49,26 @@ Board::~Board() {}
 
 std::vector<BoardCell>& Board::operator[](int row) {
     return mCells[row];
+}
+
+unsigned int Board::getNumberOfShips() {
+    unsigned int sum = 0;
+    for (auto i = mCells.begin(); i != mCells.end(); i++) {
+        for (auto j = i->begin(); j != i->end(); j++) {
+            if (j->getState() == BoardCell::State::Ship) {
+                sum++;
+            }
+        }
+    }
+    return sum;
+}
+
+void Board::setBattlePhase() {
+    for (auto i = mCells.begin(); i != mCells.end(); i++) {
+        for (auto j = i->begin(); j != i->end(); j++) {
+            j->onClickCommand.reset(new GameCommands::Attack(mGameState, *j));
+        }
+    }
 }
 
 bool Board::input(sf::Event e) {
