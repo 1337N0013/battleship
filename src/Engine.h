@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
 #include "SceneStack.h"
 #include "GameSettings.h"
 
@@ -13,9 +14,12 @@ class Engine {
     sf::Font mFont;
     GameSettings mGameSettings;
     SceneStack mSceneStack;
+    sf ::Texture mBackground;
 
     sf::Text mFpsCounter;
     sf::Time mFpsTime;
+    sf::Music mMainMenuMusic;
+    sf::Music mGameSceneMusic;
 
     void input();
     void update(sf::Time deltaTime);

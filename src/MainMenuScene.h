@@ -2,10 +2,9 @@
 #define MAINMENUSCENE_H
 
 #include <SFML/Graphics.hpp>
-#include "Button.h"
 #include "Scene.h"
 #include "SceneStack.h"
-#include "Command.h"
+#include "Button.h"
 
 class MainMenuScene : public Scene {
    public:
@@ -19,8 +18,11 @@ class MainMenuScene : public Scene {
     sf::Font mFont;
     sf::RenderWindow& mWindow;
     sf::Vector2u mWindowSize;
+    sf::Sprite mBackgroundSprite;
+    sf::Music& mMainMenuMusic;
 
     sf::Text title;
+    sf::Time titleBlinkTime;
     Button playButton, exitButton;
 };
 

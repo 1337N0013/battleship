@@ -2,6 +2,7 @@
 #define SCENE_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "GameSettings.h"
 
 class SceneStack;  // forward declaration, solves circular dependency
@@ -9,10 +10,13 @@ class SceneStack;  // forward declaration, solves circular dependency
 class Scene {
    public:
     struct Context {
-        Context (sf::RenderWindow& window, sf::Font& font, GameSettings& gameSettings);
+        Context (sf::RenderWindow& window, sf::Font& font, GameSettings& gameSettings, sf::Texture& background, sf::Music& mainMenuMusic, sf::Music& gameSceneMusic);
         sf::RenderWindow& window;
         sf::Font& font;
         GameSettings& gameSettings;
+        sf::Texture& background;
+        sf::Music& mainMenuMusic;
+        sf::Music& gameSceneMusic;
     };
 
     enum class ID { None, MainMenu, Game, Settings, Pause };

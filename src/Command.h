@@ -3,11 +3,20 @@
 
 #include "Scene.h"
 #include "SceneStack.h"
+#include "Board.h"
+#include "BoardCell.h"
 
 class Command {
    public:
     virtual ~Command();
     virtual void execute() = 0;
+};
+
+class EmptyCommand : public Command {
+   public:
+    EmptyCommand();
+    ~EmptyCommand();
+    void execute();
 };
 
 namespace SceneCommand {
@@ -99,5 +108,36 @@ class DecreaseBoard : public Command {
 };
 
 }  // namespace SettingsCommand
+
+namespace GameCommands {
+
+class PlaceShip : public Command {
+   public:
+    PlaceShip(GameScene::GameState& state, BoardCell& cell);
+    PlaceShip(GameScene::GameState& state, Board board, sf::Vector2u coord);
+    PlaceShip(GameScene::GameState& state, Board board, unsigned int x, unsigned int y);
+    ~PlaceShip();
+    void execute();
+
+   private:
+    GameScene::GameState& mGameState;
+    BoardCell& mCell;
+};
+
+class Attack : public Command {
+   public:
+    Attack(GameScene::GameState& state, BoardCell& cell);
+    Attack(GameScene::GameState& state, Board board, sf::Vector2u coord);
+    Attack(GameScene::GameState& state, Board board, unsigned int x,
+              unsigned int y);
+    ~Attack();
+    void execute();
+
+   private:
+    GameScene::GameState& mGameState;
+    BoardCell& mCell;
+};
+
+}  // namespace GameCommands
 
 #endif

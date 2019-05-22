@@ -1,5 +1,5 @@
-#include "SettingsScene.h"
 #include "Command.h"
+#include "SettingsScene.h"
 
 SettingsScene::SettingsScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
@@ -40,21 +40,39 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
         new SceneCommand::ChangeAndRemoveScene(*this, Scene::ID::Game));
 }
 
-SettingsScene::~SettingsScene() {}
+SettingsScene::~SettingsScene() {
+    getContext().mainMenuMusic.stop();
+}
 
 bool SettingsScene::input(const sf::Event& e) {
     switch (e.type) {
+        case sf::Event::KeyPressed: {
+            if (e.key.code == sf::Keyboard::Up) {
+                mIncreaseShips.setState(Button::State::Pressed);
+            } else if (e.key.code == sf::Keyboard::Down) {
+                mDecreaseShips.setState(Button::State::Pressed);
+            } else if (e.key.code == sf::Keyboard::Right) {
+                mIncreaseBoard.setState(Button::State::Pressed);
+            } else if (e.key.code == sf::Keyboard::Left) {
+                mDecreaseBoard.setState(Button::State::Pressed);
+            }
+            break;
+        }
         case sf::Event::KeyReleased: {
             if (e.key.code == sf::Keyboard::Escape) {
                 requestScenePop();
             } else if (e.key.code == sf::Keyboard::Up) {
                 SettingsCommand::IncreaseShips(getContext()).execute();
+                mIncreaseShips.setState(Button::State::Released);
             } else if (e.key.code == sf::Keyboard::Down) {
                 SettingsCommand::DecreaseShips(getContext()).execute();
+                mDecreaseShips.setState(Button::State::Released);
             } else if (e.key.code == sf::Keyboard::Right) {
                 SettingsCommand::IncreaseBoard(getContext()).execute();
+                mIncreaseBoard.setState(Button::State::Released);
             } else if (e.key.code == sf::Keyboard::Left) {
                 SettingsCommand::DecreaseBoard(getContext()).execute();
+                mDecreaseBoard.setState(Button::State::Released);
             }
         }
         default:

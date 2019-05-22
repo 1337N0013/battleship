@@ -1,6 +1,13 @@
 #include "Command.h"
+#include <iostream>
 
 Command::~Command() {}
+
+EmptyCommand::EmptyCommand() {}
+
+EmptyCommand::~EmptyCommand() {}
+
+void EmptyCommand::execute() {}
 
 namespace SceneCommand {
 
@@ -60,6 +67,9 @@ IncreaseBoard::IncreaseBoard(Scene::Context& context) : mContext(context) {}
 IncreaseBoard::~IncreaseBoard() {}
 void IncreaseBoard::execute() {
     sf::Vector2u size = mContext.gameSettings.getBoardSize();
+    if (size.x >= 10 || size.y >= 10) {
+        return;
+    }
     size.x++;
     size.y++;
     mContext.gameSettings.setBoardSize(size);
@@ -78,3 +88,58 @@ void DecreaseBoard::execute() {
 }
 
 }  // namespace SettingsCommand
+
+namespace GameCommands {
+
+PlaceShip::PlaceShip(GameScene::GameState& state, BoardCell& cell)
+    : mGameState(state), mCell(cell) {}
+PlaceShip::PlaceShip(GameScene::GameState& state, Board board,
+                     sf::Vector2u coord)
+    : mGameState(state), mCell(board[coord.x][coord.y]) {}
+PlaceShip::PlaceShip(GameScene::GameState& state, Board board, unsigned int x,
+                     unsigned int y)
+    : mGameState(state), mCell(board[x][y]) {}
+PlaceShip::~PlaceShip() {}
+void PlaceShip::execute() {
+    if (mCell.getState() == BoardCell::State::None &&
+        mGameState.numberOfShips[mGameState.getPlayer()] < mGameState.maxShips) {
+        mGameState.numberOfShips[mGameState.getPlayer()]++;
+        std::cout << "MADE (" << mCell.getCoord().x << ", "
+                  << mCell.getCoord().y << ") SHIP\n";
+        mCell.setState(BoardCell::State::Ship);
+    }
+    std::cout << "AT (" << mCell.getCoord().x << ", " << mCell.getCoord().y
+              << ")\n";
+    std::cout << "SHIPS: " << mGameState.numberOfShips[mGameState.getPlayer()]
+              << " OUT OF " << mGameState.maxShips << "\n";
+}
+
+Attack::Attack(GameScene::GameState& state, BoardCell& cell)
+    : mGameState(state), mCell(cell) {}
+Attack::Attack(GameScene::GameState& state, Board board, sf::Vector2u coord)
+    : mGameState(state), mCell(board[coord.x][coord.y]) {}
+Attack::Attack(GameScene::GameState& state, Board board, unsigned int x,
+               unsigned int y)
+    : mGameState(state), mCell(board[x][y]) {}
+Attack::~Attack() {}
+void Attack::execute() {
+    if (mCell.getState() == BoardCell::State::Ship &&
+        mGameState.numberOfShips[mGameState.getPlayer()] > 0) {
+        mGameState.numberOfShips[mGameState.getPlayer()]--;
+        std::cout << "PLAYER ATTACKING: " << mGameState.getPlayer() << "\n";
+        std::cout << "HIT (" << mCell.getCoord().x << ", " << mCell.getCoord().y
+                  << ") SHIP\n";
+        mCell.setState(BoardCell::State::Hit);
+        mGameState.incrementTurn();
+    } else if (mCell.getState() == BoardCell::State::None) {
+        mCell.setState(BoardCell::State::Miss);
+        std::cout << "MISS AT (" << mCell.getCoord().x << ", "
+                  << mCell.getCoord().y << ")\n";
+        std::cout << "SHIPS: " << mGameState.numberOfShips[mGameState.getPlayer()]
+                  << " OUT OF " << mGameState.maxShips << "\n";
+        mGameState.incrementTurn();
+    }
+    std::cout << "TURN IS NOW " << mGameState.getTurn() << "\n";
+}
+
+}  // namespace GameCommands
