@@ -1,9 +1,7 @@
 #include "Board.h"
 #include <iostream>
 
-Board::Board(Scene::Context& context)
-    : mContext(context),
-      mCells() {
+Board::Board(Scene::Context& context) : mContext(context), mCells() {
     // initialize mCells first
     // attempting to insert this loop into the following loop
     // causes some weird error where only one square
@@ -15,7 +13,7 @@ Board::Board(Scene::Context& context)
         }
         mCells.push_back(row);
     }
-    
+
     // set properties of each cell
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
@@ -43,6 +41,10 @@ Board::Board(Scene::Context& context)
 }
 
 Board::~Board() {}
+
+std::vector<BoardCell>& Board::operator[](int row) {
+    return mCells[row];
+}
 
 bool Board::input(sf::Event e) {
     for (auto i = mCells.begin(); i != mCells.end(); i++) {
