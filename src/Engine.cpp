@@ -21,7 +21,9 @@ Engine::Engine()
         throw std::runtime_error("Could not load font.");
     }
 
-    if(!mBackground.loadFromFile("res/img/title/bg.png", sf::IntRect(0, 0, 1999, 1123)));
+    if(!mBackground.loadFromFile("res/img/title/bg.png", sf::IntRect(0, 0, 1999, 1123))) {
+        throw std::runtime_error("Could not load res/img/title/bg.png");
+    }
 
     mGameSettings.setBoardSize(5, 5);
     mGameSettings.setNumberOfShips(5);

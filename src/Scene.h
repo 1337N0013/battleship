@@ -9,7 +9,7 @@ class SceneStack;  // forward declaration, solves circular dependency
 class Scene {
    public:
     struct Context {
-        Context (sf::RenderWindow& window, sf::Font& font, GameSettings& gameSettings, sf::Texture background);
+        Context (sf::RenderWindow& window, sf::Font& font, GameSettings& gameSettings, sf::Texture& background);
         sf::RenderWindow& window;
         sf::Font& font;
         GameSettings& gameSettings;

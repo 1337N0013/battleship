@@ -46,6 +46,7 @@ bool MainMenuScene::input(const sf::Event& e) {
 }
 
 void MainMenuScene::draw() {
+    mWindow.draw(mSpriteBG);
     mWindow.draw(title);
     mWindow.draw(playButton);
     mWindow.draw(exitButton);
