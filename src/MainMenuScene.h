@@ -18,6 +18,7 @@ class MainMenuScene : public Scene {
     sf::Font mFont;
     sf::RenderWindow& mWindow;
     sf::Vector2u mWindowSize;
+    sf::Sprite mSpriteBG;
 
     sf::Text title;
     Button playButton, exitButton;

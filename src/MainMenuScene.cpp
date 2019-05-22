@@ -9,7 +9,8 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
       mWindowSize(mWindow.getSize()),
       playButton(mWindowSize.x / 2 - 150, mWindowSize.y / 2 - 15, 300, 30,
                  std::string("Play"), context.font),
-      exitButton(0, 0, 300, 30, std::string("Exit"), context.font) {
+      exitButton(0, 0, 300, 30, std::string("Exit"), context.font),
+      mSpriteBG(context.background) {
     exitButton.setPosition(playButton.getPosition().x,
                            playButton.getPosition().y + 50);
 
@@ -22,6 +23,8 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
     playButton.onClickCommand.reset(
         new SceneCommand::ChangeScene(*this, Scene::ID::Settings));
     exitButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this));
+
+    mSpriteBG.setPosition(0, 0);
 }
 
 MainMenuScene::~MainMenuScene() {}
