@@ -2,7 +2,7 @@
 #include "Board.h"
 #include <iostream>
 
-Board::Board(Scene::Context& context) : mContext(context), mCells() {
+Board::Board(GameScene::GameState& state, Scene::Context& context) : mContext(context), mGameState(state), mCells() {
     // initialize mCells first
     // attempting to insert this loop into the following loop
     // causes some weird error where only one square

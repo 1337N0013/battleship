@@ -4,10 +4,11 @@
 #include <SFML/Graphics.hpp>
 #include "BoardCell.h"
 #include "Scene.h"
+#include "GameScene.h"
 
 class Board : public sf::Drawable {
    public:
-    Board(Scene::Context& context);
+    Board(GameScene::GameState& state, Scene::Context& context);
     ~Board();
     std::vector<BoardCell>& operator[](int row);
 
@@ -16,9 +17,10 @@ class Board : public sf::Drawable {
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
    private:
-    Scene::Context& mContext;
-
     std::vector<std::vector<BoardCell>> mCells;
+    GameScene::GameState& mGameState;
+    
+    Scene::Context& mContext;
 };
 
 #endif

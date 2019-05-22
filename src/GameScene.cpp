@@ -1,3 +1,4 @@
+#include "Board.h"
 #include "GameScene.h"
 #include <iostream>
 
@@ -5,8 +6,8 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
       mWindow(context.window),
       mTestText("Hello", context.font),
-      player1Board(context),
-      player2Board(context) {
+      player1Board(new Board(currentGameState, context)),
+      player2Board(new Board(currentGameState, context)) {
     mBackground.setPosition(0, 0);
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
@@ -28,18 +29,18 @@ bool GameScene::input(const sf::Event& e) {
         default:
             break;
     }
-    player1Board.input(e);
+    player1Board->input(e);
     return true;
 }
 
 void GameScene::draw() {
     mWindow.draw(mBackground);
     mWindow.draw(mTestText);
-    mWindow.draw(player1Board);
+    mWindow.draw(*player1Board);
 }
 
 bool GameScene::update(sf::Time deltaTime) {
-    player1Board.update(deltaTime);
+    player1Board->update(deltaTime);
     return true;
 }
 

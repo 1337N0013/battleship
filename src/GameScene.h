@@ -1,9 +1,11 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
-#include "Board.h"
+// #include "Board.h"
 #include "Scene.h"
 #include "GameSettings.h"
+
+class Board;
 
 class GameScene : public Scene {
    public:
@@ -33,8 +35,8 @@ class GameScene : public Scene {
     //     std::vector<std::vector<Board::CellState>> player2;
     // };
 
-    Board player1Board;
-    Board player2Board;
+    std::unique_ptr<Board> player1Board;
+    std::unique_ptr<Board> player2Board;
 
     // PlayerBoards mPlayerBoards;
 
