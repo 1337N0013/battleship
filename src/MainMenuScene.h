@@ -19,6 +19,7 @@ class MainMenuScene : public Scene {
     sf::RenderWindow& mWindow;
     sf::Vector2u mWindowSize;
     sf::Sprite mBackgroundSprite;
+    sf::Music& mMainMenuMusic;
 
     sf::Text title;
     sf::Time titleBlinkTime;

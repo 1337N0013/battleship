@@ -10,7 +10,8 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
       playButton(mWindowSize.x / 2 - 150, mWindowSize.y / 2 + 165, 300, 30,
                  std::string("Play"), context.font),
       exitButton(0, 0, 300, 30, std::string("Exit"), context.font),
-      mBackgroundSprite(context.background) {
+      mBackgroundSprite(context.background),
+      mMainMenuMusic(context.mainMenuMusic) {
     exitButton.setPosition(playButton.getPosition().x,
                            playButton.getPosition().y + 50);
 
@@ -28,9 +29,17 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
     mBackgroundSprite.setOrigin(999.5f, 561.5f);
     mBackgroundSprite.setPosition(512, 384);
     mBackgroundSprite.setScale(0.69f, 0.69f);
+
+    mMainMenuMusic.setPosition(0, 1, 10);
+    mMainMenuMusic.setPitch(1);
+    mMainMenuMusic.setVolume(15);
+    mMainMenuMusic.setLoop(true);
+    mMainMenuMusic.play();    
 }
 
-MainMenuScene::~MainMenuScene() {}
+MainMenuScene::~MainMenuScene() {
+    mMainMenuMusic.stop();
+}
 
 bool MainMenuScene::input(const sf::Event& e) {
     switch (e.type) {
