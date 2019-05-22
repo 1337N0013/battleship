@@ -37,9 +37,7 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
     mMainMenuMusic.play();    
 }
 
-MainMenuScene::~MainMenuScene() {
-    mMainMenuMusic.stop();
-}
+MainMenuScene::~MainMenuScene() {}
 
 bool MainMenuScene::input(const sf::Event& e) {
     switch (e.type) {
