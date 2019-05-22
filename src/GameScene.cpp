@@ -1,17 +1,25 @@
 #include "Board.h"
 #include "GameScene.h"
+#include <SFML/Audio.hpp>
 #include <iostream>
 
 GameScene::GameScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
       mWindow(context.window),
       mTestText("Hello", context.font),
-      currentGameState(context.gameSettings) {
+      currentGameState(context.gameSettings),
+      mGameSceneMusic(context.gameSceneMusic) {
     mBackground.setPosition(0, 0);
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
     mBackground.setSize(windowSize);
     mBackground.setFillColor(sf::Color::Black);
+
+    mGameSceneMusic.setPosition(0, 1, 10);
+    mGameSceneMusic.setPitch(1);
+    mGameSceneMusic.setVolume(15);
+    mGameSceneMusic.setLoop(true);
+    mGameSceneMusic.play();    
 
     mTestText.setPosition(100, 100);
 
@@ -19,7 +27,9 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     playerBoards[1].reset(new Board(currentGameState, context));
 }
 
-GameScene::~GameScene() {}
+GameScene::~GameScene() {
+    mGameSceneMusic.stop();
+}
 
 bool GameScene::input(const sf::Event& e) {
     switch (e.type) {
