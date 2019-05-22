@@ -10,10 +10,11 @@ class Board;
 class GameScene : public Scene {
    public:
     struct GameState {
-        GameState();
+        GameState(GameSettings& gameSettings);
         enum class Phase { Preparation, Battle };
         unsigned int numberOfShips[2];
         bool turn;
+        unsigned int maxShips;
         Phase currentPhase;
     };
 

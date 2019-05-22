@@ -7,7 +7,8 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       mWindow(context.window),
       mTestText("Hello", context.font),
       player1Board(new Board(currentGameState, context)),
-      player2Board(new Board(currentGameState, context)) {
+      player2Board(new Board(currentGameState, context)),
+      currentGameState(context.gameSettings) {
     mBackground.setPosition(0, 0);
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
@@ -44,7 +45,7 @@ bool GameScene::update(sf::Time deltaTime) {
     return true;
 }
 
-GameScene::GameState::GameState() {
+GameScene::GameState::GameState(GameSettings& gameSettings) : maxShips(gameSettings.getNumberOfShips()) {
     numberOfShips[0] = 0;
     numberOfShips[1] = 0;
     turn = 0;

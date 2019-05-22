@@ -34,7 +34,7 @@ Board::Board(GameScene::GameState& state, Scene::Context& context) : mContext(co
             if (i >= xOffset && i < xOffset + boardSize && j >= yOffset &&
                 j < yOffset + boardSize) {
                 mCells[i][j].setState(BoardCell::State::None);
-                mCells[i][j].onClickCommand.reset(new GameCommands::PlaceShip(mCells[i][j]));
+                mCells[i][j].onClickCommand.reset(new GameCommands::PlaceShip(mGameState, mCells[i][j]));
                 mCells[i][j].setFillColor(sf::Color::Magenta);
             }/*  else {
                 mCells[i][j].setState(BoardCell::State::Inactive);
