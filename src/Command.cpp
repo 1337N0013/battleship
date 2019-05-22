@@ -130,14 +130,15 @@ void Attack::execute() {
         std::cout << "HIT (" << mCell.getCoord().x << ", " << mCell.getCoord().y
                   << ") SHIP\n";
         mCell.setState(BoardCell::State::Hit);
-    } else {
+        mGameState.incrementTurn();
+    } else if (mCell.getState() == BoardCell::State::None) {
         mCell.setState(BoardCell::State::Miss);
         std::cout << "MISS AT (" << mCell.getCoord().x << ", "
                   << mCell.getCoord().y << ")\n";
         std::cout << "SHIPS: " << mGameState.numberOfShips[mGameState.getPlayer()]
                   << " OUT OF " << mGameState.maxShips << "\n";
+        mGameState.incrementTurn();
     }
-    mGameState.incrementTurn();
     std::cout << "TURN IS NOW " << mGameState.getTurn() << "\n";
 }
 
