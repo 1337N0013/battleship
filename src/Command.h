@@ -124,6 +124,20 @@ class PlaceShip : public Command {
     BoardCell& mCell;
 };
 
+class Attack : public Command {
+   public:
+    Attack(GameScene::GameState& state, BoardCell& cell);
+    Attack(GameScene::GameState& state, Board board, sf::Vector2u coord);
+    Attack(GameScene::GameState& state, Board board, unsigned int x,
+              unsigned int y);
+    ~Attack();
+    void execute();
+
+   private:
+    GameScene::GameState& mGameState;
+    BoardCell& mCell;
+};
+
 }  // namespace GameCommands
 
 #endif

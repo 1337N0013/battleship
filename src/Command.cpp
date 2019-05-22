@@ -101,7 +101,8 @@ PlaceShip::PlaceShip(GameScene::GameState& state, Board board, unsigned int x,
     : mGameState(state), mCell(board[x][y]) {}
 PlaceShip::~PlaceShip() {}
 void PlaceShip::execute() {
-    if (mCell.getState() == BoardCell::State::None && mGameState.numberOfShips[mGameState.turn] < mGameState.maxShips) {
+    if (mCell.getState() == BoardCell::State::None &&
+        mGameState.numberOfShips[mGameState.turn] < mGameState.maxShips) {
         mGameState.numberOfShips[mGameState.turn]++;
         std::cout << "MADE (" << mCell.getCoord().x << ", "
                   << mCell.getCoord().y << ") SHIP\n";
@@ -109,7 +110,31 @@ void PlaceShip::execute() {
     }
     std::cout << "AT (" << mCell.getCoord().x << ", " << mCell.getCoord().y
               << ")\n";
-    std::cout << "SHIPS: " << mGameState.numberOfShips[0] << " OUT OF " << mGameState.maxShips << "\n";
+    std::cout << "SHIPS: " << mGameState.numberOfShips[0] << " OUT OF "
+              << mGameState.maxShips << "\n";
+}
+
+Attack::Attack(GameScene::GameState& state, BoardCell& cell)
+    : mGameState(state), mCell(cell) {}
+Attack::Attack(GameScene::GameState& state, Board board, sf::Vector2u coord)
+    : mGameState(state), mCell(board[coord.x][coord.y]) {}
+Attack::Attack(GameScene::GameState& state, Board board, unsigned int x,
+               unsigned int y)
+    : mGameState(state), mCell(board[x][y]) {}
+Attack::~Attack() {}
+void Attack::execute() {
+    if (mCell.getState() == BoardCell::State::Ship &&
+        mGameState.numberOfShips[mGameState.turn] > 0) {
+        mGameState.numberOfShips[mGameState.turn]--;
+        std::cout << "HIT (" << mCell.getCoord().x << ", " << mCell.getCoord().y
+                  << ") SHIP\n";
+        mCell.setState(BoardCell::State::Hit);
+    }
+    mCell.setState(BoardCell::State::Miss);
+    std::cout << "MISS AT (" << mCell.getCoord().x << ", " << mCell.getCoord().y
+              << ")\n";
+    std::cout << "SHIPS: " << mGameState.numberOfShips[0] << " OUT OF "
+              << mGameState.maxShips << "\n";
 }
 
 }  // namespace GameCommands
