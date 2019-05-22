@@ -1,4 +1,5 @@
 #include "Command.h"
+#include <iostream>
 
 Command::~Command() {}
 
@@ -95,7 +96,9 @@ PlaceShip::PlaceShip(Board board, sf::Vector2u coord) : mCell(board[coord.x][coo
 PlaceShip::PlaceShip(Board board, unsigned int x, unsigned int y) : mCell(board[x][y]) {}
 PlaceShip::~PlaceShip() {}
 void PlaceShip::execute() {
+    std::cout << "(" << mCell.getCoord().x << ", " << mCell.getCoord().y << ")\n";
     if (mCell.getState() == BoardCell::State::None) {
+        std::cout << "MADE (" << mCell.getCoord().x << ", " << mCell.getCoord().y << ") SHIP\n";
         mCell.setState(BoardCell::State::Ship);
     }
 }

@@ -1,23 +1,47 @@
-#include "Command.h"
 #include "BoardCell.h"
+#include "Command.h"
 
-BoardCell::BoardCell(Scene::Context& context)
+BoardCell::BoardCell(sf::Vector2u coord, BoardCell::State state, Scene::Context& context)
     : Button("", context.font),
       mContext(context),
-      mCurrentState(State::Inactive) {
-    onClickCommand.reset(new EmptyCommand());
-}
+      mCurrentState(state),
+      mCoord(coord),
+      wasCoordSet(false) {}
+
+BoardCell::BoardCell(unsigned int x, unsigned int y, BoardCell::State state, Scene::Context& context)
+    : BoardCell(sf::Vector2u(x, y), state, context) {}
+
+BoardCell::BoardCell(sf::Vector2u coord, Scene::Context& context)
+    : BoardCell(coord, BoardCell::State::Inactive, context) {}
+
+BoardCell::BoardCell(unsigned int x, unsigned int y, Scene::Context& context)
+    : BoardCell(sf::Vector2u(x, y), BoardCell::State::Inactive, context) {}
 
 BoardCell::BoardCell(const BoardCell& bc)
     : Button("", bc.mContext.font),
       mContext(bc.mContext),
-      mCurrentState(bc.mCurrentState) {
-    onClickCommand.reset(new EmptyCommand());
-}
+      mCurrentState(bc.mCurrentState),
+      mCoord(bc.mCoord),
+      wasCoordSet(false) {}
 
 void BoardCell::setState(BoardCell::State state) { mCurrentState = state; }
 
 BoardCell::State BoardCell::getState() { return mCurrentState; }
+
+// void BoardCell::setCoord(sf::Vector2u coord) {
+//     if (wasCoordSet) {
+//         std::cout << "Board cell was already set";
+//         return;
+//     }
+//     mCoord = coord;
+//     wasCoordSet = true;
+// }
+
+// void BoardCell::setCoord(unsigned int x, unsigned int y) {
+//     setCoord(sf::Vector2u(x, y));
+// }
+
+sf::Vector2u BoardCell::getCoord() { return mCoord; }
 
 bool BoardCell::input(sf::Event e) {
     if (mCurrentState == State::Inactive) {

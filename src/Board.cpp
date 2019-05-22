@@ -1,3 +1,4 @@
+#include "Command.h"
 #include "Board.h"
 #include <iostream>
 
@@ -9,7 +10,7 @@ Board::Board(Scene::Context& context) : mContext(context), mCells() {
     for (int i = 0; i < 10; i++) {
         std::vector<BoardCell> row;
         for (int j = 0; j < 10; j++) {
-            row.emplace_back(BoardCell(context));
+            row.emplace_back(BoardCell(i, j, context));
         }
         mCells.push_back(row);
     }
@@ -29,12 +30,18 @@ Board::Board(Scene::Context& context) : mContext(context), mCells() {
             if (boardSize % 2 != 0) {
                 yOffset--;
             }
+
             if (i >= xOffset && i < xOffset + boardSize && j >= yOffset &&
                 j < yOffset + boardSize) {
                 mCells[i][j].setState(BoardCell::State::None);
+                mCells[i][j].onClickCommand.reset(new GameCommands::PlaceShip(mCells[i][j]));
                 mCells[i][j].setFillColor(sf::Color::Magenta);
-            } else {
+            }/*  else {
                 mCells[i][j].setState(BoardCell::State::Inactive);
+            } */
+
+            if (mCells[i][j].getState() == BoardCell::State::None) {
+                std::cout << i << ", " << j << " = NONE\n";
             }
         }
     }
