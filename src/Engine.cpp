@@ -12,7 +12,7 @@ Engine::Engine()
     : mWindow(sf::VideoMode(windowWidth, windowHeight), "Battleship", sf::Style::Titlebar | sf::Style::Close),
       mFont(),
       mGameSettings(),
-      mSceneStack(Scene::Context(mWindow, mFont, mGameSettings)),
+      mSceneStack(Scene::Context(mWindow, mFont, mGameSettings, mBackground)),
       mFpsCounter(),
       mFpsTime(sf::Time::Zero) {
     mWindow.setFramerateLimit(120);
@@ -20,6 +20,8 @@ Engine::Engine()
     if (!mFont.loadFromFile("res/fonts/ProFont For Powerline.ttf")) {
         throw std::runtime_error("Could not load font.");
     }
+
+    if(!mBackground.loadFromFile("res/img/title/bg.png", sf::IntRect(0, 0, 1999, 1123)));
 
     mGameSettings.setBoardSize(5, 5);
     mGameSettings.setNumberOfShips(5);
