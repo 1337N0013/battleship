@@ -18,8 +18,10 @@ class MainMenuScene : public Scene {
     sf::Font mFont;
     sf::RenderWindow& mWindow;
     sf::Vector2u mWindowSize;
+    sf::Sprite mBackgroundSprite;
 
     sf::Text title;
+    sf::Time titleBlinkTime;
     Button playButton, exitButton;
 };
 
