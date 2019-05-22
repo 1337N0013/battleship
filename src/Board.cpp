@@ -23,6 +23,7 @@ Board::Board(GameScene::GameState& state, Scene::Context& context) : mContext(co
             mCells[i][j].setPosition(69 * i + 40, 69 * j + 40);
             mCells[i][j].rectangle.setOutlineThickness(2);
             mCells[i][j].rectangle.setOutlineColor(sf::Color::Black);
+            mCells[i][j].onClickCommand.reset(new GameCommands::PlaceShip(mGameState, mCells[i][j]));
 
             const int boardSize = context.gameSettings.getBoardSize().x;
             int xOffset = (10 / 2 - boardSize / 2);
@@ -34,11 +35,8 @@ Board::Board(GameScene::GameState& state, Scene::Context& context) : mContext(co
             if (i >= xOffset && i < xOffset + boardSize && j >= yOffset &&
                 j < yOffset + boardSize) {
                 mCells[i][j].setState(BoardCell::State::None);
-                mCells[i][j].onClickCommand.reset(new GameCommands::PlaceShip(mGameState, mCells[i][j]));
                 mCells[i][j].setFillColor(sf::Color::Magenta);
-            }/*  else {
-                mCells[i][j].setState(BoardCell::State::Inactive);
-            } */
+            }
 
             if (mCells[i][j].getState() == BoardCell::State::None) {
                 std::cout << i << ", " << j << " = NONE\n";
