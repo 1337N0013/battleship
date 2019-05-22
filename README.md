@@ -41,7 +41,7 @@ Sometimes things (usually font loading) result in segfaults. Try using this and 
 - [x] Game logic
 - [ ] Victory Scene
 - [ ] Victory Scene - Music
-- [ ] GameScene - Music
+- [x] GameScene - Music
 - [ ] GameScene - Sprites
 - [ ] GameScene - Audio for BoardCell
 - [ ] GameScene - Aesthetics
