@@ -25,7 +25,9 @@ Engine::Engine()
         throw std::runtime_error("Could not load res/img/title/bg.png");
     }
 
-    if(!mMainMenuMusic.openFromFile("res/audio/main.ogg"));
+    if(!mMainMenuMusic.openFromFile("res/audio/main.ogg")){
+        throw std::runtime_error("Could not load res/img/title/bg.png");
+    };
 
     mGameSettings.setBoardSize(5, 5);
     mGameSettings.setNumberOfShips(5);
