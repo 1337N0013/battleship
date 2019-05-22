@@ -38,4 +38,4 @@ Sometimes things (usually font loading) result in segfaults. Try using this and 
 - [ ] Clean up Button.h
 - [x] Figure out how to call functions using the buttons
 - [x] Create a scene system (main menu, options, the game itself, etc.)
-- [ ] Game logic
+- [x] Game logic
