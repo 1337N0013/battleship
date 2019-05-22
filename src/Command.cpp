@@ -87,3 +87,17 @@ void DecreaseBoard::execute() {
 }
 
 }  // namespace SettingsCommand
+
+namespace GameCommands {
+
+PlaceShip::PlaceShip(BoardCell cell) : mCell(cell) {}
+PlaceShip::PlaceShip(Board board, sf::Vector2u coord) : mCell(board[coord.x][coord.y]) {}
+PlaceShip::PlaceShip(Board board, unsigned int x, unsigned int y) : mCell(board[x][y]) {}
+PlaceShip::~PlaceShip() {}
+void PlaceShip::execute() {
+    if (mCell.getState() == BoardCell::State::None) {
+        mCell.setState(BoardCell::State::Ship);
+    }
+}
+
+}  // namespace GameCommands

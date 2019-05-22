@@ -3,6 +3,8 @@
 
 #include "Scene.h"
 #include "SceneStack.h"
+#include "Board.h"
+#include "BoardCell.h"
 
 class Command {
    public:
@@ -106,5 +108,21 @@ class DecreaseBoard : public Command {
 };
 
 }  // namespace SettingsCommand
+
+namespace GameCommands {
+
+class PlaceShip : public Command {
+   public:
+    PlaceShip(BoardCell cell);
+    PlaceShip(Board board, sf::Vector2u coord);
+    PlaceShip(Board board, unsigned int x, unsigned int y);
+    ~PlaceShip();
+    void execute();
+
+   private:
+    BoardCell mCell;
+};
+
+}  // namespace GameCommands
 
 #endif
