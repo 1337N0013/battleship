@@ -13,6 +13,7 @@ class Engine {
     sf::Font mFont;
     GameSettings mGameSettings;
     SceneStack mSceneStack;
+    sf ::Texture mBackground;
 
     sf::Text mFpsCounter;
     sf::Time mFpsTime;
