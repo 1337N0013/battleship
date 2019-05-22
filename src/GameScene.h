@@ -7,6 +7,15 @@
 
 class GameScene : public Scene {
    public:
+    struct GameState {
+        GameState();
+        enum class Phase { Preparation, Battle };
+        unsigned int numberOfShips[2];
+        bool turn;
+        Phase currentPhase;
+    };
+
+   public:
     GameScene(SceneStack& stack, Context& context);
     ~GameScene();
 
@@ -14,11 +23,7 @@ class GameScene : public Scene {
     void draw();
     bool update(sf::Time deltaTime);
 
-   private:
-    struct GameState {
-        unsigned int numberOfShips[2];
-        bool turn;
-    };
+    GameState currentGameState;
 
    private:
     // struct PlayerBoards {

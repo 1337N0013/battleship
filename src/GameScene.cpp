@@ -42,3 +42,10 @@ bool GameScene::update(sf::Time deltaTime) {
     player1Board.update(deltaTime);
     return true;
 }
+
+GameScene::GameState::GameState() {
+    numberOfShips[0] = 0;
+    numberOfShips[1] = 0;
+    turn = 0;
+    currentPhase = Phase::Preparation;
+}
