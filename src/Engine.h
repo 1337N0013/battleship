@@ -19,6 +19,7 @@ class Engine {
     sf::Text mFpsCounter;
     sf::Time mFpsTime;
     sf::Music mMainMenuMusic;
+    sf::Music mGameSceneMusic;
 
     void input();
     void update(sf::Time deltaTime);
