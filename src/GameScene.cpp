@@ -9,6 +9,8 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       mTestText("Hello", context.font),
       currentGameState(context.gameSettings),
       mGameSceneMusic(context.gameSceneMusic) {
+    getContext().mainMenuMusic.stop();
+
     mBackground.setPosition(0, 0);
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
@@ -98,7 +100,6 @@ unsigned int GameScene::GameState::getPlayer() {
     } else {
         return !(turn % 2);
     }
-    // return player;
 }
 void GameScene::GameState::incrementTurn() {
     turn++;

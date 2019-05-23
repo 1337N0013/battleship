@@ -40,9 +40,7 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
         new SceneCommand::ChangeAndRemoveScene(*this, Scene::ID::Game));
 }
 
-SettingsScene::~SettingsScene() {
-    getContext().mainMenuMusic.stop();
-}
+SettingsScene::~SettingsScene() {}
 
 bool SettingsScene::input(const sf::Event& e) {
     switch (e.type) {
