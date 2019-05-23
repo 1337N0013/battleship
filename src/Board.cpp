@@ -39,7 +39,7 @@ Board::Board(GameScene::GameState& state, Scene::Context& context) : mContext(co
             }
 
             if (mCells[i][j].getState() == BoardCell::State::None) {
-                std::cout << i << ", " << j << " = NONE\n";
+                std::cout << i << ", " << j << " ACTIVE\n";
             }
         }
     }

@@ -1,7 +1,7 @@
-#include "Board.h"
 #include "GameScene.h"
 #include <SFML/Audio.hpp>
 #include <iostream>
+#include "Board.h"
 
 GameScene::GameScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
@@ -21,7 +21,7 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mGameSceneMusic.setPitch(1);
     mGameSceneMusic.setVolume(15);
     mGameSceneMusic.setLoop(true);
-    mGameSceneMusic.play();    
+    mGameSceneMusic.play();
 
     mTestText.setPosition(100, 100);
 
@@ -29,9 +29,7 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     playerBoards[1].reset(new Board(currentGameState, context));
 }
 
-GameScene::~GameScene() {
-    mGameSceneMusic.stop();
-}
+GameScene::~GameScene() { mGameSceneMusic.stop(); }
 
 bool GameScene::input(const sf::Event& e) {
     switch (e.type) {
@@ -59,11 +57,13 @@ bool GameScene::update(sf::Time deltaTime) {
 
     if (currentGameState.currentPhase == GameState::Phase::Preparation) {
         if (currentGameState.getTurn() == 0) {
-            if (playerBoards[currentGameState.getPlayer()]->getNumberOfShips() >= currentGameState.maxShips) {
+            if (playerBoards[currentGameState.getPlayer()]
+                    ->getNumberOfShips() >= currentGameState.maxShips) {
                 currentGameState.incrementTurn();
             }
         } else {
-            if (playerBoards[currentGameState.getPlayer()]->getNumberOfShips() >= currentGameState.maxShips) {
+            if (playerBoards[currentGameState.getPlayer()]
+                    ->getNumberOfShips() >= currentGameState.maxShips) {
                 currentGameState.currentPhase = GameState::Phase::Battle;
                 currentGameState.resetTurnsToZero();
 
@@ -75,7 +75,16 @@ bool GameScene::update(sf::Time deltaTime) {
             }
         }
     } else if (currentGameState.currentPhase == GameState::Phase::Battle) {
-        if (playerBoards[0]->getNumberOfShips() == 0 || playerBoards[1]->getNumberOfShips() == 0) {
+        int winner;
+        if (playerBoards[0]->getNumberOfShips() == 0) {
+            winner = 1;
+        } else if (playerBoards[1]->getNumberOfShips() == 0) {
+            winner = 0;
+        } else {
+            winner = -1;
+        }
+        if (winner != -1) {
+            std::cout << "PLAYER " << winner + 1 << " WINS\n";
             requestSceneClear();
             requestScenePush(Scene::ID::MainMenu);
         }
@@ -84,16 +93,15 @@ bool GameScene::update(sf::Time deltaTime) {
     return true;
 }
 
-GameScene::GameState::GameState(GameSettings& gameSettings) : maxShips(gameSettings.getNumberOfShips()) {
+GameScene::GameState::GameState(GameSettings& gameSettings)
+    : maxShips(gameSettings.getNumberOfShips()) {
     numberOfShips[0] = 0;
     numberOfShips[1] = 0;
     turn = 0;
     currentPhase = Phase::Preparation;
 }
 
-unsigned int GameScene::GameState::getTurn() {
-    return turn;
-}
+unsigned int GameScene::GameState::getTurn() { return turn; }
 unsigned int GameScene::GameState::getPlayer() {
     if (currentPhase == GameScene::GameState::Phase::Preparation) {
         return turn % 2;
@@ -101,10 +109,6 @@ unsigned int GameScene::GameState::getPlayer() {
         return !(turn % 2);
     }
 }
-void GameScene::GameState::incrementTurn() {
-    turn++;
-}
+void GameScene::GameState::incrementTurn() { turn++; }
 
-void GameScene::GameState::resetTurnsToZero() {
-    turn = 0;
-}
+void GameScene::GameState::resetTurnsToZero() { turn = 0; }
