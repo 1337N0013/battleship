@@ -18,10 +18,14 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
 
+    // mVictory.setCharacterSize(20);
     mVictory.setPosition(
         windowSize.x / 2 - mVictory.getGlobalBounds().width / 2, 200);
 
-    mMainMenu.setSize(300, 30);
+    mStats.setCharacterSize(20);
+
+    mMainMenu.setCharacterSize(20);
+    mMainMenu.setSize(425, 30);
     mMainMenu.setPosition(
         windowSize.x / 2 - mMainMenu.getGlobalBounds().width / 2, 400);
     mMainMenu.onClickCommand.reset(new SceneCommand::ReturnToMainMenu(*this));

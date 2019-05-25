@@ -16,26 +16,39 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
                             context.window.getSize().y);
     mBackground.setSize(windowSize);
     mBackground.setFillColor(sf::Color::Black);
+
+    mSettingsText.setCharacterSize(20);
     mSettingsText.setPosition(100, 100);
 
     sf::Vector2f buttonSize(45, 45);
 
+    mNumberOfShipsText.setCharacterSize(20);
     mNumberOfShipsText.setPosition(100, 200);
-    mDecreaseShips.setPosition(450, 200);
+
+    mDecreaseShips.setCharacterSize(20);
+    mDecreaseShips.setPosition(500, 190);
     mDecreaseShips.setSize(buttonSize);
     mDecreaseShips.onClickCommand.reset(new SettingsCommand::DecreaseShips(context));
-    mIncreaseShips.setPosition(500, 200);
+
+    mIncreaseShips.setCharacterSize(20);
+    mIncreaseShips.setPosition(550, 190);
     mIncreaseShips.setSize(buttonSize);
     mIncreaseShips.onClickCommand.reset(new SettingsCommand::IncreaseShips(context));
 
+    mBoardSizeText.setCharacterSize(20);
     mBoardSizeText.setPosition(100, 250);
-    mDecreaseBoard.setPosition(450, 250);
+
+    mDecreaseBoard.setCharacterSize(20);
+    mDecreaseBoard.setPosition(500, 240);
     mDecreaseBoard.setSize(buttonSize);
     mDecreaseBoard.onClickCommand.reset(new SettingsCommand::DecreaseBoard(context));
-    mIncreaseBoard.setPosition(500, 250);
+
+    mIncreaseBoard.setCharacterSize(20);
+    mIncreaseBoard.setPosition(550, 240);
     mIncreaseBoard.setSize(buttonSize);
     mIncreaseBoard.onClickCommand.reset(new SettingsCommand::IncreaseBoard(context));
 
+    playButton.setCharacterSize(20);
     playButton.onClickCommand.reset(
         new SceneCommand::ChangeAndRemoveScene(*this, Scene::ID::Game));
 }
