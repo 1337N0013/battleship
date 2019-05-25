@@ -15,8 +15,6 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       mShipsLeft("SHIPS LEFT", context.font),
       mTime("TIME", context.font),
       mMainMenu("Return to Main Menu", context.font),
-      mThreeStars(context.threeStars),
-      mMedals{sf::Sprite(context.medal), sf::Sprite(context.medal)},
       mGameSceneMusic(context.gameSceneMusic),
       mVictoryMusic(context.victoryMusic) {
     getContext().mainMenuMusic.stop();
@@ -25,12 +23,8 @@ GameScene::GameScene(SceneStack& stack, Context& context)
                             context.window.getSize().y);
 
     mVictory.setCharacterSize(80);
-    mBackground.setPosition(0, 0);
-    mBackground.setSize(windowSize);
-    mBackground.setFillColor(sf::Color::Black);
-
     mVictory.setPosition(
-        windowSize.x / 2 - mVictory.getGlobalBounds().width / 2, 150);
+        windowSize.x / 2 - mVictory.getGlobalBounds().width / 2, 180);
 
     mPlayerWin.setCharacterSize(65);
 
@@ -44,9 +38,9 @@ GameScene::GameScene(SceneStack& stack, Context& context)
         windowSize.x / 2 - mMainMenu.getGlobalBounds().width / 2, 625);
     mMainMenu.onClickCommand.reset(new SceneCommand::ReturnToMainMenu(*this));
 
-    mThreeStars.setPosition(windowSize.x/2 - mThreeStars.getGlobalBounds().width/2, 50);
-    mMedals[0].setPosition(50, 100);
-    mMedals[1].setPosition(1024-50-mMedals[1].getGlobalBounds().width, 100);
+    mBackground.setPosition(0, 0);
+    mBackground.setSize(windowSize);
+    mBackground.setFillColor(sf::Color::Black);
 
     mGameSceneMusic.setPosition(0, 1, 10);
     mGameSceneMusic.setPitch(1);
@@ -95,9 +89,6 @@ void GameScene::draw() {
         mWindow.draw(mShipsLeft);
         mWindow.draw(mTime);
         mWindow.draw(mMainMenu);
-        mWindow.draw(mThreeStars);
-        mWindow.draw(mMedals[0]);
-        mWindow.draw(mMedals[1]);
     }
 }
 
@@ -147,13 +138,13 @@ bool GameScene::update(sf::Time deltaTime) {
             std::string playerWinText = "PLAYER " + std::to_string(winner + 1);
             mPlayerWin.setString(playerWinText);
             mPlayerWin.setPosition(
-                windowSize.x / 2 - mPlayerWin.getGlobalBounds().width / 2, 240);
+                windowSize.x / 2 - mPlayerWin.getGlobalBounds().width / 2, 270);
 
             std::string turnsText =
                 "IN " + std::to_string(currentGameState.getTurn()) + " TURNS";
             mTurns.setString(turnsText);
             mTurns.setPosition(
-                windowSize.x / 2 - mTurns.getGlobalBounds().width / 2, 350);
+                windowSize.x / 2 - mTurns.getGlobalBounds().width / 2, 380);
 
             std::string shipsLeftText = "WITH ";
             if (currentGameState.numberOfShips[winner] == 1) {
@@ -167,7 +158,7 @@ bool GameScene::update(sf::Time deltaTime) {
             }
             mShipsLeft.setString(shipsLeftText);
             mShipsLeft.setPosition(
-                windowSize.x / 2 - mShipsLeft.getGlobalBounds().width / 2, 380);
+                windowSize.x / 2 - mShipsLeft.getGlobalBounds().width / 2, 410);
 
             std::string timeString = "TIME: ";
             if (currentGameState.gameTime.asSeconds() < 60) {
@@ -184,7 +175,7 @@ bool GameScene::update(sf::Time deltaTime) {
             }
             mTime.setString(timeString);
             mTime.setPosition(
-                windowSize.x / 2 - mTime.getGlobalBounds().width / 2, 410);
+                windowSize.x / 2 - mTime.getGlobalBounds().width / 2, 440);
 
             mGameSceneMusic.stop();
             getContext().victoryMusic.play();
