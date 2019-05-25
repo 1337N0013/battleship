@@ -48,8 +48,8 @@ GameScene::GameScene(SceneStack& stack, Context& context)
 
     mThreeStars.setPosition(
         windowSize.x / 2 - mThreeStars.getGlobalBounds().width / 2, 50);
-    mMedals[0].setPosition(50, 100);
-    mMedals[1].setPosition(1024 - 50 - mMedals[1].getGlobalBounds().width, 100);
+    mMedals[0].setPosition(50, 180);
+    mMedals[1].setPosition(1024 - 50 - mMedals[1].getGlobalBounds().width, 180);
 
     mGameSceneMusic.setPosition(0, 1, 10);
     mGameSceneMusic.setPitch(1);
