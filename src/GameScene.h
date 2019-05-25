@@ -48,6 +48,9 @@ class GameScene : public Scene {
     sf::Text mTime;
     Button mMainMenu;
 
+    sf::Sprite mThreeStars;
+    sf::Sprite mMedals[2];
+
     sf::RenderWindow& mWindow;
     sf::RectangleShape mBackground;
     sf::Music& mGameSceneMusic;
