@@ -52,7 +52,7 @@ Engine::Engine()
     mSceneStack.pushScene(Scene::ID::MainMenu);
 
     mFpsCounter.setFont(mFont);
-    mFpsCounter.setCharacterSize(16);
+    mFpsCounter.setCharacterSize(10);
     mFpsCounter.setString("INIT");
     mFpsCounter.setPosition(0, 0);
     mFpsCounter.setFillColor(sf::Color::Green);
