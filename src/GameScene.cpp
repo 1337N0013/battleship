@@ -197,7 +197,6 @@ bool GameScene::update(sf::Time deltaTime) {
             getContext().victoryMusic.play();
         }
     } else if (currentGameState.currentPhase == GameState::Phase::Victory) {
-        std::cout << std::to_string(mMedalBounceTime.asSeconds()) << "\n";
         mMedalBounceTime += deltaTime;
         if (mMedalBounceTime.asSeconds() < 2) {
             for (auto& medal : mMedals) {
