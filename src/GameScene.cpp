@@ -12,13 +12,13 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       mVictory("VICTORY!", context.font),
       mStats("STATS", context.font),
       mMainMenu("Return to Main Menu", context.font),
-      mGameSceneMusic(context.gameSceneMusic) {
+      mGameSceneMusic(context.gameSceneMusic),
+      mVictoryMusic(context.victoryMusic) {
     getContext().mainMenuMusic.stop();
 
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
 
-    // mVictory.setCharacterSize(20);
     mVictory.setPosition(
         windowSize.x / 2 - mVictory.getGlobalBounds().width / 2, 200);
 
@@ -40,11 +40,16 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mGameSceneMusic.setLoop(true);
     mGameSceneMusic.play();
 
+    mVictoryMusic.setPosition(0, 1, 10);
+    mVictoryMusic.setPitch(1);
+    mVictoryMusic.setVolume(15);
+    mVictoryMusic.setLoop(true);
+
     playerBoards[0].reset(new Board(currentGameState, context));
     playerBoards[1].reset(new Board(currentGameState, context));
 }
 
-GameScene::~GameScene() { mGameSceneMusic.stop(); }
+GameScene::~GameScene() { getContext().victoryMusic.stop(); }
 
 bool GameScene::input(const sf::Event& e) {
     switch (e.type) {
@@ -134,6 +139,9 @@ bool GameScene::update(sf::Time deltaTime) {
                                     getContext().window.getSize().y);
             mStats.setPosition(
                 windowSize.x / 2 - mStats.getGlobalBounds().width / 2, 300);
+            
+            mGameSceneMusic.stop();
+            getContext().victoryMusic.play();
         }
     } else if (currentGameState.currentPhase == GameState::Phase::Victory) {
         mMainMenu.update(deltaTime);

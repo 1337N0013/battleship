@@ -20,6 +20,7 @@ class Engine {
     sf::Time mFpsTime;
     sf::Music mMainMenuMusic;
     sf::Music mGameSceneMusic;
+    sf::Music mVictoryMusic;
 
     void input();
     void update(sf::Time deltaTime);

@@ -48,7 +48,7 @@ class GameScene : public Scene {
     sf::RenderWindow& mWindow;
     sf::RectangleShape mBackground;
     sf::Music& mGameSceneMusic;
-    // sf::Music& mVictoryMusic;
+    sf::Music& mVictoryMusic;
 };
 
 #endif

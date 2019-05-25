@@ -12,7 +12,7 @@ Engine::Engine()
     : mWindow(sf::VideoMode(windowWidth, windowHeight), "Battleship", sf::Style::Titlebar | sf::Style::Close),
       mFont(),
       mGameSettings(),
-      mSceneStack(Scene::Context(mWindow, mFont, mGameSettings, mBackground, mMainMenuMusic, mGameSceneMusic)),
+      mSceneStack(Scene::Context(mWindow, mFont, mGameSettings, mBackground, mMainMenuMusic, mGameSceneMusic, mVictoryMusic)),
       mFpsCounter(),
       mFpsTime(sf::Time::Zero) {
     mWindow.setFramerateLimit(120);
@@ -32,6 +32,11 @@ Engine::Engine()
     if(!mGameSceneMusic.openFromFile("res/audio/game1.ogg")){
         throw std::runtime_error("Could not load res/audio/game1.ogg");
     }
+
+    if(!mVictoryMusic.openFromFile("res/audio/victory.ogg")){
+        throw std::runtime_error("Could not load res/audio/victory.ogg");
+    }
+
     mGameSettings.setBoardSize(5, 5);
     mGameSettings.setNumberOfShips(5);
 
