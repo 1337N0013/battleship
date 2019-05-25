@@ -17,7 +17,7 @@ Engine::Engine()
       mFpsTime(sf::Time::Zero) {
     mWindow.setFramerateLimit(120);
 
-    if (!mFont.loadFromFile("res/fonts/ProFont For Powerline.ttf")) {
+    if (!mFont.loadFromFile("res/fonts/ARCADE_N.TTF")) {
         throw std::runtime_error("Could not load font.");
     }
 
