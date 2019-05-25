@@ -50,6 +50,8 @@ class GameScene : public Scene {
 
     sf::Sprite mThreeStars;
     sf::Sprite mMedals[2];
+    sf::Time mMedalBounceTime;
+    int mMedalBounceSpeed;
 
     sf::RenderWindow& mWindow;
     sf::RectangleShape mBackground;
