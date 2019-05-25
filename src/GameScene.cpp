@@ -17,6 +17,8 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       mMainMenu("Return to Main Menu", context.font),
       mThreeStars(context.threeStars),
       mMedals{sf::Sprite(context.medal), sf::Sprite(context.medal)},
+      mMedalBounceTime(sf::Time::Zero),
+      mMedalBounceSpeed(5),
       mGameSceneMusic(context.gameSceneMusic),
       mVictoryMusic(context.victoryMusic) {
     getContext().mainMenuMusic.stop();
@@ -44,9 +46,10 @@ GameScene::GameScene(SceneStack& stack, Context& context)
         windowSize.x / 2 - mMainMenu.getGlobalBounds().width / 2, 625);
     mMainMenu.onClickCommand.reset(new SceneCommand::ReturnToMainMenu(*this));
 
-    mThreeStars.setPosition(windowSize.x/2 - mThreeStars.getGlobalBounds().width/2, 50);
-    mMedals[0].setPosition(50, 180);
-    mMedals[1].setPosition(1024-50-mMedals[1].getGlobalBounds().width, 180);
+    mThreeStars.setPosition(
+        windowSize.x / 2 - mThreeStars.getGlobalBounds().width / 2, 50);
+    mMedals[0].setPosition(50, 100);
+    mMedals[1].setPosition(1024 - 50 - mMedals[1].getGlobalBounds().width, 100);
 
     mGameSceneMusic.setPosition(0, 1, 10);
     mGameSceneMusic.setPitch(1);
@@ -190,6 +193,20 @@ bool GameScene::update(sf::Time deltaTime) {
             getContext().victoryMusic.play();
         }
     } else if (currentGameState.currentPhase == GameState::Phase::Victory) {
+        std::cout << std::to_string(mMedalBounceTime.asSeconds()) << "\n";
+        mMedalBounceTime += deltaTime;
+        if (mMedalBounceTime.asSeconds() < 2) {
+            for (auto& medal : mMedals) {
+                medal.setPosition(
+                    medal.getPosition().x,
+                    medal.getPosition().y +
+                        mMedalBounceSpeed * deltaTime.asSeconds());
+            }
+        } else {
+            mMedalBounceSpeed *= -1;
+            mMedalBounceTime = sf::Time::Zero;
+        }
+
         mMainMenu.update(deltaTime);
     }
 
