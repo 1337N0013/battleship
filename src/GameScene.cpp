@@ -15,6 +15,10 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       mShipsLeft("SHIPS LEFT", context.font),
       mTime("TIME", context.font),
       mMainMenu("Return to Main Menu", context.font),
+      mThreeStars(context.threeStars),
+      mMedals{sf::Sprite(context.medal), sf::Sprite(context.medal)},
+      mMedalBounceTime(sf::Time::Zero),
+      mMedalBounceSpeed(5),
       mGameSceneMusic(context.gameSceneMusic),
       mVictoryMusic(context.victoryMusic) {
     getContext().mainMenuMusic.stop();
@@ -23,6 +27,10 @@ GameScene::GameScene(SceneStack& stack, Context& context)
                             context.window.getSize().y);
 
     mVictory.setCharacterSize(80);
+    mBackground.setPosition(0, 0);
+    mBackground.setSize(windowSize);
+    mBackground.setFillColor(sf::Color::Black);
+
     mVictory.setPosition(
         windowSize.x / 2 - mVictory.getGlobalBounds().width / 2, 180);
 
@@ -38,9 +46,10 @@ GameScene::GameScene(SceneStack& stack, Context& context)
         windowSize.x / 2 - mMainMenu.getGlobalBounds().width / 2, 625);
     mMainMenu.onClickCommand.reset(new SceneCommand::ReturnToMainMenu(*this));
 
-    mBackground.setPosition(0, 0);
-    mBackground.setSize(windowSize);
-    mBackground.setFillColor(sf::Color::Black);
+    mThreeStars.setPosition(
+        windowSize.x / 2 - mThreeStars.getGlobalBounds().width / 2, 50);
+    mMedals[0].setPosition(50, 180);
+    mMedals[1].setPosition(1024 - 50 - mMedals[1].getGlobalBounds().width, 180);
 
     mGameSceneMusic.setPosition(0, 1, 10);
     mGameSceneMusic.setPitch(1);
@@ -57,14 +66,22 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     playerBoards[1].reset(new Board(currentGameState, context));
 }
 
-GameScene::~GameScene() { getContext().victoryMusic.stop(); }
+GameScene::~GameScene() {
+    getContext().gameSceneMusic.stop();
+    getContext().victoryMusic.stop();
+}
 
 bool GameScene::input(const sf::Event& e) {
     switch (e.type) {
         case sf::Event::KeyReleased: {
-            if (e.key.code == sf::Keyboard::Escape &&
-                currentGameState.currentPhase != GameState::Phase::Victory) {
-                requestScenePush(Scene::ID::Pause);
+            if (e.key.code == sf::Keyboard::Escape) {
+                if (currentGameState.currentPhase !=
+                    GameState::Phase::Victory) {
+                    requestScenePush(Scene::ID::Pause);
+                } else {
+                    requestSceneClear();
+                    requestScenePush(Scene::ID::MainMenu);
+                }
             }
         }
         default:
@@ -89,6 +106,9 @@ void GameScene::draw() {
         mWindow.draw(mShipsLeft);
         mWindow.draw(mTime);
         mWindow.draw(mMainMenu);
+        mWindow.draw(mThreeStars);
+        mWindow.draw(mMedals[0]);
+        mWindow.draw(mMedals[1]);
     }
 }
 
@@ -144,7 +164,7 @@ bool GameScene::update(sf::Time deltaTime) {
                 "IN " + std::to_string(currentGameState.getTurn()) + " TURNS";
             mTurns.setString(turnsText);
             mTurns.setPosition(
-                windowSize.x / 2 - mTurns.getGlobalBounds().width / 2, 380);
+                windowSize.x / 2 - mTurns.getGlobalBounds().width / 2, 400);
 
             std::string shipsLeftText = "WITH ";
             if (currentGameState.numberOfShips[winner] == 1) {
@@ -158,7 +178,7 @@ bool GameScene::update(sf::Time deltaTime) {
             }
             mShipsLeft.setString(shipsLeftText);
             mShipsLeft.setPosition(
-                windowSize.x / 2 - mShipsLeft.getGlobalBounds().width / 2, 410);
+                windowSize.x / 2 - mShipsLeft.getGlobalBounds().width / 2, 460);
 
             std::string timeString = "TIME: ";
             if (currentGameState.gameTime.asSeconds() < 60) {
@@ -175,15 +195,49 @@ bool GameScene::update(sf::Time deltaTime) {
             }
             mTime.setString(timeString);
             mTime.setPosition(
-                windowSize.x / 2 - mTime.getGlobalBounds().width / 2, 440);
+                windowSize.x / 2 - mTime.getGlobalBounds().width / 2, 520);
 
             mGameSceneMusic.stop();
             getContext().victoryMusic.play();
         }
     } else if (currentGameState.currentPhase == GameState::Phase::Victory) {
+        mMedalBounceTime += deltaTime;
+        if (mMedalBounceTime.asSeconds() < 2) {
+            for (auto& medal : mMedals) {
+                medal.setPosition(
+                    medal.getPosition().x,
+                    medal.getPosition().y +
+                        mMedalBounceSpeed * deltaTime.asSeconds());
+            }
+        } else {
+            mMedalBounceSpeed *= -1;
+            mMedalBounceTime = sf::Time::Zero;
+        }
+
         mMainMenu.update(deltaTime);
     }
 
+    victoryBlinkTime += deltaTime;
+
+    if (victoryBlinkTime.asSeconds() > 0.5) {
+        if (mVictory.getFillColor() == sf::Color::White) {
+            mVictory.setFillColor(sf::Color::Transparent);
+        } else {
+            mVictory.setFillColor(sf::Color::White);
+        }
+        victoryBlinkTime = sf::Time::Zero;
+    }
+
+    playerWinBlinkTime += deltaTime;
+
+    if (playerWinBlinkTime.asSeconds() > 0.5) {
+        if (mPlayerWin.getFillColor() == sf::Color::White) {
+            mPlayerWin.setFillColor(sf::Color::Transparent);
+        } else {
+            mPlayerWin.setFillColor(sf::Color::White);
+        }
+        playerWinBlinkTime = sf::Time::Zero;
+    }
     return true;
 }
 
