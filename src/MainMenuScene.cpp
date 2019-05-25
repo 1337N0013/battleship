@@ -4,6 +4,7 @@
 
 MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
+      title("INSERT COIN: 0", context.font),
       mFont(context.font),
       mWindow(context.window),
       mWindowSize(mWindow.getSize()),
@@ -15,15 +16,16 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
     exitButton.setPosition(playButton.getPosition().x,
                            playButton.getPosition().y + 50);
 
-    title.setFont(mFont);
-    title.setCharacterSize(35);
-    title.setString("INSERT COIN: 0");
+    title.setCharacterSize(20);
     title.setPosition(mWindowSize.x / 2 - title.getLocalBounds().width / 2,
                       100);
     titleBlinkTime = sf::Time::Zero;
 
+    playButton.setCharacterSize(20);
     playButton.onClickCommand.reset(
         new SceneCommand::ChangeScene(*this, Scene::ID::Settings));
+        
+    exitButton.setCharacterSize(20);
     exitButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this));
 
     mBackgroundSprite.setOrigin(999.5f, 561.5f);

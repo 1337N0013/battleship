@@ -11,15 +11,18 @@ constexpr unsigned int windowWidth = 1024, windowHeight = 768;
 
 class Engine {
     sf::RenderWindow mWindow;
-    sf::Font mFont;
-    GameSettings mGameSettings;
     SceneStack mSceneStack;
-    sf ::Texture mBackground;
+    GameSettings mGameSettings;
+    sf::Font mFont;
+    sf::Texture mBackground;
+    sf::Texture mThreeStars;
+    sf::Texture mMedal;
+    sf::Music mMainMenuMusic;
+    sf::Music mGameSceneMusic;
+    sf::Music mVictoryMusic;
 
     sf::Text mFpsCounter;
     sf::Time mFpsTime;
-    sf::Music mMainMenuMusic;
-    sf::Music mGameSceneMusic;
 
     void input();
     void update(sf::Time deltaTime);

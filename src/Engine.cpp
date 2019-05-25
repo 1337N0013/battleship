@@ -12,17 +12,25 @@ Engine::Engine()
     : mWindow(sf::VideoMode(windowWidth, windowHeight), "Battleship", sf::Style::Titlebar | sf::Style::Close),
       mFont(),
       mGameSettings(),
-      mSceneStack(Scene::Context(mWindow, mFont, mGameSettings, mBackground, mMainMenuMusic, mGameSceneMusic)),
+      mSceneStack(Scene::Context(mWindow, mFont, mGameSettings, mBackground, mMainMenuMusic, mGameSceneMusic, mVictoryMusic, mThreeStars, mMedal)),
       mFpsCounter(),
       mFpsTime(sf::Time::Zero) {
     mWindow.setFramerateLimit(120);
 
-    if (!mFont.loadFromFile("res/fonts/ProFont For Powerline.ttf")) {
+    if (!mFont.loadFromFile("res/fonts/ARCADE_N.TTF")) {
         throw std::runtime_error("Could not load font.");
     }
 
     if(!mBackground.loadFromFile("res/img/title/bg.png", sf::IntRect(0, 0, 1999, 1123))) {
         throw std::runtime_error("Could not load res/img/title/bg.png");
+    }
+
+    if(!mThreeStars.loadFromFile("res/img/victory/3stars.png")) {
+        throw std::runtime_error("Could not load res/img/victory/3stars.png");
+    }
+
+    if(!mMedal.loadFromFile("res/img/victory/medal.png")) {
+        throw std::runtime_error("Could not load res/img/victory/medal.png");
     }
 
     if(!mMainMenuMusic.openFromFile("res/audio/main.ogg")){
@@ -32,6 +40,11 @@ Engine::Engine()
     if(!mGameSceneMusic.openFromFile("res/audio/game1.ogg")){
         throw std::runtime_error("Could not load res/audio/game1.ogg");
     }
+
+    if(!mVictoryMusic.openFromFile("res/audio/victory.ogg")){
+        throw std::runtime_error("Could not load res/audio/victory.ogg");
+    }
+
     mGameSettings.setBoardSize(5, 5);
     mGameSettings.setNumberOfShips(5);
 
