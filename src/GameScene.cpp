@@ -3,6 +3,7 @@
 #include <iostream>
 #include "Board.h"
 #include "Command.h"
+#include <cmath>
 
 GameScene::GameScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
