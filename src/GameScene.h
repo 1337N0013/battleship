@@ -42,7 +42,10 @@ class GameScene : public Scene {
     std::unique_ptr<Board> playerBoards[2];
 
     sf::Text mVictory;
-    sf::Text mStats;
+    sf::Text mPlayerWin;
+    sf::Text mTurns;
+    sf::Text mShipsLeft;
+    sf::Text mTime;
     Button mMainMenu;
 
     sf::RenderWindow& mWindow;

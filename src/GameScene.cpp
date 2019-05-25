@@ -1,16 +1,19 @@
 #include "GameScene.h"
 #include <SFML/Audio.hpp>
+#include <cmath>
 #include <iostream>
 #include "Board.h"
 #include "Command.h"
-#include <cmath>
 
 GameScene::GameScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
       currentGameState(context.gameSettings),
       mWindow(context.window),
       mVictory("VICTORY!", context.font),
-      mStats("STATS", context.font),
+      mPlayerWin("PLAYER", context.font),
+      mTurns("TURNS", context.font),
+      mShipsLeft("SHIPS LEFT", context.font),
+      mTime("TIME", context.font),
       mMainMenu("Return to Main Menu", context.font),
       mGameSceneMusic(context.gameSceneMusic),
       mVictoryMusic(context.victoryMusic) {
@@ -19,15 +22,20 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
 
+    mVictory.setCharacterSize(35);
     mVictory.setPosition(
-        windowSize.x / 2 - mVictory.getGlobalBounds().width / 2, 200);
+        windowSize.x / 2 - mVictory.getGlobalBounds().width / 2, 150);
 
-    mStats.setCharacterSize(20);
+    mPlayerWin.setCharacterSize(35);
+
+    mTurns.setCharacterSize(20);
+    mShipsLeft.setCharacterSize(20);
+    mTime.setCharacterSize(20);
 
     mMainMenu.setCharacterSize(20);
     mMainMenu.setSize(425, 30);
     mMainMenu.setPosition(
-        windowSize.x / 2 - mMainMenu.getGlobalBounds().width / 2, 400);
+        windowSize.x / 2 - mMainMenu.getGlobalBounds().width / 2, 500);
     mMainMenu.onClickCommand.reset(new SceneCommand::ReturnToMainMenu(*this));
 
     mBackground.setPosition(0, 0);
@@ -54,7 +62,8 @@ GameScene::~GameScene() { getContext().victoryMusic.stop(); }
 bool GameScene::input(const sf::Event& e) {
     switch (e.type) {
         case sf::Event::KeyReleased: {
-            if (e.key.code == sf::Keyboard::Escape && currentGameState.currentPhase != GameState::Phase::Victory) {
+            if (e.key.code == sf::Keyboard::Escape &&
+                currentGameState.currentPhase != GameState::Phase::Victory) {
                 requestScenePush(Scene::ID::Pause);
             }
         }
@@ -75,7 +84,10 @@ void GameScene::draw() {
         mWindow.draw(*playerBoards[currentGameState.getPlayer()]);
     } else {
         mWindow.draw(mVictory);
-        mWindow.draw(mStats);
+        mWindow.draw(mPlayerWin);
+        mWindow.draw(mTurns);
+        mWindow.draw(mShipsLeft);
+        mWindow.draw(mTime);
         mWindow.draw(mMainMenu);
     }
 }
@@ -120,6 +132,34 @@ bool GameScene::update(sf::Time deltaTime) {
             std::cout << "PLAYER " << winner + 1 << " WINS\n";
             std::cout << "VICTORY PHASE\n";
 
+            sf::Vector2f windowSize(getContext().window.getSize().x,
+                                    getContext().window.getSize().y);
+
+            std::string playerWinText = "PLAYER " + std::to_string(winner + 1);
+            mPlayerWin.setString(playerWinText);
+            mPlayerWin.setPosition(
+                windowSize.x / 2 - mPlayerWin.getGlobalBounds().width / 2, 200);
+
+            std::string turnsText =
+                "IN " + std::to_string(currentGameState.getTurn()) + " TURNS";
+            mTurns.setString(turnsText);
+            mTurns.setPosition(
+                windowSize.x / 2 - mTurns.getGlobalBounds().width / 2, 300);
+
+            std::string shipsLeftText = "WITH ";
+            if (currentGameState.numberOfShips[winner] == 1) {
+                shipsLeftText +=
+                    std::to_string(currentGameState.numberOfShips[winner]) +
+                    " SHIP LEFT";
+            } else {
+                shipsLeftText +=
+                    std::to_string(currentGameState.numberOfShips[winner]) +
+                    " SHIPS LEFT";
+            }
+            mShipsLeft.setString(shipsLeftText);
+            mShipsLeft.setPosition(
+                windowSize.x / 2 - mShipsLeft.getGlobalBounds().width / 2, 330);
+
             std::string timeString = "TIME: ";
             if (currentGameState.gameTime.asSeconds() < 60) {
                 timeString += std::to_string((int)std::round(
@@ -133,13 +173,10 @@ bool GameScene::update(sf::Time deltaTime) {
                     std::to_string((int)currentGameState.gameTime.asSeconds() %
                                    60);
             }
-            
-            mStats.setString(timeString);
-            sf::Vector2f windowSize(getContext().window.getSize().x,
-                                    getContext().window.getSize().y);
-            mStats.setPosition(
-                windowSize.x / 2 - mStats.getGlobalBounds().width / 2, 300);
-            
+            mTime.setString(timeString);
+            mTime.setPosition(
+                windowSize.x / 2 - mTime.getGlobalBounds().width / 2, 360);
+
             mGameSceneMusic.stop();
             getContext().victoryMusic.play();
         }
