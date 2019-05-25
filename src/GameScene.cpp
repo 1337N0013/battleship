@@ -193,6 +193,35 @@ bool GameScene::update(sf::Time deltaTime) {
         mMainMenu.update(deltaTime);
     }
 
+    victoryBlinkTime += deltaTime;
+    
+    if(victoryBlinkTime.asSeconds() > 0.5)
+    {
+        if (mVictory.getFillColor() == sf::Color::White)
+        {
+            mVictory.setFillColor(sf::Color::Transparent);
+        }
+        else
+        {
+            mVictory.setFillColor(sf::Color::White);
+        }
+        victoryBlinkTime = sf::Time::Zero;
+    }
+
+    playerWinBlinkTime += deltaTime;
+    
+    if(playerWinBlinkTime.asSeconds() > 0.5)
+    {
+        if (mPlayerWin.getFillColor() == sf::Color::White)
+        {
+            mPlayerWin.setFillColor(sf::Color::Transparent);
+        }
+        else
+        {
+            mPlayerWin.setFillColor(sf::Color::White);
+        }
+        playerWinBlinkTime = sf::Time::Zero;
+    }
     return true;
 }
 
