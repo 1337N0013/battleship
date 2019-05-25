@@ -66,13 +66,17 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     playerBoards[1].reset(new Board(currentGameState, context));
 }
 
-GameScene::~GameScene() { getContext().victoryMusic.stop(); }
+GameScene::~GameScene() {
+    getContext().gameSceneMusic.stop();
+    getContext().victoryMusic.stop();
+}
 
 bool GameScene::input(const sf::Event& e) {
     switch (e.type) {
         case sf::Event::KeyReleased: {
             if (e.key.code == sf::Keyboard::Escape) {
-                if (currentGameState.currentPhase != GameState::Phase::Victory) {
+                if (currentGameState.currentPhase !=
+                    GameState::Phase::Victory) {
                     requestScenePush(Scene::ID::Pause);
                 } else {
                     requestSceneClear();
@@ -214,30 +218,22 @@ bool GameScene::update(sf::Time deltaTime) {
     }
 
     victoryBlinkTime += deltaTime;
-    
-    if(victoryBlinkTime.asSeconds() > 0.5)
-    {
-        if (mVictory.getFillColor() == sf::Color::White)
-        {
+
+    if (victoryBlinkTime.asSeconds() > 0.5) {
+        if (mVictory.getFillColor() == sf::Color::White) {
             mVictory.setFillColor(sf::Color::Transparent);
-        }
-        else
-        {
+        } else {
             mVictory.setFillColor(sf::Color::White);
         }
         victoryBlinkTime = sf::Time::Zero;
     }
 
     playerWinBlinkTime += deltaTime;
-    
-    if(playerWinBlinkTime.asSeconds() > 0.5)
-    {
-        if (mPlayerWin.getFillColor() == sf::Color::White)
-        {
+
+    if (playerWinBlinkTime.asSeconds() > 0.5) {
+        if (mPlayerWin.getFillColor() == sf::Color::White) {
             mPlayerWin.setFillColor(sf::Color::Transparent);
-        }
-        else
-        {
+        } else {
             mPlayerWin.setFillColor(sf::Color::White);
         }
         playerWinBlinkTime = sf::Time::Zero;
