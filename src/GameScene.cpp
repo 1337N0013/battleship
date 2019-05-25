@@ -71,9 +71,13 @@ GameScene::~GameScene() { getContext().victoryMusic.stop(); }
 bool GameScene::input(const sf::Event& e) {
     switch (e.type) {
         case sf::Event::KeyReleased: {
-            if (e.key.code == sf::Keyboard::Escape &&
-                currentGameState.currentPhase != GameState::Phase::Victory) {
-                requestScenePush(Scene::ID::Pause);
+            if (e.key.code == sf::Keyboard::Escape) {
+                if (currentGameState.currentPhase != GameState::Phase::Victory) {
+                    requestScenePush(Scene::ID::Pause);
+                } else {
+                    requestSceneClear();
+                    requestScenePush(Scene::ID::MainMenu);
+                }
             }
         }
         default:
