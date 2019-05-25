@@ -2,18 +2,30 @@
 #include <SFML/Audio.hpp>
 #include <iostream>
 #include "Board.h"
+#include "Command.h"
 
 GameScene::GameScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
-      mWindow(context.window),
-      mTestText("Hello", context.font),
       currentGameState(context.gameSettings),
+      mWindow(context.window),
+      mVictory("VICTORY!", context.font),
+      mStats("STATS", context.font),
+      mMainMenu("Return to Main Menu", context.font),
       mGameSceneMusic(context.gameSceneMusic) {
     getContext().mainMenuMusic.stop();
 
-    mBackground.setPosition(0, 0);
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
+
+    mVictory.setPosition(
+        windowSize.x / 2 - mVictory.getGlobalBounds().width / 2, 200);
+
+    mMainMenu.setSize(300, 30);
+    mMainMenu.setPosition(
+        windowSize.x / 2 - mMainMenu.getGlobalBounds().width / 2, 400);
+    mMainMenu.onClickCommand.reset(new SceneCommand::ReturnToMainMenu(*this));
+
+    mBackground.setPosition(0, 0);
     mBackground.setSize(windowSize);
     mBackground.setFillColor(sf::Color::Black);
 
@@ -22,8 +34,6 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mGameSceneMusic.setVolume(15);
     mGameSceneMusic.setLoop(true);
     mGameSceneMusic.play();
-
-    mTestText.setPosition(100, 100);
 
     playerBoards[0].reset(new Board(currentGameState, context));
     playerBoards[1].reset(new Board(currentGameState, context));
@@ -41,18 +51,29 @@ bool GameScene::input(const sf::Event& e) {
         default:
             break;
     }
-    playerBoards[currentGameState.getPlayer()]->input(e);
+    if (currentGameState.currentPhase != GameState::Phase::Victory) {
+        playerBoards[currentGameState.getPlayer()]->input(e);
+    } else {
+        mMainMenu.handleInput(e);
+    }
     return true;
 }
 
 void GameScene::draw() {
     mWindow.draw(mBackground);
-    mWindow.draw(mTestText);
-    mWindow.draw(*playerBoards[currentGameState.getPlayer()]);
+    if (currentGameState.currentPhase != GameState::Phase::Victory) {
+        mWindow.draw(*playerBoards[currentGameState.getPlayer()]);
+    } else {
+        mWindow.draw(mVictory);
+        mWindow.draw(mStats);
+        mWindow.draw(mMainMenu);
+    }
 }
 
 bool GameScene::update(sf::Time deltaTime) {
-    playerBoards[currentGameState.getPlayer()]->update(deltaTime);
+    if (currentGameState.currentPhase != GameState::Phase::Victory) {
+        playerBoards[currentGameState.getPlayer()]->update(deltaTime);
+    }
     // std::cout << "PLAYER " << currentGameState.getPlayer() << "\n";
 
     if (currentGameState.currentPhase == GameState::Phase::Preparation) {
@@ -75,6 +96,7 @@ bool GameScene::update(sf::Time deltaTime) {
             }
         }
     } else if (currentGameState.currentPhase == GameState::Phase::Battle) {
+        currentGameState.gameTime += deltaTime;
         int winner;
         if (playerBoards[0]->getNumberOfShips() == 0) {
             winner = 1;
@@ -84,10 +106,32 @@ bool GameScene::update(sf::Time deltaTime) {
             winner = -1;
         }
         if (winner != -1) {
+            currentGameState.currentPhase = GameState::Phase::Victory;
             std::cout << "PLAYER " << winner + 1 << " WINS\n";
-            requestSceneClear();
-            requestScenePush(Scene::ID::MainMenu);
+            std::cout << "VICTORY PHASE\n";
+
+            std::string timeString = "TIME: ";
+            if (currentGameState.gameTime.asSeconds() < 60) {
+                timeString += std::to_string((int)std::round(
+                                  currentGameState.gameTime.asSeconds())) +
+                              " seconds";
+            } else {
+                timeString +=
+                    std::to_string((int)currentGameState.gameTime.asSeconds() /
+                                   60) +
+                    ":" +
+                    std::to_string((int)currentGameState.gameTime.asSeconds() %
+                                   60);
+            }
+            
+            mStats.setString(timeString);
+            sf::Vector2f windowSize(getContext().window.getSize().x,
+                                    getContext().window.getSize().y);
+            mStats.setPosition(
+                windowSize.x / 2 - mStats.getGlobalBounds().width / 2, 300);
         }
+    } else if (currentGameState.currentPhase == GameState::Phase::Victory) {
+        mMainMenu.update(deltaTime);
     }
 
     return true;

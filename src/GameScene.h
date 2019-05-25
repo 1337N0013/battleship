@@ -4,6 +4,7 @@
 // #include "Board.h"
 #include "GameSettings.h"
 #include "Scene.h"
+#include "Button.h"
 
 class Board;
 
@@ -17,10 +18,11 @@ class GameScene : public Scene {
         void incrementTurn();
         void resetTurnsToZero();
 
-        enum class Phase { Preparation, Battle };
+        enum class Phase { Preparation, Battle, Victory };
         Phase currentPhase;
         unsigned int numberOfShips[2];
         unsigned int maxShips;
+        sf::Time gameTime;
 
        private:
         int turn;
@@ -37,24 +39,16 @@ class GameScene : public Scene {
     GameState currentGameState;
 
    private:
-    // struct PlayerBoards {
-    //     PlayerBoards(GameSettings& gameSettings);
-
-    //     std::vector<std::vector<Board::CellState>> player1;
-    //     std::vector<std::vector<Board::CellState>> player2;
-    // };
-
     std::unique_ptr<Board> playerBoards[2];
 
-    // PlayerBoards mPlayerBoards;
-
-    // std::vector<std::vector<Board::CellState>> mPlayer1Board;
-    // std::vector<std::vector<Board::CellState>> mPlayer2Board;
+    sf::Text mVictory;
+    sf::Text mStats;
+    Button mMainMenu;
 
     sf::RenderWindow& mWindow;
     sf::RectangleShape mBackground;
-    sf::Text mTestText;
     sf::Music& mGameSceneMusic;
+    // sf::Music& mVictoryMusic;
 };
 
 #endif
