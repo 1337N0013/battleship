@@ -1,14 +1,16 @@
 #include "BoardCell.h"
 #include "Command.h"
 
-BoardCell::BoardCell(sf::Vector2u coord, BoardCell::State state, Scene::Context& context)
+BoardCell::BoardCell(sf::Vector2u coord, BoardCell::State state,
+                     Scene::Context& context)
     : Button("", context.font),
       mContext(context),
       mCurrentState(state),
       mCoord(coord),
       wasCoordSet(false) {}
 
-BoardCell::BoardCell(unsigned int x, unsigned int y, BoardCell::State state, Scene::Context& context)
+BoardCell::BoardCell(unsigned int x, unsigned int y, BoardCell::State state,
+                     Scene::Context& context)
     : BoardCell(sf::Vector2u(x, y), state, context) {}
 
 BoardCell::BoardCell(sf::Vector2u coord, Scene::Context& context)
