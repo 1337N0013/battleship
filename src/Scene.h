@@ -12,6 +12,7 @@ class Scene {
     struct Context {
         Context(sf::RenderWindow& window, sf::Font& font,
                 GameSettings& gameSettings, sf::Texture& background,
+                sf::Texture& gameBackground,
                 sf::Music& mainMenuMusic, sf::Music& gameSceneMusic,
                 sf::Music& victoryMusic, sf::Texture& threeStars,
                 sf::Texture& medal);
@@ -19,6 +20,7 @@ class Scene {
         sf::Font& font;
         GameSettings& gameSettings;
         sf::Texture& background;
+        sf::Texture& gameBackground;
         sf::Music& mainMenuMusic;
         sf::Music& gameSceneMusic;
         sf::Music& victoryMusic;
