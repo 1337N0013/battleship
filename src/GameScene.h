@@ -66,6 +66,11 @@ class GameScene : public Scene {
     Button mPreparationButtons[2];
     sf::Text mTransition;
     sf::Text mTransitionSubtitle;
+
+    // JOSIAH AND THOMAS WERE HERE
+    sf::RectangleShape mWhosTurn, mGameClock, mTurnCounter, mYourShips, mEnemyShips;
+
+    //(770, 40, 984, 100);
 };
 
 #endif

@@ -1,4 +1,5 @@
 #include "GameScene.h"
+#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <cmath>
 #include <iostream>
@@ -27,7 +28,9 @@ GameScene::GameScene(SceneStack& stack, Context& context)
                           Button("CONTINUE", context.font)},
       mActionTime(sf::Time::Zero),
       mTransition("", context.font),
-      mTransitionSubtitle("", context.font) {
+      mTransitionSubtitle("", context.font), 
+      // JOSIAH AND THOMAS WERE HERE
+      mWhosTurn(), mGameClock(), mTurnCounter(), mYourShips(), mEnemyShips() {
     getContext().mainMenuMusic.stop();
 
     sf::Vector2f windowSize(context.window.getSize().x,
@@ -101,6 +104,41 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mVictoryMusic.setVolume(15);
     mVictoryMusic.setLoop(true);
 
+    // JOSIAH AND THOMAS WERE HERE
+    mWhosTurn.setSize(sf::Vector2f(210, 60));
+    mWhosTurn.setPosition(770, 40);
+    mWhosTurn.setFillColor(sf::Color::Black);
+    mWhosTurn.setOutlineColor(sf::Color(114 ,114, 114));
+    mWhosTurn.setOutlineThickness(3);
+
+    // JOSIAH AND THOMAS WERE STILL HERE
+    mGameClock.setSize(sf::Vector2f(210, 60));
+    mGameClock.setPosition(770, 120);
+    mGameClock.setFillColor(sf::Color::Black);
+    mGameClock.setOutlineColor(sf::Color(114 ,114, 114));
+    mGameClock.setOutlineThickness(3);
+
+    // JOSIAH AND THOMAS WERE STILL HERE
+    mTurnCounter.setSize(sf::Vector2f(130, 130));
+    mTurnCounter.setPosition(812, 200);
+    mTurnCounter.setFillColor(sf::Color::Black);
+    mTurnCounter.setOutlineColor(sf::Color(114 ,114, 114));
+    mTurnCounter.setOutlineThickness(3);
+
+    // JOSIAH AND THOMAS WERE STILL HERE
+    mYourShips.setSize(sf::Vector2f(95, 150));
+    mYourShips.setPosition(770, 350);
+    mYourShips.setFillColor(sf::Color::Black);
+    mYourShips.setOutlineColor(sf::Color(114 ,114, 114));
+    mYourShips.setOutlineThickness(3);
+
+    // JOSIAH AND THOMAS WERE STILL HERE
+    mEnemyShips.setSize(sf::Vector2f(95, 150));
+    mEnemyShips.setPosition(885, 350);
+    mEnemyShips.setFillColor(sf::Color::Black);
+    mEnemyShips.setOutlineColor(sf::Color(114 ,114, 114));
+    mEnemyShips.setOutlineThickness(3);
+
     playerBoards[0].reset(new Board(currentGameState, context));
     playerBoards[1].reset(new Board(currentGameState, context));
 }
@@ -147,6 +185,11 @@ void GameScene::draw() {
     } else if (currentGameState.currentPhase != GameState::Phase::Victory) {
         mWindow.draw(mGameBackgroundSprite);
         mWindow.draw(mPanelSprite);
+        mWindow.draw(mWhosTurn);
+        mWindow.draw(mGameClock);
+        mWindow.draw(mTurnCounter);
+        mWindow.draw(mYourShips);
+        mWindow.draw(mEnemyShips);
         mWindow.draw(*playerBoards[currentGameState.getPlayer()]);
     } else if (currentGameState.currentPhase == GameState::Phase::Victory) {
         mWindow.draw(mVictory);
