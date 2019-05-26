@@ -12,7 +12,7 @@ Engine::Engine()
     : mWindow(sf::VideoMode(windowWidth, windowHeight), "Battleship", sf::Style::Titlebar | sf::Style::Close),
       mFont(),
       mGameSettings(),
-      mSceneStack(Scene::Context(mWindow, mFont, mGameSettings, mBackground, mMainMenuMusic, mGameSceneMusic, mVictoryMusic, mThreeStars, mMedal)),
+      mSceneStack(Scene::Context(mWindow, mFont, mGameSettings, mBackground, mGameBackground, mMainMenuMusic, mGameSceneMusic, mVictoryMusic, mThreeStars, mMedal)),
       mFpsCounter(),
       mFpsTime(sf::Time::Zero) {
     mWindow.setFramerateLimit(120);
@@ -23,6 +23,10 @@ Engine::Engine()
 
     if(!mBackground.loadFromFile("res/img/title/bg.png", sf::IntRect(0, 0, 1999, 1123))) {
         throw std::runtime_error("Could not load res/img/title/bg.png");
+    }
+
+    if(!mGameBackground.loadFromFile("res/img/platform/metal_bg.png", sf::IntRect(0, 0, 1999, 1123))) {
+        throw std::runtime_error("Could not load res/img/platform/metal_bg.png");
     }
 
     if(!mThreeStars.loadFromFile("res/img/victory/3stars.png")) {

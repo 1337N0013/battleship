@@ -9,6 +9,7 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
       currentGameState(context.gameSettings),
       mWindow(context.window),
+      mGameBackgroundSprite(context.gameBackground),
       mVictory("VICTORY!", context.font),
       mPlayerWin("PLAYER", context.font),
       mTurns("TURNS", context.font),
@@ -25,6 +26,11 @@ GameScene::GameScene(SceneStack& stack, Context& context)
 
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
+
+    mGameBackgroundSprite.setOrigin(580, 386);
+    mGameBackgroundSprite.setPosition(512, 384);
+    mGameBackgroundSprite.setScale(1,1);
+    mGameBackgroundSprite.setColor(sf::Color(25, 25, 25));
 
     mVictory.setCharacterSize(80);
     mBackground.setPosition(0, 0);
@@ -98,6 +104,7 @@ bool GameScene::input(const sf::Event& e) {
 void GameScene::draw() {
     mWindow.draw(mBackground);
     if (currentGameState.currentPhase != GameState::Phase::Victory) {
+        mWindow.draw(mGameBackgroundSprite);
         mWindow.draw(*playerBoards[currentGameState.getPlayer()]);
     } else {
         mWindow.draw(mVictory);
