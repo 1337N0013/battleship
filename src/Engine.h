@@ -14,9 +14,12 @@ class Engine {
     SceneStack mSceneStack;
     GameSettings mGameSettings;
     sf::Font mFont;
+    sf::Font mSevenSegment;
     sf::Texture mBackground;
     sf::Texture mGameBackground;
-    sf::Texture mPanel;
+    sf::Texture mGreenLed;
+    sf::Texture mRedLed;
+    sf::Texture mYellowLed;
     sf::Texture mThreeStars;
     sf::Texture mMedal;
     sf::Music mMainMenuMusic;

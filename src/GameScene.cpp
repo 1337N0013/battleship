@@ -11,7 +11,9 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       currentGameState(context.gameSettings),
       mWindow(context.window),
       mGameBackgroundSprite(context.gameBackground),
-      mPanelSprite(context.panel),
+      mGreenLed(context.greenLed),
+      mRedLed(context.redLed),
+      mYellowLed(context.yellowLed),
       mVictory("VICTORY!", context.font),
       mPlayerWin("PLAYER", context.font),
       mTurns("TURNS", context.font),
@@ -30,6 +32,11 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       mTransition("", context.font),
       mTransitionSubtitle("", context.font), 
       // JOSIAH AND THOMAS WERE HERE
+      mWhosTurnText("PLAYER", context.sevenSegment), 
+      mGameClockText("TIME-", context.sevenSegment), 
+      mTurnCounterText("TURN:", context.sevenSegment), 
+      mYourShipsText("YOUR\nSHIPS:", context.sevenSegment), 
+      mEnemyShipsText("ENEMY\nSHIPS:", context.sevenSegment),
       mWhosTurn(), mGameClock(), mTurnCounter(), mYourShips(), mEnemyShips() {
     getContext().mainMenuMusic.stop();
 
@@ -64,8 +71,14 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mGameBackgroundSprite.setScale(1, 1);
     mGameBackgroundSprite.setColor(sf::Color(25, 25, 25));
 
-    mPanelSprite.setPosition(798, 520);
-    mPanelSprite.setScale(0.18f, 0.18f);
+    mGreenLed.setPosition(770, 525);
+    mGreenLed.setScale(0.2f, 0.2f);
+
+    mYellowLed.setPosition(845, 525);
+    mYellowLed.setScale(0.2f, 0.2f);
+
+    mRedLed.setPosition(920, 525);
+    mRedLed.setScale(0.2f, 0.2f);
 
     mVictory.setCharacterSize(80);
 
@@ -105,6 +118,11 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mVictoryMusic.setLoop(true);
 
     // JOSIAH AND THOMAS WERE HERE
+    mWhosTurnText.setCharacterSize(45);
+    mWhosTurnText.setPosition(780, 40);
+    mWhosTurnText.setFillColor(sf::Color::Green);
+    mWhosTurnText.setStyle(sf::Text::Bold);
+
     mWhosTurn.setSize(sf::Vector2f(210, 60));
     mWhosTurn.setPosition(770, 40);
     mWhosTurn.setFillColor(sf::Color::Black);
@@ -118,12 +136,22 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mGameClock.setOutlineColor(sf::Color(114 ,114, 114));
     mGameClock.setOutlineThickness(3);
 
+    mGameClockText.setCharacterSize(45);
+    mGameClockText.setPosition(780, 120);
+    mGameClockText.setFillColor(sf::Color::Green);
+    mGameClockText.setStyle(sf::Text::Bold);
+
     // JOSIAH AND THOMAS WERE STILL HERE
     mTurnCounter.setSize(sf::Vector2f(130, 130));
     mTurnCounter.setPosition(812, 200);
     mTurnCounter.setFillColor(sf::Color::Black);
     mTurnCounter.setOutlineColor(sf::Color(114 ,114, 114));
     mTurnCounter.setOutlineThickness(3);
+
+    mTurnCounterText.setCharacterSize(45);
+    mTurnCounterText.setPosition(820, 200);
+    mTurnCounterText.setFillColor(sf::Color::Green);
+    mTurnCounterText.setStyle(sf::Text::Bold);
 
     // JOSIAH AND THOMAS WERE STILL HERE
     mYourShips.setSize(sf::Vector2f(95, 150));
@@ -132,12 +160,22 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mYourShips.setOutlineColor(sf::Color(114 ,114, 114));
     mYourShips.setOutlineThickness(3);
 
+    mYourShipsText.setCharacterSize(30);
+    mYourShipsText.setPosition(780, 350);
+    mYourShipsText.setFillColor(sf::Color::Green);
+    mYourShipsText.setStyle(sf::Text::Bold);
+
     // JOSIAH AND THOMAS WERE STILL HERE
     mEnemyShips.setSize(sf::Vector2f(95, 150));
     mEnemyShips.setPosition(885, 350);
     mEnemyShips.setFillColor(sf::Color::Black);
     mEnemyShips.setOutlineColor(sf::Color(114 ,114, 114));
     mEnemyShips.setOutlineThickness(3);
+
+    mEnemyShipsText.setCharacterSize(30);
+    mEnemyShipsText.setPosition(890, 350);
+    mEnemyShipsText.setFillColor(sf::Color::Green);
+    mEnemyShipsText.setStyle(sf::Text::Bold);
 
     playerBoards[0].reset(new Board(currentGameState, context));
     playerBoards[1].reset(new Board(currentGameState, context));
@@ -184,12 +222,19 @@ void GameScene::draw() {
         mWindow.draw(mThreeStars);
     } else if (currentGameState.currentPhase != GameState::Phase::Victory) {
         mWindow.draw(mGameBackgroundSprite);
-        mWindow.draw(mPanelSprite);
         mWindow.draw(mWhosTurn);
         mWindow.draw(mGameClock);
         mWindow.draw(mTurnCounter);
         mWindow.draw(mYourShips);
         mWindow.draw(mEnemyShips);
+        mWindow.draw(mWhosTurnText);
+        mWindow.draw(mGameClockText);
+        mWindow.draw(mTurnCounterText);
+        mWindow.draw(mYourShipsText);
+        mWindow.draw(mEnemyShipsText);
+        mWindow.draw(mGreenLed);
+        mWindow.draw(mYellowLed);
+        mWindow.draw(mRedLed);
         mWindow.draw(*playerBoards[currentGameState.getPlayer()]);
     } else if (currentGameState.currentPhase == GameState::Phase::Victory) {
         mWindow.draw(mVictory);
