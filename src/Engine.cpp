@@ -12,7 +12,7 @@ Engine::Engine()
     : mWindow(sf::VideoMode(windowWidth, windowHeight), "Battleship", sf::Style::Titlebar | sf::Style::Close),
       mFont(),
       mGameSettings(),
-      mSceneStack(Scene::Context(mWindow, mFont, mGameSettings, mBackground, mGameBackground, mMainMenuMusic, mGameSceneMusic, mVictoryMusic, mThreeStars, mMedal)),
+      mSceneStack(Scene::Context(mWindow, mFont, mGameSettings, mBackground, mGameBackground, mBolt, mDial, mKnob, mGreenLed, mRedLed, mRadio, mMainMenuMusic, mGameSceneMusic, mVictoryMusic, mThreeStars, mMedal)),
       mFpsCounter(),
       mFpsTime(sf::Time::Zero) {
     mWindow.setFramerateLimit(120);
@@ -27,6 +27,30 @@ Engine::Engine()
 
     if(!mGameBackground.loadFromFile("res/img/platform/metal_bg.png", sf::IntRect(0, 0, 1999, 1123))) {
         throw std::runtime_error("Could not load res/img/platform/metal_bg.png");
+    }
+
+    if(!mBolt.loadFromFile("res/img/platform/bolt.png")) {
+        throw std::runtime_error("Could not load res/img/platform/bolt.png");
+    }
+
+    if(!mDial.loadFromFile("res/img/platform/dial.png")) {
+        throw std::runtime_error("Could not load res/img/platform/dial.png");
+    }
+
+    if(!mKnob.loadFromFile("res/img/platform/knob.png")) {
+        throw std::runtime_error("Could not load res/img/platform/knob.png");
+    }
+
+    if(!mGreenLed.loadFromFile("res/img/platform/led_green.png")) {
+        throw std::runtime_error("Could not load res/img/platform/led_green.png");
+    }
+
+    if(!mRedLed.loadFromFile("res/img/platform/led_red.png")) {
+        throw std::runtime_error("Could not load res/img/platform/led_red.png");
+    }
+
+    if(!mRadio.loadFromFile("res/img/platform/speaker.png")) {
+        throw std::runtime_error("Could not load res/img/platform/speaker.png");
     }
 
     if(!mThreeStars.loadFromFile("res/img/victory/3stars.png")) {
