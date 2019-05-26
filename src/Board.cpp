@@ -39,7 +39,11 @@ Board::Board(GameScene::GameState& state, Scene::Context& context)
             if (i >= xOffset && i < xOffset + boardSize && j >= yOffset &&
                 j < yOffset + boardSize) {
                 mCells[i][j].setStateColor(Button::State::Default,
-                                           sf::Color(28, 45, 72));
+                                           sf::Color(45, 105, 173));
+                mCells[i][j].setStateColor(Button::State::Hovered,
+                                           sf::Color(150, 180, 214));
+                mCells[i][j].setStateColor(Button::State::Pressed,
+                                           sf::Color(222, 173, 31));
                 mCells[i][j].setState(BoardCell::State::None);
             }
 
@@ -59,8 +63,8 @@ Board::Board(GameScene::GameState& state, Scene::Context& context)
 
         mNumbers[i].setFont(context.font);
         mNumbers[i].setCharacterSize(20);
-        mNumbers[i].setPosition(10, 69 * i + 60);
-        mNumbers[i].setString(std::to_string(i));
+        mNumbers[i].setPosition(12, 69 * i + 60);
+        mNumbers[i].setString(std::to_string(i + 1));
         mNumbers[i].setFillColor(sf::Color::White);
     }
 }
