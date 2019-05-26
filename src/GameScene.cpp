@@ -29,7 +29,7 @@ GameScene::GameScene(SceneStack& stack, Context& context)
 
     mGameBackgroundSprite.setOrigin(580, 386);
     mGameBackgroundSprite.setPosition(512, 384);
-    mGameBackgroundSprite.setScale(1,1);
+    mGameBackgroundSprite.setScale(1, 1);
     mGameBackgroundSprite.setColor(sf::Color(25, 25, 25));
 
     mVictory.setCharacterSize(80);
@@ -167,8 +167,14 @@ bool GameScene::update(sf::Time deltaTime) {
             mPlayerWin.setPosition(
                 windowSize.x / 2 - mPlayerWin.getGlobalBounds().width / 2, 270);
 
-            std::string turnsText =
-                "IN " + std::to_string(currentGameState.getTurn()) + " TURNS";
+            std::string turnsText = "IN ";
+            if (currentGameState.getTurn() == 1) {
+                turnsText +=
+                    std::to_string(currentGameState.getTurn()) + " TURN";
+            } else {
+                turnsText +=
+                    std::to_string(currentGameState.getTurn()) + " TURNS";
+            }
             mTurns.setString(turnsText);
             mTurns.setPosition(
                 windowSize.x / 2 - mTurns.getGlobalBounds().width / 2, 400);
@@ -190,8 +196,12 @@ bool GameScene::update(sf::Time deltaTime) {
             std::string timeString = "TIME: ";
             if (currentGameState.gameTime.asSeconds() < 60) {
                 timeString += std::to_string((int)std::round(
-                                  currentGameState.gameTime.asSeconds())) +
-                              " seconds";
+                                  currentGameState.gameTime.asSeconds()));
+                if ((int)std::round(currentGameState.gameTime.asSeconds()) == 1) {
+                    timeString += " second";
+                } else {
+                    timeString += " seconds";
+                }
             } else {
                 timeString +=
                     std::to_string((int)currentGameState.gameTime.asSeconds() /
