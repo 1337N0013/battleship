@@ -20,6 +20,7 @@ class Engine {
     sf::Texture mGreenLed;
     sf::Texture mRedLed;
     sf::Texture mYellowLed;
+    sf::Texture mGrille;
     sf::Texture mThreeStars;
     sf::Texture mMedal;
     sf::Music mMainMenuMusic;

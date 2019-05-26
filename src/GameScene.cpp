@@ -14,6 +14,7 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       mGreenLed(context.greenLed),
       mRedLed(context.redLed),
       mYellowLed(context.yellowLed),
+      mGrille(context.grille),
       mVictory("VICTORY!", context.font),
       mPlayerWin("PLAYER", context.font),
       mTurns("TURNS", context.font),
@@ -71,14 +72,18 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mGameBackgroundSprite.setScale(1, 1);
     mGameBackgroundSprite.setColor(sf::Color(25, 25, 25));
 
-    mGreenLed.setPosition(770, 525);
+    mGreenLed.setPosition(770, 535);
     mGreenLed.setScale(0.2f, 0.2f);
 
-    mYellowLed.setPosition(845, 525);
+    mYellowLed.setPosition(845, 535);
     mYellowLed.setScale(0.2f, 0.2f);
 
-    mRedLed.setPosition(920, 525);
+    mRedLed.setPosition(920, 535);
     mRedLed.setScale(0.2f, 0.2f);
+
+    mGrille.setPosition(772, 615);
+    mGrille.setScale(0.4f, 0.4f);
+    mGrille.setColor(sf::Color(160, 160, 160));
 
     mVictory.setCharacterSize(80);
 
@@ -235,6 +240,7 @@ void GameScene::draw() {
         mWindow.draw(mGreenLed);
         mWindow.draw(mYellowLed);
         mWindow.draw(mRedLed);
+        mWindow.draw(mGrille);
         mWindow.draw(*playerBoards[currentGameState.getPlayer()]);
     } else if (currentGameState.currentPhase == GameState::Phase::Victory) {
         mWindow.draw(mVictory);

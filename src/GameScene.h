@@ -45,6 +45,7 @@ class GameScene : public Scene {
     sf::Sprite mGreenLed;
     sf::Sprite mRedLed;
     sf::Sprite mYellowLed;
+    sf::Sprite mGrille;
     sf::Text mVictory;
     sf::Text mPlayerWin;
     sf::Text mTurns;
