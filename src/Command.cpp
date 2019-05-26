@@ -102,9 +102,11 @@ PlaceShip::PlaceShip(GameScene::GameState& state, Board board, unsigned int x,
 PlaceShip::~PlaceShip() {}
 void PlaceShip::execute() {
     if (mCell.getState() == BoardCell::State::None &&
-        mGameState.numberOfShips[mGameState.getPlayer()] < mGameState.maxShips) {
+        mGameState.numberOfShips[mGameState.getPlayer()] <
+            mGameState.maxShips) {
         mGameState.numberOfShips[mGameState.getPlayer()]++;
-        std::cout << "PLAYER " << mGameState.getPlayer()+1 << " PLACED SHIP AT (" << mCell.getCoord().x << ", "
+        std::cout << "PLAYER " << mGameState.getPlayer() + 1
+                  << " PLACED SHIP AT (" << mCell.getCoord().x << ", "
                   << mCell.getCoord().y << ")\n";
         mCell.setState(BoardCell::State::Ship);
     }
@@ -126,19 +128,26 @@ void Attack::execute() {
     if (mCell.getState() == BoardCell::State::Ship &&
         mGameState.numberOfShips[mGameState.getPlayer()] > 0) {
         mGameState.numberOfShips[mGameState.getPlayer()]--;
-        std::cout << "PLAYER " << mGameState.getPlayer()+1 << " HIT (" << mCell.getCoord().x << ", " << mCell.getCoord().y
-                  << ")\n";
+        std::cout << "PLAYER " << mGameState.getPlayer() + 1 << " HIT ("
+                  << mCell.getCoord().x << ", " << mCell.getCoord().y << ")\n";
         mCell.setState(BoardCell::State::Hit);
         mGameState.incrementTurn();
     } else if (mCell.getState() == BoardCell::State::None) {
         mCell.setState(BoardCell::State::Miss);
-        std::cout << "PLAYER " << mGameState.getPlayer()+1 << " MISSED AT (" << mCell.getCoord().x << ", "
-                  << mCell.getCoord().y << ")\n";
-        std::cout << "SHIPS: " << mGameState.numberOfShips[mGameState.getPlayer()]
+        std::cout << "PLAYER " << mGameState.getPlayer() + 1 << " MISSED AT ("
+                  << mCell.getCoord().x << ", " << mCell.getCoord().y << ")\n";
+        std::cout << "SHIPS: "
+                  << mGameState.numberOfShips[mGameState.getPlayer()]
                   << " OUT OF " << mGameState.maxShips << "\n";
         mGameState.incrementTurn();
     }
     std::cout << "TURN IS NOW " << mGameState.getTurn() << "\n";
 }
+
+ChangeGameState::ChangeGameState(GameScene::GameState& gameState,
+                                 GameScene::GameState::Phase phase)
+    : mState(gameState), mPhase(phase) {}
+ChangeGameState::~ChangeGameState() {}
+void ChangeGameState::execute() { mState.currentPhase = mPhase; }
 
 }  // namespace GameCommands
