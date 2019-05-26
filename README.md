@@ -39,8 +39,9 @@ Sometimes things (usually font loading) result in segfaults. Try using this and 
 - [x] Figure out how to call functions using the buttons
 - [x] Create a scene system (main menu, options, the game itself, etc.)
 - [x] Game logic
-- [ ] Victory Scene
-- [ ] Victory Scene - Music
+- [x] Victory Scene
+- [x] Victory Scene - Music
+- [ ] GameScene - Transitions
 - [x] GameScene - Music
 - [ ] GameScene - Sprites
 - [ ] GameScene - Audio for BoardCell
