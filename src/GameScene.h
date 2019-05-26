@@ -42,7 +42,9 @@ class GameScene : public Scene {
     std::unique_ptr<Board> playerBoards[2];
 
     sf::Sprite mGameBackgroundSprite;
-    sf::Sprite mPanelSprite;
+    sf::Sprite mGreenLed;
+    sf::Sprite mRedLed;
+    sf::Sprite mYellowLed;
     sf::Text mVictory;
     sf::Text mPlayerWin;
     sf::Text mTurns;
@@ -59,6 +61,9 @@ class GameScene : public Scene {
     sf::RectangleShape mBackground;
     sf::Music& mGameSceneMusic;
     sf::Music& mVictoryMusic;
+    sf::Time greenLedBlinkTime;
+    sf::Time yellowLedBlinkTime;
+    sf::Time redLedBlinkTime;
     sf::Time victoryBlinkTime;
     sf::Time playerWinBlinkTime;
     sf::Time mActionTime;
@@ -66,6 +71,11 @@ class GameScene : public Scene {
     Button mPreparationButtons[2];
     sf::Text mTransition;
     sf::Text mTransitionSubtitle;
+    sf::Text mWhosTurnText;
+    sf::Text mGameClockText;
+    sf::Text mTurnCounterText;
+    sf::Text mYourShipsText;
+    sf::Text mEnemyShipsText;
 
     // JOSIAH AND THOMAS WERE HERE
     sf::RectangleShape mWhosTurn, mGameClock, mTurnCounter, mYourShips, mEnemyShips;
