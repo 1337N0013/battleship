@@ -1,5 +1,5 @@
 CC = g++
-CPP_PREFLAGS = -std=c++17
+CPP_PREFLAGS = -std=c++17 -g
 LINK_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 
 bin/main: obj/main.o obj/Scene.o obj/SceneStack.o obj/Command.o obj/GameSettings.o obj/Button.o obj/MainMenuScene.o obj/GameScene.o obj/SettingsScene.o obj/PauseScene.o obj/Board.o obj/BoardCell.o obj/Engine.o
