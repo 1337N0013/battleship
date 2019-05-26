@@ -61,9 +61,6 @@ class GameScene : public Scene {
     sf::RectangleShape mBackground;
     sf::Music& mGameSceneMusic;
     sf::Music& mVictoryMusic;
-    sf::Time greenLedBlinkTime;
-    sf::Time yellowLedBlinkTime;
-    sf::Time redLedBlinkTime;
     sf::Time victoryBlinkTime;
     sf::Time playerWinBlinkTime;
     sf::Time mActionTime;
