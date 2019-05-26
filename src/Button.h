@@ -8,7 +8,6 @@
 class Command;
 
 class Button : public sf::Drawable, public sf::Transformable {
-
     sf::Font& mFont;
     sf::FloatRect labelBounds;
     static sf::Vector2i lastMousePos;
@@ -20,7 +19,7 @@ class Button : public sf::Drawable, public sf::Transformable {
     std::unique_ptr<Command> onClickCommand;
 
     sf::Time timeSinceClick;
-    float buttonReleaseTime = 0.3f;
+    float buttonReleaseTime;
 
     enum class State { Default, Hovered, Pressed, Released };
 
@@ -31,6 +30,7 @@ class Button : public sf::Drawable, public sf::Transformable {
            const std::string& text, sf::Font& font);
     Button(const float left, const float top, const float width,
            const float height, const std::string& text, sf::Font& font);
+    Button(const Button&) = delete;
     ~Button();
 
     virtual void draw(sf::RenderTarget& target,

@@ -16,6 +16,7 @@ Button::Button(const float left, const float top, const sf::Vector2f& size,
     label.setString(text);
     setPosition(left, top);
 
+    buttonReleaseTime = 0.3f;
     sf::Time timeSinceClick = sf::Time::Zero;
     currentState = State::Default;
     stateColors = {{State::Default, sf::Color::Red},
