@@ -44,6 +44,8 @@ Board::Board(GameScene::GameState& state, Scene::Context& context)
                                            sf::Color(150, 180, 214));
                 mCells[i][j].setStateColor(Button::State::Pressed,
                                            sf::Color(222, 173, 31));
+                mCells[i][j].setStateColor(Button::State::Released,
+                                           sf::Color(222, 173, 31));
                 mCells[i][j].setState(BoardCell::State::None);
             }
 
