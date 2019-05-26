@@ -38,7 +38,7 @@ GameScene::GameScene(SceneStack& stack, Context& context)
         mPreparationButtons[i].setPosition(
             windowSize.x / 2 -
                 mPreparationButtons[i].getGlobalBounds().width / 2,
-            625);
+            500);
         mPreparationButtons[i].onClickCommand.reset(
             new GameCommands::ChangeGameState(currentGameState,
                                               GameState::Phase::Preparation));
