@@ -48,6 +48,21 @@ Board::Board(GameScene::GameState& state, Scene::Context& context)
             }
         }
     }
+
+    // set grid coordinates
+    for (int i = 0; i < 10; i++) {
+        mLetters[i].setFont(context.font);
+        mLetters[i].setCharacterSize(20);
+        mLetters[i].setPosition(69 * i + 60, 10);
+        mLetters[i].setString((char)('A' + i));
+        mLetters[i].setFillColor(sf::Color::White);
+
+        mNumbers[i].setFont(context.font);
+        mNumbers[i].setCharacterSize(20);
+        mNumbers[i].setPosition(10, 69 * i + 60);
+        mNumbers[i].setString(std::to_string(i));
+        mNumbers[i].setFillColor(sf::Color::White);
+    }
 }
 
 Board::~Board() {}
@@ -97,5 +112,9 @@ void Board::draw(sf::RenderTarget& target, sf::RenderStates states) const {
         for (auto j = i->begin(); j != i->end(); j++) {
             target.draw(*j, states);
         }
+    }
+    for (int i = 0; i < 10; i++) {
+        target.draw(mLetters[i], states);
+        target.draw(mNumbers[i], states);
     }
 }

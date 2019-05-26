@@ -22,6 +22,9 @@ class Board : public sf::Drawable {
    private:
     std::vector<std::vector<BoardCell>> mCells;
     GameScene::GameState& mGameState;
+
+    sf::Text mLetters[10];
+    sf::Text mNumbers[10];
     
     Scene::Context& mContext;
 };
