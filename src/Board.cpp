@@ -58,17 +58,18 @@ Board::Board(GameScene::GameState& state, Scene::Context& context)
     // set grid coordinates
     for (int i = 0; i < 10; i++) {
         mLetters[i].setFont(context.font);
-        mLetters[i].setCharacterSize(20);
-        mLetters[i].setPosition(69 * i + 60, 10);
+        mLetters[i].setCharacterSize(15);
+        mLetters[i].setPosition(69 * i + 65, 16);
         mLetters[i].setString((char)('A' + i));
         mLetters[i].setFillColor(sf::Color::White);
 
         mNumbers[i].setFont(context.font);
-        mNumbers[i].setCharacterSize(20);
-        mNumbers[i].setPosition(12, 69 * i + 60);
+        mNumbers[i].setCharacterSize(15);
+        mNumbers[i].setPosition(20, 69 * i + 65);
         mNumbers[i].setString(std::to_string(i + 1));
         mNumbers[i].setFillColor(sf::Color::White);
     }
+    mNumbers[9].setPosition(7,mNumbers[9].getPosition().y);
 }
 
 Board::~Board() {}
