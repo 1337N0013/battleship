@@ -16,12 +16,7 @@ class Engine {
     sf::Font mFont;
     sf::Texture mBackground;
     sf::Texture mGameBackground;
-    sf::Texture mBolt;
-    sf::Texture mDial;
-    sf::Texture mKnob;
-    sf::Texture mGreenLed;
-    sf::Texture mRedLed;
-    sf::Texture mRadio;
+    sf::Texture mPanel;
     sf::Texture mThreeStars;
     sf::Texture mMedal;
     sf::Music mMainMenuMusic;
