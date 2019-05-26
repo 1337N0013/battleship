@@ -114,6 +114,7 @@ void Engine::input() {
         mSceneStack.handleEvent(event);
 
         if (event.type == sf::Event::Closed) {
+            mSceneStack.clearScenes();
             mWindow.close();
         }
     }
