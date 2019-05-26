@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <unordered_map>
+#include <memory>
 #include "Scene.h"
 
 class Command;
@@ -17,7 +18,7 @@ class Button : public sf::Drawable, public sf::Transformable {
     sf::RectangleShape rectangle;
     sf::Text label;
 
-    std::unique_ptr<Command> onClickCommand;
+    std::shared_ptr<Command> onClickCommand;
 
     sf::Time timeSinceClick;
     float buttonReleaseTime = 0.3f;
