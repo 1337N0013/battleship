@@ -18,7 +18,7 @@ class GameScene : public Scene {
         void incrementTurn();
         void resetTurnsToZero();
 
-        enum class Phase { Preparation, Battle, Victory };
+        enum class Phase { Transition, Preparation, Battle, Victory };
         Phase currentPhase;
         unsigned int numberOfShips[2];
         unsigned int maxShips;
@@ -60,6 +60,11 @@ class GameScene : public Scene {
     sf::Music& mVictoryMusic;
     sf::Time victoryBlinkTime;
     sf::Time playerWinBlinkTime;
+    sf::Time mActionTime;
+
+    Button mPreparationButtons[2];
+    sf::Text mTransition;
+    sf::Text mTransitionSubtitle;
 };
 
 #endif

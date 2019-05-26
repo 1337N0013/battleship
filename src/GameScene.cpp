@@ -21,11 +21,39 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       mMedalBounceTime(sf::Time::Zero),
       mMedalBounceSpeed(5),
       mGameSceneMusic(context.gameSceneMusic),
-      mVictoryMusic(context.victoryMusic) {
+      mVictoryMusic(context.victoryMusic),
+      mPreparationButtons{Button("CONTINUE", context.font),
+                          Button("CONTINUE", context.font)},
+      mActionTime(sf::Time::Zero),
+      mTransition("", context.font),
+      mTransitionSubtitle("", context.font) {
     getContext().mainMenuMusic.stop();
 
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
+
+    for (int i = 0; i < 2; i++) {
+        mPreparationButtons[i].setCharacterSize(20);
+        mPreparationButtons[i].setSize(300, 30);
+        mPreparationButtons[i].setPosition(
+            windowSize.x / 2 -
+                mPreparationButtons[i].getGlobalBounds().width / 2,
+            625);
+        mPreparationButtons[i].onClickCommand.reset(
+            new GameCommands::ChangeGameState(currentGameState,
+                                              GameState::Phase::Preparation));
+    }
+
+    mTransition.setCharacterSize(65);
+    mTransition.setString("PLAYER 1");
+    mTransition.setPosition(
+        windowSize.x / 2 - mTransition.getGlobalBounds().width / 2, 200);
+
+    mTransitionSubtitle.setCharacterSize(20);
+    mTransitionSubtitle.setString("TURN TO PLACE SHIPS.\nPLAYER 2 LOOK AWAY.");
+    mTransitionSubtitle.setPosition(
+        windowSize.x / 2 - mTransitionSubtitle.getGlobalBounds().width / 2,
+        300);
 
     mGameBackgroundSprite.setOrigin(580, 386);
     mGameBackgroundSprite.setPosition(512, 384);
@@ -33,6 +61,7 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mGameBackgroundSprite.setColor(sf::Color(25, 25, 25));
 
     mVictory.setCharacterSize(80);
+
     mBackground.setPosition(0, 0);
     mBackground.setSize(windowSize);
     mBackground.setFillColor(sf::Color::Black);
@@ -93,20 +122,28 @@ bool GameScene::input(const sf::Event& e) {
         default:
             break;
     }
-    if (currentGameState.currentPhase != GameState::Phase::Victory) {
-        playerBoards[currentGameState.getPlayer()]->input(e);
-    } else {
+    if (currentGameState.currentPhase == GameState::Phase::Victory) {
         mMainMenu.handleInput(e);
+    } else if (currentGameState.currentPhase == GameState::Phase::Transition) {
+        mPreparationButtons[currentGameState.getPlayer()].handleInput(e);
+    } else if (currentGameState.currentPhase != GameState::Phase::Victory) {
+        playerBoards[currentGameState.getPlayer()]->input(e);
     }
     return true;
 }
 
 void GameScene::draw() {
     mWindow.draw(mBackground);
-    if (currentGameState.currentPhase != GameState::Phase::Victory) {
+
+    if (currentGameState.currentPhase == GameState::Phase::Transition) {
+        mWindow.draw(mPreparationButtons[currentGameState.getPlayer()]);
+        mWindow.draw(mTransition);
+        mWindow.draw(mTransitionSubtitle);
+        mWindow.draw(mThreeStars);
+    } else if (currentGameState.currentPhase != GameState::Phase::Victory) {
         mWindow.draw(mGameBackgroundSprite);
         mWindow.draw(*playerBoards[currentGameState.getPlayer()]);
-    } else {
+    } else if (currentGameState.currentPhase == GameState::Phase::Victory) {
         mWindow.draw(mVictory);
         mWindow.draw(mPlayerWin);
         mWindow.draw(mTurns);
@@ -127,11 +164,29 @@ bool GameScene::update(sf::Time deltaTime) {
     }
     // std::cout << "PLAYER " << currentGameState.getPlayer() << "\n";
 
-    if (currentGameState.currentPhase == GameState::Phase::Preparation) {
+    sf::Vector2f windowSize(getContext().window.getSize().x,
+                            getContext().window.getSize().y);
+    if (currentGameState.currentPhase == GameState::Phase::Transition) {
+        mPreparationButtons[0].update(deltaTime);
+        mPreparationButtons[1].update(deltaTime);
+    } else if (currentGameState.currentPhase == GameState::Phase::Preparation) {
         if (currentGameState.getTurn() == 0) {
             if (playerBoards[currentGameState.getPlayer()]
                     ->getNumberOfShips() >= currentGameState.maxShips) {
                 currentGameState.incrementTurn();
+                currentGameState.currentPhase = GameState::Phase::Transition;
+
+                mTransition.setString("PLAYER 2");
+                mTransition.setPosition(
+                    windowSize.x / 2 - mTransition.getGlobalBounds().width / 2,
+                    200);
+
+                mTransitionSubtitle.setString(
+                    "TURN TO PLACE SHIPS.\nPLAYER 1 LOOK AWAY.");
+                mTransitionSubtitle.setPosition(
+                    windowSize.x / 2 -
+                        mTransitionSubtitle.getGlobalBounds().width / 2,
+                    300);
             }
         } else {
             if (playerBoards[currentGameState.getPlayer()]
@@ -160,9 +215,6 @@ bool GameScene::update(sf::Time deltaTime) {
             currentGameState.currentPhase = GameState::Phase::Victory;
             std::cout << "PLAYER " << winner + 1 << " WINS\n";
             std::cout << "VICTORY PHASE\n";
-
-            sf::Vector2f windowSize(getContext().window.getSize().x,
-                                    getContext().window.getSize().y);
 
             std::string playerWinText = "PLAYER " + std::to_string(winner + 1);
             mPlayerWin.setString(playerWinText);
@@ -197,9 +249,10 @@ bool GameScene::update(sf::Time deltaTime) {
 
             std::string timeString = "TIME: ";
             if (currentGameState.gameTime.asSeconds() < 60) {
-                timeString += std::to_string((int)std::round(
-                                  currentGameState.gameTime.asSeconds()));
-                if ((int)std::round(currentGameState.gameTime.asSeconds()) == 1) {
+                timeString += std::to_string(
+                    (int)std::round(currentGameState.gameTime.asSeconds()));
+                if ((int)std::round(currentGameState.gameTime.asSeconds()) ==
+                    1) {
                     timeString += " second";
                 } else {
                     timeString += " seconds";
@@ -265,7 +318,7 @@ GameScene::GameState::GameState(GameSettings& gameSettings)
     numberOfShips[0] = 0;
     numberOfShips[1] = 0;
     turn = 0;
-    currentPhase = Phase::Preparation;
+    currentPhase = Phase::Transition;
 }
 
 unsigned int GameScene::GameState::getTurn() { return turn; }

@@ -1,10 +1,10 @@
 #ifndef COMMAND_H
 #define COMMAND_H
 
-#include "Scene.h"
-#include "SceneStack.h"
 #include "Board.h"
 #include "BoardCell.h"
+#include "Scene.h"
+#include "SceneStack.h"
 
 class Command {
    public:
@@ -115,7 +115,8 @@ class PlaceShip : public Command {
    public:
     PlaceShip(GameScene::GameState& state, BoardCell& cell);
     PlaceShip(GameScene::GameState& state, Board board, sf::Vector2u coord);
-    PlaceShip(GameScene::GameState& state, Board board, unsigned int x, unsigned int y);
+    PlaceShip(GameScene::GameState& state, Board board, unsigned int x,
+              unsigned int y);
     ~PlaceShip();
     void execute();
 
@@ -129,13 +130,24 @@ class Attack : public Command {
     Attack(GameScene::GameState& state, BoardCell& cell);
     Attack(GameScene::GameState& state, Board board, sf::Vector2u coord);
     Attack(GameScene::GameState& state, Board board, unsigned int x,
-              unsigned int y);
+           unsigned int y);
     ~Attack();
     void execute();
 
    private:
     GameScene::GameState& mGameState;
     BoardCell& mCell;
+};
+
+class ChangeGameState : public Command {
+   public:
+    ChangeGameState(GameScene::GameState&, GameScene::GameState::Phase);
+    ~ChangeGameState();
+    void execute();
+
+   private:
+    GameScene::GameState& mState;
+    GameScene::GameState::Phase mPhase;
 };
 
 }  // namespace GameCommands
