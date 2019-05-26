@@ -8,7 +8,6 @@
 class Command;
 
 class Button : public sf::Drawable, public sf::Transformable {
-    const float buttonReleaseTime = 0.3f;
 
     sf::Font& mFont;
     sf::FloatRect labelBounds;
@@ -21,6 +20,7 @@ class Button : public sf::Drawable, public sf::Transformable {
     std::unique_ptr<Command> onClickCommand;
 
     sf::Time timeSinceClick;
+    float buttonReleaseTime = 0.3f;
 
     enum class State { Default, Hovered, Pressed, Released };
 
