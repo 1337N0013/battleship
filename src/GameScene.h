@@ -41,6 +41,7 @@ class GameScene : public Scene {
    private:
     std::unique_ptr<Board> playerBoards[2];
 
+    sf::Sprite mGameBackgroundSprite;
     sf::Text mVictory;
     sf::Text mPlayerWin;
     sf::Text mTurns;
