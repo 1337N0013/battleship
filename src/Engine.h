@@ -15,6 +15,7 @@ class Engine {
     GameSettings mGameSettings;
     sf::Font mFont;
     sf::Texture mBackground;
+    sf::Texture mGameBackground;
     sf::Texture mThreeStars;
     sf::Texture mMedal;
     sf::Music mMainMenuMusic;
