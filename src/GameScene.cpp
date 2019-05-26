@@ -121,7 +121,9 @@ void GameScene::draw() {
 
 bool GameScene::update(sf::Time deltaTime) {
     if (currentGameState.currentPhase != GameState::Phase::Victory) {
-        playerBoards[currentGameState.getPlayer()]->update(deltaTime);
+        for (auto& board : playerBoards) {
+            board->update(deltaTime);
+        }
     }
     // std::cout << "PLAYER " << currentGameState.getPlayer() << "\n";
 
