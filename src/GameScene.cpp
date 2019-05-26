@@ -10,6 +10,7 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       currentGameState(context.gameSettings),
       mWindow(context.window),
       mGameBackgroundSprite(context.gameBackground),
+      mPanelSprite(context.panel),
       mVictory("VICTORY!", context.font),
       mPlayerWin("PLAYER", context.font),
       mTurns("TURNS", context.font),
@@ -59,6 +60,9 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mGameBackgroundSprite.setPosition(512, 384);
     mGameBackgroundSprite.setScale(1, 1);
     mGameBackgroundSprite.setColor(sf::Color(25, 25, 25));
+
+    mPanelSprite.setPosition(798, 520);
+    mPanelSprite.setScale(0.18f, 0.18f);
 
     mVictory.setCharacterSize(80);
 
@@ -142,6 +146,7 @@ void GameScene::draw() {
         mWindow.draw(mThreeStars);
     } else if (currentGameState.currentPhase != GameState::Phase::Victory) {
         mWindow.draw(mGameBackgroundSprite);
+        mWindow.draw(mPanelSprite);
         mWindow.draw(*playerBoards[currentGameState.getPlayer()]);
     } else if (currentGameState.currentPhase == GameState::Phase::Victory) {
         mWindow.draw(mVictory);
