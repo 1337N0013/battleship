@@ -13,9 +13,7 @@ class Scene {
         Context(sf::RenderWindow& window, sf::Font& font,
                 GameSettings& gameSettings, sf::Texture& background,
                 sf::Texture& gameBackground,
-                sf::Texture& bolt, sf::Texture& dial, 
-                sf::Texture& knob, sf::Texture& greenLed,
-                sf::Texture& redLed, sf::Texture& radio,
+                sf::Texture& panel,
                 sf::Music& mainMenuMusic, sf::Music& gameSceneMusic,
                 sf::Music& victoryMusic, sf::Texture& threeStars,
                 sf::Texture& medal);
@@ -24,12 +22,7 @@ class Scene {
         GameSettings& gameSettings;
         sf::Texture& background;
         sf::Texture& gameBackground;
-        sf::Texture& bolt;
-        sf::Texture& dial; 
-        sf::Texture& knob;
-        sf::Texture& greenLed;
-        sf::Texture& redLed;
-        sf::Texture& radio;
+        sf::Texture& panel;
         sf::Music& mainMenuMusic;
         sf::Music& gameSceneMusic;
         sf::Music& victoryMusic;
