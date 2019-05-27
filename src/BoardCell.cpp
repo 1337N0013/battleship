@@ -46,7 +46,8 @@ BoardCell::State BoardCell::getState() { return mCurrentState; }
 sf::Vector2u BoardCell::getCoord() { return mCoord; }
 
 bool BoardCell::input(sf::Event e) {
-    if (mCurrentState == State::Inactive) {
+    if (mCurrentState == State::Inactive || mCurrentState == State::Hit ||
+        mCurrentState == State::Miss) {
         return false;
     }
     Button::handleInput(e);
