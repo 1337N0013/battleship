@@ -214,7 +214,9 @@ bool GameScene::input(const sf::Event& e) {
     if (currentGameState.currentPhase == GameState::Phase::Victory) {
         mMainMenu.handleInput(e);
     } else if (currentGameState.currentPhase == GameState::Phase::Transition) {
-        mPreparationButtons[currentGameState.getPlayer()].handleInput(e);
+        if (currentGameState.getTurn() < 2) {
+            mPreparationButtons[currentGameState.getPlayer()].handleInput(e);
+        }
     } else if (currentGameState.currentPhase != GameState::Phase::Victory) {
         playerBoards[currentGameState.getPlayer()]->input(e);
     }
@@ -225,7 +227,9 @@ void GameScene::draw() {
     mWindow.draw(mBackground);
 
     if (currentGameState.currentPhase == GameState::Phase::Transition) {
-        mWindow.draw(mPreparationButtons[currentGameState.getPlayer()]);
+        if (currentGameState.getTurn() < 2) {
+            mWindow.draw(mPreparationButtons[currentGameState.getPlayer()]);
+        }
         mWindow.draw(mTransition);
         mWindow.draw(mTransitionSubtitle);
         mWindow.draw(mThreeStars);
@@ -270,6 +274,18 @@ bool GameScene::update(sf::Time deltaTime) {
     sf::Vector2f windowSize(getContext().window.getSize().x,
                             getContext().window.getSize().y);
     if (currentGameState.currentPhase == GameState::Phase::Transition) {
+        if (currentGameState.getTurn() == 2) {
+            mActionTime += deltaTime;
+
+            if (mActionTime.asSeconds() > 1) {
+                // reset all buttons to attack
+                for (int i = 0; i < 2; i++) {
+                    playerBoards[i]->setBattlePhase();
+                }
+                currentGameState.currentPhase = GameState::Phase::Battle;
+                std::cout << "in battle phase\n";
+            }
+        }
         mPreparationButtons[0].update(deltaTime);
         mPreparationButtons[1].update(deltaTime);
     } else if (currentGameState.currentPhase == GameState::Phase::Preparation) {
@@ -291,17 +307,20 @@ bool GameScene::update(sf::Time deltaTime) {
                         mTransitionSubtitle.getGlobalBounds().width / 2,
                     300);
             }
-        } else {
+        } else if (currentGameState.getTurn() == 1) {
             if (playerBoards[currentGameState.getPlayer()]
                     ->getNumberOfShips() >= currentGameState.maxShips) {
-                currentGameState.currentPhase = GameState::Phase::Battle;
-                currentGameState.resetTurnsToZero();
+                currentGameState.incrementTurn();
+                currentGameState.currentPhase = GameState::Phase::Transition;
 
-                // reset all buttons to attack
-                for (int i = 0; i < 2; i++) {
-                    playerBoards[i]->setBattlePhase();
-                }
-                std::cout << "in battle phase\n";
+                mTransition.setCharacterSize(110);
+                mTransition.setString("BATTLE!");
+                mTransition.setPosition(
+                    windowSize.x / 2 - mTransition.getGlobalBounds().width / 2,
+                    windowSize.y / 2 -
+                        mTransition.getGlobalBounds().height / 2);
+
+                mTransitionSubtitle.setFillColor(sf::Color::Transparent);
             }
         }
     } else if (currentGameState.currentPhase == GameState::Phase::Battle) {
@@ -400,19 +419,14 @@ bool GameScene::update(sf::Time deltaTime) {
         } else {
             mVictory.setFillColor(sf::Color::White);
         }
-        victoryBlinkTime = sf::Time::Zero;
-    }
-
-    playerWinBlinkTime += deltaTime;
-
-    if (playerWinBlinkTime.asSeconds() > 0.5) {
         if (mPlayerWin.getFillColor() == sf::Color::White) {
             mPlayerWin.setFillColor(sf::Color::Transparent);
         } else {
             mPlayerWin.setFillColor(sf::Color::White);
         }
-        playerWinBlinkTime = sf::Time::Zero;
+        victoryBlinkTime = sf::Time::Zero;
     }
+
     return true;
 }
 

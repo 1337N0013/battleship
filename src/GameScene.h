@@ -63,7 +63,6 @@ class GameScene : public Scene {
     sf::Music& mGameSceneMusic;
     sf::Music& mVictoryMusic;
     sf::Time victoryBlinkTime;
-    sf::Time playerWinBlinkTime;
     sf::Time mActionTime;
 
     Button mPreparationButtons[2];
