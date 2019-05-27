@@ -7,7 +7,10 @@ BoardCell::BoardCell(sf::Vector2u coord, BoardCell::State state,
       mContext(context),
       mCurrentState(state),
       mCoord(coord),
-      wasCoordSet(false) {}
+      wasCoordSet(false),
+      mShipTexture(context.ship),
+      mHitTexture(context.hit),
+      mMissTexture(context.miss) {}
 
 BoardCell::BoardCell(unsigned int x, unsigned int y, BoardCell::State state,
                      Scene::Context& context)
@@ -24,7 +27,10 @@ BoardCell::BoardCell(const BoardCell& bc)
       mContext(bc.mContext),
       mCurrentState(bc.mCurrentState),
       mCoord(bc.mCoord),
-      wasCoordSet(false) {}
+      wasCoordSet(false),
+      mShipTexture(bc.mContext.ship),
+      mHitTexture(bc.mContext.hit),
+      mMissTexture(bc.mContext.miss) {}
 
 void BoardCell::setState(BoardCell::State state) { mCurrentState = state; }
 
