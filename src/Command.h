@@ -140,8 +140,8 @@ class Attack : public Command {
    private:
     GameScene::GameState& mGameState;
     BoardCell& mCell;
-    sf::SoundBuffer mSplash, mExplode;
-    sf::Sound mSplashSFX, mExplodeSFX;
+    sf::SoundBuffer mSoundBuffer;
+    sf::Sound mSFX;
 };
 
 class ChangeGameState : public Command {
