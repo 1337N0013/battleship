@@ -39,6 +39,11 @@ class BoardCell : public Button {
     sf::Vector2u mCoord;
 
     bool wasCoordSet;
+
+    sf::Texture& mShipTexture;
+    sf::Texture& mHitTexture;
+    sf::Texture& mMissTexture;
+
     Scene::Context& mContext;
 };
 

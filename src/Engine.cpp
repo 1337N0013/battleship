@@ -12,7 +12,7 @@ Engine::Engine()
     : mWindow(sf::VideoMode(windowWidth, windowHeight), "Battleship", sf::Style::Titlebar | sf::Style::Close),
       mFont(),
       mGameSettings(),
-      mSceneStack(Scene::Context(mWindow, mFont, mSevenSegment, mGameSettings, mBackground, mGameBackground, mGreenLed, mRedLed, mYellowLed, mGrille, mShip, mMainMenuMusic, mGameSceneMusic, mVictoryMusic, mThreeStars, mMedal)),
+      mSceneStack(Scene::Context(mWindow, mFont, mSevenSegment, mGameSettings, mBackground, mGameBackground, mGreenLed, mRedLed, mYellowLed, mGrille, mShip, mHit, mMiss, mMainMenuMusic, mGameSceneMusic, mVictoryMusic, mThreeStars, mMedal)),
       mFpsCounter(),
       mFpsTime(sf::Time::Zero) {
     mWindow.setFramerateLimit(120);
@@ -51,6 +51,14 @@ Engine::Engine()
 
     if(!mShip.loadFromFile("res/img/platform/ship.png")) {
         throw std::runtime_error("Could not load res/img/platform/ship.png");
+    }
+
+    if(!mHit.loadFromFile("res/img/platform/hit.png")) {
+        throw std::runtime_error("Could not load res/img/platform/hit.png");
+    }
+
+    if(!mMiss.loadFromFile("res/img/platform/miss.png")) {
+        throw std::runtime_error("Could not load res/img/platform/miss.png");
     }
 
     if(!mThreeStars.loadFromFile("res/img/victory/3stars.png")) {
