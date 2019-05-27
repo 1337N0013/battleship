@@ -2,9 +2,9 @@
 #define GAMESCENE_H
 
 // #include "Board.h"
+#include "Button.h"
 #include "GameSettings.h"
 #include "Scene.h"
-#include "Button.h"
 
 class Board;
 
@@ -18,7 +18,7 @@ class GameScene : public Scene {
         void incrementTurn();
         void resetTurnsToZero();
 
-        enum class Phase { Preparation, Battle, Victory };
+        enum class Phase { Transition, Preparation, Battle, Victory };
         Phase currentPhase;
         unsigned int numberOfShips[2];
         unsigned int maxShips;
@@ -41,6 +41,11 @@ class GameScene : public Scene {
    private:
     std::unique_ptr<Board> playerBoards[2];
 
+    sf::Sprite mGameBackgroundSprite;
+    sf::Sprite mGreenLed;
+    sf::Sprite mRedLed;
+    sf::Sprite mYellowLed;
+    sf::Sprite mGrille;
     sf::Text mVictory;
     sf::Text mPlayerWin;
     sf::Text mTurns;
@@ -58,7 +63,29 @@ class GameScene : public Scene {
     sf::Music& mGameSceneMusic;
     sf::Music& mVictoryMusic;
     sf::Time victoryBlinkTime;
-    sf::Time playerWinBlinkTime;
+    sf::Time mActionTime;
+
+    Button mPreparationButtons[2];
+    sf::Text mTransition;
+    sf::Text mTransitionSubtitle;
+
+    sf::Text mWhosTurnText;
+    sf::Text mGameClockText;
+    sf::Text mTurnCounterText;
+    sf::Text mYourShipsText;
+    sf::Text mEnemyShipsText;
+    sf::Text mWhosTurnValueText;
+    sf::Text mGameClockValueText;
+    sf::Text mTurnCounterValueText;
+    sf::Text mYourShipsValueText;
+    sf::Text mEnemyShipsValueText;
+
+
+    // JOSIAH AND THOMAS WERE HERE
+    sf::RectangleShape mWhosTurn, mGameClock, mTurnCounter, mYourShips,
+        mEnemyShips;
+
+    //(770, 40, 984, 100);
 };
 
 #endif

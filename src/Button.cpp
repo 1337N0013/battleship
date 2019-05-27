@@ -89,6 +89,9 @@ void Button::setState(const State& state) {
 const Button::State Button::getState() { return currentState; }
 void Button::setStateColor(const State state, const sf::Color& color) {
     stateColors[state] = color;
+    if (currentState == state) {
+        rectangle.setFillColor(color);
+    }
 }
 const sf::Color& Button::getStateColor(const State state) {
     return stateColors[state];

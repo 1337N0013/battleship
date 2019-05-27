@@ -92,7 +92,11 @@ void DecreaseBoard::execute() {
 namespace GameCommands {
 
 PlaceShip::PlaceShip(GameScene::GameState& state, BoardCell& cell)
-    : mGameState(state), mCell(cell) {}
+    : mGameState(state), mCell(cell), mConfirmSFX(mConfirm) {
+    mConfirm.loadFromFile("res/audio/sfx/confirm.ogg");
+    mConfirmSFX.setPitch(1);
+    mConfirmSFX.setVolume(100);
+}
 PlaceShip::PlaceShip(GameScene::GameState& state, Board board,
                      sf::Vector2u coord)
     : mGameState(state), mCell(board[coord.x][coord.y]) {}
@@ -102,10 +106,14 @@ PlaceShip::PlaceShip(GameScene::GameState& state, Board board, unsigned int x,
 PlaceShip::~PlaceShip() {}
 void PlaceShip::execute() {
     if (mCell.getState() == BoardCell::State::None &&
-        mGameState.numberOfShips[mGameState.getPlayer()] < mGameState.maxShips) {
+        mGameState.numberOfShips[mGameState.getPlayer()] <
+            mGameState.maxShips) {
         mGameState.numberOfShips[mGameState.getPlayer()]++;
-        std::cout << "PLAYER " << mGameState.getPlayer()+1 << " PLACED SHIP AT (" << mCell.getCoord().x << ", "
+        std::cout << "PLAYER " << mGameState.getPlayer() + 1
+                  << " PLACED SHIP AT (" << mCell.getCoord().x << ", "
                   << mCell.getCoord().y << ")\n";
+        // JOSIAH WAS HERE
+        mConfirmSFX.play();
         mCell.setState(BoardCell::State::Ship);
     }
     std::cout << "AT (" << mCell.getCoord().x << ", " << mCell.getCoord().y
@@ -115,7 +123,8 @@ void PlaceShip::execute() {
 }
 
 Attack::Attack(GameScene::GameState& state, BoardCell& cell)
-    : mGameState(state), mCell(cell) {}
+    : mGameState(state),
+      mCell(cell) {}
 Attack::Attack(GameScene::GameState& state, Board board, sf::Vector2u coord)
     : mGameState(state), mCell(board[coord.x][coord.y]) {}
 Attack::Attack(GameScene::GameState& state, Board board, unsigned int x,
@@ -126,19 +135,37 @@ void Attack::execute() {
     if (mCell.getState() == BoardCell::State::Ship &&
         mGameState.numberOfShips[mGameState.getPlayer()] > 0) {
         mGameState.numberOfShips[mGameState.getPlayer()]--;
-        std::cout << "PLAYER " << mGameState.getPlayer()+1 << " HIT (" << mCell.getCoord().x << ", " << mCell.getCoord().y
-                  << ")\n";
+        std::cout << "PLAYER " << mGameState.getPlayer() + 1 << " HIT ("
+                  << mCell.getCoord().x << ", " << mCell.getCoord().y << ")\n";
+
+        mSoundBuffer.loadFromFile("res/audio/sfx/explode.ogg");
+        mSFX.setBuffer(mSoundBuffer);
+        mSFX.play();
+
         mCell.setState(BoardCell::State::Hit);
         mGameState.incrementTurn();
     } else if (mCell.getState() == BoardCell::State::None) {
-        mCell.setState(BoardCell::State::Miss);
-        std::cout << "PLAYER " << mGameState.getPlayer()+1 << " MISSED AT (" << mCell.getCoord().x << ", "
-                  << mCell.getCoord().y << ")\n";
-        std::cout << "SHIPS: " << mGameState.numberOfShips[mGameState.getPlayer()]
+        std::cout << "PLAYER " << mGameState.getPlayer() + 1 << " MISSED AT ("
+                  << mCell.getCoord().x << ", " << mCell.getCoord().y << ")\n";
+        std::cout << "SHIPS: "
+                  << mGameState.numberOfShips[mGameState.getPlayer()]
                   << " OUT OF " << mGameState.maxShips << "\n";
+
+        // JOSIAH WAS HERE
+        mSoundBuffer.loadFromFile("res/audio/sfx/splash.ogg");
+        mSFX.setBuffer(mSoundBuffer);
+        mSFX.play();
+
+        mCell.setState(BoardCell::State::Miss);
         mGameState.incrementTurn();
     }
     std::cout << "TURN IS NOW " << mGameState.getTurn() << "\n";
 }
+
+ChangeGameState::ChangeGameState(GameScene::GameState& gameState,
+                                 GameScene::GameState::Phase phase)
+    : mState(gameState), mPhase(phase) {}
+ChangeGameState::~ChangeGameState() {}
+void ChangeGameState::execute() { mState.currentPhase = mPhase; }
 
 }  // namespace GameCommands
