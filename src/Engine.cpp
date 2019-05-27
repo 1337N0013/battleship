@@ -12,7 +12,7 @@ Engine::Engine()
     : mWindow(sf::VideoMode(windowWidth, windowHeight), "Battleship", sf::Style::Titlebar | sf::Style::Close),
       mFont(),
       mGameSettings(),
-      mSceneStack(Scene::Context(mWindow, mFont, mSevenSegment, mGameSettings, mBackground, mGameBackground, mGreenLed, mRedLed, mYellowLed, mGrille, mMainMenuMusic, mGameSceneMusic, mVictoryMusic, mThreeStars, mMedal)),
+      mSceneStack(Scene::Context(mWindow, mFont, mSevenSegment, mGameSettings, mBackground, mGameBackground, mGreenLed, mRedLed, mYellowLed, mGrille, mShip, mHit, mMiss, mMainMenuMusic, mGameSceneMusic, mVictoryMusic, mThreeStars, mMedal)),
       mFpsCounter(),
       mFpsTime(sf::Time::Zero) {
     mWindow.setFramerateLimit(120);
@@ -49,6 +49,18 @@ Engine::Engine()
         throw std::runtime_error("Could not load res/img/platform/grille.png");
     }
 
+    if(!mShip.loadFromFile("res/img/platform/ship.png")) {
+        throw std::runtime_error("Could not load res/img/platform/ship.png");
+    }
+
+    if(!mHit.loadFromFile("res/img/platform/hit.png")) {
+        throw std::runtime_error("Could not load res/img/platform/hit.png");
+    }
+
+    if(!mMiss.loadFromFile("res/img/platform/miss.png")) {
+        throw std::runtime_error("Could not load res/img/platform/miss.png");
+    }
+
     if(!mThreeStars.loadFromFile("res/img/victory/3stars.png")) {
         throw std::runtime_error("Could not load res/img/victory/3stars.png");
     }
@@ -56,6 +68,18 @@ Engine::Engine()
     if(!mMedal.loadFromFile("res/img/victory/medal.png")) {
         throw std::runtime_error("Could not load res/img/victory/medal.png");
     }
+
+    /* if(!mConfirm.loadFromFile("res/audio/sfx/confirm.ogg")){
+        throw std::runtime_error("Could not load res/audio/confirm.ogg");
+    };
+
+    if(!mSplash.loadFromFile("res/audio/sfx/splash.ogg")){
+        throw std::runtime_error("Could not load res/audio/splash.ogg");
+    };
+
+    if(!mExplode.loadFromFile("res/audio/sfx/explode.ogg")){
+        throw std::runtime_error("Could not load res/audio/explode.ogg");
+    }; */
 
     if(!mMainMenuMusic.openFromFile("res/audio/main.ogg")){
         throw std::runtime_error("Could not load res/audio/main.ogg");
