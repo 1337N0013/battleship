@@ -1,4 +1,5 @@
 #include "Command.h"
+#include "Button.h"
 #include <iostream>
 
 Command::~Command() {}
@@ -150,6 +151,7 @@ void Attack::execute() {
         mSFX.play();
 
         mCell.setState(BoardCell::State::Hit);
+        mCell.setState(Button::State::Hovered);
         mGameState.incrementTurn();
     } else if (mCell.getState() == BoardCell::State::None) {
         std::cout << "PLAYER " << mGameState.getPlayer() + 1 << " MISSED AT ("
@@ -164,6 +166,7 @@ void Attack::execute() {
         mSFX.play();
 
         mCell.setState(BoardCell::State::Miss);
+        mCell.setState(Button::State::Hovered);
         mGameState.incrementTurn();
     }
     std::cout << "TURN IS NOW " << mGameState.getTurn() << "\n";

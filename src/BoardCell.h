@@ -25,6 +25,7 @@ class BoardCell : public Button {
     BoardCell(const BoardCell&);
 
     void setState(State state);
+    void setState(Button::State state);
     State getState();
 
     // void setCoord(sf::Vector2u coord);
