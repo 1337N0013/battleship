@@ -125,8 +125,7 @@ class PlaceShip : public Command {
     BoardCell& mCell;
     // JOSIAH WAS HERE
     sf::SoundBuffer mConfirm;
-    sf::Sound mConfirmSFX; 
-    
+    sf::Sound mConfirmSFX;
 };
 
 class Attack : public Command {

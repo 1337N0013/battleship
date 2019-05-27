@@ -94,7 +94,7 @@ namespace GameCommands {
 PlaceShip::PlaceShip(GameScene::GameState& state, BoardCell& cell)
     : mGameState(state), mCell(cell), mConfirmSFX(mConfirm) {
     mConfirm.loadFromFile("res/audio/sfx/confirm.ogg");
-    mConfirmSFX.setPitch(1);  
+    mConfirmSFX.setPitch(1);
     mConfirmSFX.setVolume(100);
 }
 PlaceShip::PlaceShip(GameScene::GameState& state, Board board,
@@ -123,13 +123,16 @@ void PlaceShip::execute() {
 }
 
 Attack::Attack(GameScene::GameState& state, BoardCell& cell)
-    : mGameState(state), mCell(cell), mSplashSFX(mSplash), mExplodeSFX(mExplode) {
+    : mGameState(state),
+      mCell(cell),
+      mSplashSFX(mSplash),
+      mExplodeSFX(mExplode) {
     // JOSIAH WAS HERE
-    mSplash.loadFromFile("res/audio/sfx/splash.ogg"); 
-    mSplashSFX.setPitch(1);  
+    mSplash.loadFromFile("res/audio/sfx/splash.ogg");
+    mSplashSFX.setPitch(1);
     mSplashSFX.setVolume(100);
     mExplode.loadFromFile("res/audio/sfx/explode.ogg");
-    mExplodeSFX.setPitch(1);  
+    mExplodeSFX.setPitch(1);
     mExplodeSFX.setVolume(100);
 }
 Attack::Attack(GameScene::GameState& state, Board board, sf::Vector2u coord)
