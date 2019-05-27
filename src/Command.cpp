@@ -11,10 +11,15 @@ void EmptyCommand::execute() {}
 
 namespace SceneCommand {
 
-ChangeScene::~ChangeScene() {}
 ChangeScene::ChangeScene(Scene& currentScene, Scene::ID sceneID)
-    : mScene(currentScene), mSceneID(sceneID) {}
-void ChangeScene::execute() { mScene.requestScenePush(mSceneID); }
+    : mScene(currentScene), mSceneID(sceneID), mSound(mSoundBuffer) {
+    mSoundBuffer.loadFromFile("res/audio/sfx/confirm.ogg");
+}
+ChangeScene::~ChangeScene() {}
+void ChangeScene::execute() {
+    mSound.play();
+    mScene.requestScenePush(mSceneID);
+}
 
 RemoveScene::RemoveScene(Scene& currentScene) : mScene(currentScene) {}
 RemoveScene::~RemoveScene() {}
@@ -22,9 +27,12 @@ void RemoveScene::execute() { mScene.requestScenePop(); }
 
 ChangeAndRemoveScene::ChangeAndRemoveScene(Scene& currentScene,
                                            Scene::ID sceneID)
-    : mScene(currentScene), mSceneID(sceneID) {}
+    : mScene(currentScene), mSceneID(sceneID), mSound(mSoundBuffer) {
+    mSoundBuffer.loadFromFile("res/audio/sfx/confirm.ogg");
+}
 ChangeAndRemoveScene::~ChangeAndRemoveScene() {}
 void ChangeAndRemoveScene::execute() {
+    mSound.play();
     mScene.requestScenePop();
     mScene.requestScenePush(mSceneID);
 }
@@ -123,8 +131,7 @@ void PlaceShip::execute() {
 }
 
 Attack::Attack(GameScene::GameState& state, BoardCell& cell)
-    : mGameState(state),
-      mCell(cell) {}
+    : mGameState(state), mCell(cell) {}
 Attack::Attack(GameScene::GameState& state, Board board, sf::Vector2u coord)
     : mGameState(state), mCell(board[coord.x][coord.y]) {}
 Attack::Attack(GameScene::GameState& state, Board board, unsigned int x,
