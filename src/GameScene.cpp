@@ -34,10 +34,15 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       mTransitionSubtitle("", context.font),
       // JOSIAH AND THOMAS WERE HERE
       mWhosTurnText("PLAYER", context.sevenSegment),
-      mGameClockText("TIME-", context.sevenSegment),
+      mGameClockText("TIME:", context.sevenSegment),
       mTurnCounterText("TURN:", context.sevenSegment),
-      mYourShipsText("YOUR\nSHIPS:", context.sevenSegment),
-      mEnemyShipsText("ENEMY\nSHIPS:", context.sevenSegment),
+      mYourShipsText("PLAYER 1\n SHIPS:", context.sevenSegment),
+      mEnemyShipsText("PLAYER 2\n SHIPS:", context.sevenSegment),
+      mWhosTurnValueText("", context.sevenSegment),
+      mGameClockValueText("", context.sevenSegment),
+      mTurnCounterValueText("", context.sevenSegment),
+      mYourShipsValueText("", context.sevenSegment),
+      mEnemyShipsValueText("", context.sevenSegment),
       mWhosTurn(),
       mGameClock(),
       mTurnCounter(),
@@ -127,16 +132,21 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mVictoryMusic.setLoop(true);
 
     // JOSIAH AND THOMAS WERE HERE
-    mWhosTurnText.setCharacterSize(45);
-    mWhosTurnText.setPosition(780, 40);
-    mWhosTurnText.setFillColor(sf::Color::Green);
-    mWhosTurnText.setStyle(sf::Text::Bold);
-
     mWhosTurn.setSize(sf::Vector2f(210, 60));
     mWhosTurn.setPosition(770, 40);
     mWhosTurn.setFillColor(sf::Color::Black);
     mWhosTurn.setOutlineColor(sf::Color(114, 114, 114));
     mWhosTurn.setOutlineThickness(3);
+
+    mWhosTurnText.setCharacterSize(45);
+    mWhosTurnText.setPosition(780, 40);
+    mWhosTurnText.setFillColor(sf::Color::Green);
+    mWhosTurnText.setStyle(sf::Text::Bold);
+
+    mWhosTurnValueText.setCharacterSize(45);
+    mWhosTurnValueText.setPosition(940, 40);
+    mWhosTurnValueText.setFillColor(sf::Color::Green);
+    mWhosTurnValueText.setStyle(sf::Text::Bold);
 
     // JOSIAH AND THOMAS WERE STILL HERE
     mGameClock.setSize(sf::Vector2f(210, 60));
@@ -146,9 +156,14 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mGameClock.setOutlineThickness(3);
 
     mGameClockText.setCharacterSize(45);
-    mGameClockText.setPosition(780, 120);
+    mGameClockText.setPosition(770, 120);
     mGameClockText.setFillColor(sf::Color::Green);
     mGameClockText.setStyle(sf::Text::Bold);
+
+    mGameClockValueText.setCharacterSize(45);
+    mGameClockValueText.setPosition(870, 120);
+    mGameClockValueText.setFillColor(sf::Color::Green);
+    mGameClockValueText.setStyle(sf::Text::Bold);
 
     // JOSIAH AND THOMAS WERE STILL HERE
     mTurnCounter.setSize(sf::Vector2f(130, 130));
@@ -162,6 +177,11 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mTurnCounterText.setFillColor(sf::Color::Green);
     mTurnCounterText.setStyle(sf::Text::Bold);
 
+    mTurnCounterValueText.setCharacterSize(60);
+    mTurnCounterValueText.setPosition(848, 250);
+    mTurnCounterValueText.setFillColor(sf::Color::Green);
+    mTurnCounterValueText.setStyle(sf::Text::Bold);
+
     // JOSIAH AND THOMAS WERE STILL HERE
     mYourShips.setSize(sf::Vector2f(95, 150));
     mYourShips.setPosition(770, 350);
@@ -169,10 +189,15 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mYourShips.setOutlineColor(sf::Color(114, 114, 114));
     mYourShips.setOutlineThickness(3);
 
-    mYourShipsText.setCharacterSize(30);
-    mYourShipsText.setPosition(780, 350);
+    mYourShipsText.setCharacterSize(22);
+    mYourShipsText.setPosition(773, 350);
     mYourShipsText.setFillColor(sf::Color::Green);
     mYourShipsText.setStyle(sf::Text::Bold);
+
+    mYourShipsValueText.setCharacterSize(80);
+    mYourShipsValueText.setPosition(775, 390);
+    mYourShipsValueText.setFillColor(sf::Color::Green);
+    mYourShipsValueText.setStyle(sf::Text::Bold);
 
     // JOSIAH AND THOMAS WERE STILL HERE
     mEnemyShips.setSize(sf::Vector2f(95, 150));
@@ -181,10 +206,15 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mEnemyShips.setOutlineColor(sf::Color(114, 114, 114));
     mEnemyShips.setOutlineThickness(3);
 
-    mEnemyShipsText.setCharacterSize(30);
-    mEnemyShipsText.setPosition(890, 350);
+    mEnemyShipsText.setCharacterSize(22);
+    mEnemyShipsText.setPosition(885.5f, 350);
     mEnemyShipsText.setFillColor(sf::Color::Green);
     mEnemyShipsText.setStyle(sf::Text::Bold);
+
+    mEnemyShipsValueText.setCharacterSize(80);
+    mEnemyShipsValueText.setPosition(888.5f, 390);
+    mEnemyShipsValueText.setFillColor(sf::Color::Green);
+    mEnemyShipsValueText.setStyle(sf::Text::Bold);
 
     playerBoards[0].reset(new Board(currentGameState, context));
     playerBoards[1].reset(new Board(currentGameState, context));
@@ -245,6 +275,11 @@ void GameScene::draw() {
         mWindow.draw(mTurnCounterText);
         mWindow.draw(mYourShipsText);
         mWindow.draw(mEnemyShipsText);
+        mWindow.draw(mWhosTurnValueText);
+        mWindow.draw(mGameClockValueText);
+        mWindow.draw(mTurnCounterValueText);
+        mWindow.draw(mYourShipsValueText);
+        mWindow.draw(mEnemyShipsValueText);
         mWindow.draw(mGreenLed);
         mWindow.draw(mYellowLed);
         mWindow.draw(mRedLed);
@@ -277,19 +312,21 @@ bool GameScene::update(sf::Time deltaTime) {
         if (currentGameState.getTurn() == 2) {
             mActionTime += deltaTime;
 
-            if (mActionTime.asSeconds() > 3) {
+            if (mActionTime.asSeconds() > 2) {
                 // reset all buttons to attack
                 for (int i = 0; i < 2; i++) {
                     playerBoards[i]->setBattlePhase();
                 }
                 currentGameState.currentPhase = GameState::Phase::Battle;
                 std::cout << "in battle phase\n";
+                currentGameState.resetTurnsToZero();
             }
         }
         mPreparationButtons[0].update(deltaTime);
         mPreparationButtons[1].update(deltaTime);
     } else if (currentGameState.currentPhase == GameState::Phase::Preparation) {
         if (currentGameState.getTurn() == 0) {
+            mWhosTurnValueText.setString("1");
             if (playerBoards[currentGameState.getPlayer()]
                     ->getNumberOfShips() >= currentGameState.maxShips) {
                 currentGameState.incrementTurn();
@@ -308,6 +345,19 @@ bool GameScene::update(sf::Time deltaTime) {
                     300);
             }
         } else if (currentGameState.getTurn() == 1) {
+
+            mWhosTurnText.setFillColor(sf::Color::Red);
+            mWhosTurnValueText.setFillColor(sf::Color::Red);
+            mWhosTurnValueText.setString("2");
+            mGameClockText.setFillColor(sf::Color::Red);
+            mGameClockValueText.setFillColor(sf::Color::Red);
+            mTurnCounterText.setFillColor(sf::Color::Red);
+            mTurnCounterValueText.setFillColor(sf::Color::Red);
+            mYourShipsText.setFillColor(sf::Color::Red);
+            mYourShipsValueText.setFillColor(sf::Color::Red);
+            mEnemyShipsText.setFillColor(sf::Color::Red);
+            mEnemyShipsValueText.setFillColor(sf::Color::Red);
+
             if (playerBoards[currentGameState.getPlayer()]
                     ->getNumberOfShips() >= currentGameState.maxShips) {
                 currentGameState.incrementTurn();
@@ -325,7 +375,74 @@ bool GameScene::update(sf::Time deltaTime) {
         }
     } else if (currentGameState.currentPhase == GameState::Phase::Battle) {
         currentGameState.gameTime += deltaTime;
+
+        if(currentGameState.getPlayer() == 0)
+        {
+            mWhosTurnValueText.setString("2");
+            mWhosTurnText.setFillColor(sf::Color::Red);
+            mWhosTurnValueText.setFillColor(sf::Color::Red);
+            mGameClockText.setFillColor(sf::Color::Red);
+            mGameClockValueText.setFillColor(sf::Color::Red);
+            mTurnCounterText.setFillColor(sf::Color::Red);
+            mTurnCounterValueText.setFillColor(sf::Color::Red);
+            mYourShipsText.setFillColor(sf::Color::Red);
+            mYourShipsValueText.setFillColor(sf::Color::Red);
+            mEnemyShipsText.setFillColor(sf::Color::Red);
+            mEnemyShipsValueText.setFillColor(sf::Color::Red);
+            
+        }
+        else if (currentGameState.getPlayer() == 1)
+        {
+            mWhosTurnValueText.setString("1");
+            mWhosTurnText.setFillColor(sf::Color::Green);
+            mWhosTurnValueText.setFillColor(sf::Color::Green);
+            mGameClockText.setFillColor(sf::Color::Green);
+            mGameClockValueText.setFillColor(sf::Color::Green);
+            mTurnCounterText.setFillColor(sf::Color::Green);
+            mTurnCounterValueText.setFillColor(sf::Color::Green);
+            mYourShipsText.setFillColor(sf::Color::Green);
+            mYourShipsValueText.setFillColor(sf::Color::Green);
+            mEnemyShipsText.setFillColor(sf::Color::Green);
+            mEnemyShipsValueText.setFillColor(sf::Color::Green);
+        }
+
+        std::string currentTurn;
+        if (currentGameState.getTurn()+1 < 10)
+        {
+            currentTurn += "0";
+        }
+        currentTurn += std::to_string(currentGameState.getTurn()+1);
+        mTurnCounterValueText.setString(currentTurn);
+
+        std::string player1Ships;
+        if (currentGameState.numberOfShips[0] < 10)
+        {
+            player1Ships += "0";
+        }
+        player1Ships += std::to_string(currentGameState.numberOfShips[0]);
+        mYourShipsValueText.setString(player1Ships);
+
+        std::string player2Ships;
+        if (currentGameState.numberOfShips[1] < 10)
+        {
+            player2Ships += "0";
+        }
+        player2Ships += std::to_string(currentGameState.numberOfShips[1]);
+        mEnemyShipsValueText.setString(player2Ships);
+        
+        std::string gameClock;
+        gameClock += std::to_string((int)currentGameState.gameTime.asSeconds()/60);
+        gameClock += ":";
+        if ((int)currentGameState.gameTime.asSeconds()%60 < 10) {
+            gameClock += "0";
+            gameClock += std::to_string((int)currentGameState.gameTime.asSeconds());
+        } else {
+            gameClock += std::to_string((int)currentGameState.gameTime.asSeconds() % 60);
+        }
+        mGameClockValueText.setString(gameClock);
+
         int winner;
+
         if (playerBoards[0]->getNumberOfShips() == 0) {
             winner = 1;
         } else if (playerBoards[1]->getNumberOfShips() == 0) {
