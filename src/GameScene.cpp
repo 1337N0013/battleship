@@ -277,7 +277,7 @@ bool GameScene::update(sf::Time deltaTime) {
         if (currentGameState.getTurn() == 2) {
             mActionTime += deltaTime;
 
-            if (mActionTime.asSeconds() > 1) {
+            if (mActionTime.asSeconds() > 3) {
                 // reset all buttons to attack
                 for (int i = 0; i < 2; i++) {
                     playerBoards[i]->setBattlePhase();
