@@ -1,6 +1,6 @@
 #include "GameScene.h"
-#include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 #include <cmath>
 #include <iostream>
 #include "Board.h"
@@ -31,14 +31,18 @@ GameScene::GameScene(SceneStack& stack, Context& context)
                           Button("CONTINUE", context.font)},
       mActionTime(sf::Time::Zero),
       mTransition("", context.font),
-      mTransitionSubtitle("", context.font), 
+      mTransitionSubtitle("", context.font),
       // JOSIAH AND THOMAS WERE HERE
-      mWhosTurnText("PLAYER", context.sevenSegment), 
-      mGameClockText("TIME-", context.sevenSegment), 
-      mTurnCounterText("TURN:", context.sevenSegment), 
-      mYourShipsText("YOUR\nSHIPS:", context.sevenSegment), 
+      mWhosTurnText("PLAYER", context.sevenSegment),
+      mGameClockText("TIME-", context.sevenSegment),
+      mTurnCounterText("TURN:", context.sevenSegment),
+      mYourShipsText("YOUR\nSHIPS:", context.sevenSegment),
       mEnemyShipsText("ENEMY\nSHIPS:", context.sevenSegment),
-      mWhosTurn(), mGameClock(), mTurnCounter(), mYourShips(), mEnemyShips() {
+      mWhosTurn(),
+      mGameClock(),
+      mTurnCounter(),
+      mYourShips(),
+      mEnemyShips() {
     getContext().mainMenuMusic.stop();
 
     sf::Vector2f windowSize(context.window.getSize().x,
@@ -131,14 +135,14 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mWhosTurn.setSize(sf::Vector2f(210, 60));
     mWhosTurn.setPosition(770, 40);
     mWhosTurn.setFillColor(sf::Color::Black);
-    mWhosTurn.setOutlineColor(sf::Color(114 ,114, 114));
+    mWhosTurn.setOutlineColor(sf::Color(114, 114, 114));
     mWhosTurn.setOutlineThickness(3);
 
     // JOSIAH AND THOMAS WERE STILL HERE
     mGameClock.setSize(sf::Vector2f(210, 60));
     mGameClock.setPosition(770, 120);
     mGameClock.setFillColor(sf::Color::Black);
-    mGameClock.setOutlineColor(sf::Color(114 ,114, 114));
+    mGameClock.setOutlineColor(sf::Color(114, 114, 114));
     mGameClock.setOutlineThickness(3);
 
     mGameClockText.setCharacterSize(45);
@@ -150,7 +154,7 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mTurnCounter.setSize(sf::Vector2f(130, 130));
     mTurnCounter.setPosition(812, 200);
     mTurnCounter.setFillColor(sf::Color::Black);
-    mTurnCounter.setOutlineColor(sf::Color(114 ,114, 114));
+    mTurnCounter.setOutlineColor(sf::Color(114, 114, 114));
     mTurnCounter.setOutlineThickness(3);
 
     mTurnCounterText.setCharacterSize(45);
@@ -162,7 +166,7 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mYourShips.setSize(sf::Vector2f(95, 150));
     mYourShips.setPosition(770, 350);
     mYourShips.setFillColor(sf::Color::Black);
-    mYourShips.setOutlineColor(sf::Color(114 ,114, 114));
+    mYourShips.setOutlineColor(sf::Color(114, 114, 114));
     mYourShips.setOutlineThickness(3);
 
     mYourShipsText.setCharacterSize(30);
@@ -174,7 +178,7 @@ GameScene::GameScene(SceneStack& stack, Context& context)
     mEnemyShips.setSize(sf::Vector2f(95, 150));
     mEnemyShips.setPosition(885, 350);
     mEnemyShips.setFillColor(sf::Color::Black);
-    mEnemyShips.setOutlineColor(sf::Color(114 ,114, 114));
+    mEnemyShips.setOutlineColor(sf::Color(114, 114, 114));
     mEnemyShips.setOutlineThickness(3);
 
     mEnemyShipsText.setCharacterSize(30);

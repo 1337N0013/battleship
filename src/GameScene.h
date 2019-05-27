@@ -2,9 +2,9 @@
 #define GAMESCENE_H
 
 // #include "Board.h"
+#include "Button.h"
 #include "GameSettings.h"
 #include "Scene.h"
-#include "Button.h"
 
 class Board;
 
@@ -76,7 +76,8 @@ class GameScene : public Scene {
     sf::Text mEnemyShipsText;
 
     // JOSIAH AND THOMAS WERE HERE
-    sf::RectangleShape mWhosTurn, mGameClock, mTurnCounter, mYourShips, mEnemyShips;
+    sf::RectangleShape mWhosTurn, mGameClock, mTurnCounter, mYourShips,
+        mEnemyShips;
 
     //(770, 40, 984, 100);
 };
