@@ -10,6 +10,11 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
       mDecreaseShips("-", context.font),
       mIncreaseBoard("+", context.font),
       mDecreaseBoard("-", context.font),
+      mHit(context.hit),
+      mMiss(context.miss),
+      mHitText("- HIT", context.font), 
+      mMissText("- MISS", context.font),
+      mLegendText("LENGEND:", context.font),
       playButton(100, context.window.getSize().y-100-30, 300, 30, "Play", context.font) {
     mBackground.setPosition(0, 0);
     sf::Vector2f windowSize(context.window.getSize().x,
@@ -47,6 +52,19 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
     mIncreaseBoard.setPosition(550, 240);
     mIncreaseBoard.setSize(buttonSize);
     mIncreaseBoard.onClickCommand.reset(new SettingsCommand::IncreaseBoard(context));
+
+    mLegendText.setPosition(100,350);
+    mLegendText.setCharacterSize(20);
+
+    mHit.setPosition(100,420);
+    mHit.setScale(0.04f, 0.04f);
+    mHitText.setPosition(180,430);
+    mHitText.setCharacterSize(20);
+
+    mMiss.setPosition(100,520);
+    mMiss.setScale(0.04f, 0.04f);   
+    mMissText.setPosition(180,530);
+    mMissText.setCharacterSize(20);
 
     playButton.setCharacterSize(20);
     playButton.onClickCommand.reset(
@@ -113,6 +131,12 @@ void SettingsScene::draw() {
     getContext().window.draw(mIncreaseBoard);
 
     getContext().window.draw(playButton);
+
+    getContext().window.draw(mLegendText);
+    getContext().window.draw(mHit);
+    getContext().window.draw(mMiss);
+    getContext().window.draw(mHitText);
+    getContext().window.draw(mMissText);
 }
 
 bool SettingsScene::update(sf::Time deltaTime) {

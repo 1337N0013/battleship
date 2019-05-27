@@ -24,6 +24,12 @@ class SettingsScene : public Scene {
     Button mIncreaseBoard;
     Button mDecreaseBoard;
 
+    sf::Sprite mHit;
+    sf::Text mHitText;
+    sf::Sprite mMiss;
+    sf::Text mMissText;
+    sf::Text mLegendText;
+
     Button playButton;
 };
 
