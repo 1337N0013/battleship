@@ -27,17 +27,17 @@ PauseScene::PauseScene(SceneStack& stack, Context& context)
     mContinueButton.setSize(buttonSize);
     mContinueButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this));
 
-    mLegendText.setPosition(600,100);
+    mLegendText.setPosition(100,200);
     mLegendText.setCharacterSize(20);
 
-    mHit.setPosition(600,150);
+    mHit.setPosition(100,265);
     mHit.setScale(0.05f, 0.05f);
-    mHitText.setPosition(700,165);
+    mHitText.setPosition(200,280);
     mHitText.setCharacterSize(30);
 
-    mMiss.setPosition(600,250);
+    mMiss.setPosition(100,365);
     mMiss.setScale(0.05f, 0.05f);   
-    mMissText.setPosition(700,265);
+    mMissText.setPosition(200,380);
     mMissText.setCharacterSize(30); 
 }
 
