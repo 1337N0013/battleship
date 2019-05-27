@@ -41,11 +41,11 @@ Sometimes things (usually font loading) result in segfaults. Try using this and 
 - [x] Game logic
 - [x] Victory Scene
 - [x] Victory Scene - Music
-- [ ] GameScene - Transitions
+- [x] GameScene - Transitions
 - [x] GameScene - Music
-- [ ] GameScene - Sprites
-- [ ] GameScene - Audio for BoardCell
-- [ ] GameScene - Aesthetics
+- [x] GameScene - Sprites
+- [x] GameScene - Audio for BoardCell
+- [x] GameScene - Aesthetics
 - [ ] Buttons - Audio
 
-COMPLETED - 75%
+COMPLETED - 95%
