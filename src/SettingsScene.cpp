@@ -68,7 +68,7 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
 
     playButton.setCharacterSize(20);
     playButton.onClickCommand.reset(
-        new SceneCommand::ChangeAndRemoveScene(*this, Scene::ID::Game));
+        new SceneCommand::ChangeScene(*this, Scene::ID::Game));
 }
 
 SettingsScene::~SettingsScene() {}
