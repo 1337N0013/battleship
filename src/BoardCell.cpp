@@ -39,6 +39,8 @@ BoardCell::BoardCell(const BoardCell& bc)
 
 void BoardCell::setState(BoardCell::State state) { mCurrentState = state; }
 
+void BoardCell::setState(Button::State state) { Button::setState(state); }
+
 BoardCell::State BoardCell::getState() { return mCurrentState; }
 
 // void BoardCell::setCoord(sf::Vector2u coord) {

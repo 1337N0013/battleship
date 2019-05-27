@@ -2,10 +2,13 @@
 #include "PauseScene.h"
 
 PauseScene::PauseScene(SceneStack& stack, Context& context)
-    : Scene(stack, context),
+    : Scene(stack, context),  
       mPauseText("Paused", context.font),
       mContinueButton("Continue", context.font),
-      mExitButton("Quit", context.font) {
+      mExitButton("Quit", context.font),
+      mHit(context.hit), mMiss(context.miss),
+      mHitText("- HIT", context.font), mMissText("- MISS", context.font),
+      mLegendText("LENGEND:", context.font) {
     mBackground.setSize(sf::Vector2f(context.window.getSize().x, context.window.getSize().y));
     mBackground.setFillColor(sf::Color(0, 0, 0, 200));
 
@@ -23,6 +26,19 @@ PauseScene::PauseScene(SceneStack& stack, Context& context)
     mContinueButton.setPosition(100, mExitButton.getPosition().y-50);
     mContinueButton.setSize(buttonSize);
     mContinueButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this));
+
+    mLegendText.setPosition(100,200);
+    mLegendText.setCharacterSize(20);
+
+    mHit.setPosition(100,265);
+    mHit.setScale(0.05f, 0.05f);
+    mHitText.setPosition(200,280);
+    mHitText.setCharacterSize(30);
+
+    mMiss.setPosition(100,365);
+    mMiss.setScale(0.05f, 0.05f);   
+    mMissText.setPosition(200,380);
+    mMissText.setCharacterSize(30); 
 }
 
 PauseScene::~PauseScene() {}
@@ -48,6 +64,11 @@ void PauseScene::draw() {
     getContext().window.draw(mPauseText);
     getContext().window.draw(mContinueButton);
     getContext().window.draw(mExitButton);
+    getContext().window.draw(mLegendText);
+    getContext().window.draw(mHit);
+    getContext().window.draw(mMiss);
+    getContext().window.draw(mHitText);
+    getContext().window.draw(mMissText);
 }
 
 bool PauseScene::update(sf::Time deltaTime) {

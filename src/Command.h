@@ -30,6 +30,9 @@ class ChangeScene : public Command {
    private:
     Scene& mScene;
     Scene::ID mSceneID;
+
+    sf::SoundBuffer mSoundBuffer;
+    sf::Sound mSound;
 };
 
 class RemoveScene : public Command {
@@ -51,6 +54,9 @@ class ChangeAndRemoveScene : public Command {
    private:
     Scene& mScene;
     Scene::ID mSceneID;
+
+    sf::SoundBuffer mSoundBuffer;
+    sf::Sound mSound;
 };
 
 class ReturnToMainMenu : public Command {

@@ -43,12 +43,11 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       mTurnCounterValueText("", context.sevenSegment),
       mYourShipsValueText("", context.sevenSegment),
       mEnemyShipsValueText("", context.sevenSegment),
-      mWhosTurn(),
-      mGameClock(),
-      mTurnCounter(),
-      mYourShips(),
-      mEnemyShips() {
+      mConfirmSound(mConfirmSoundBuffer) {
     getContext().mainMenuMusic.stop();
+
+    mConfirmSoundBuffer.loadFromFile("res/audio/sfx/confirm.ogg");
+    mConfirmSound.setPitch(1.2);
 
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
@@ -221,8 +220,14 @@ GameScene::GameScene(SceneStack& stack, Context& context)
 }
 
 GameScene::~GameScene() {
-    getContext().gameSceneMusic.stop();
-    getContext().victoryMusic.stop();
+    // This if statement is important since the music (probably) gets destroyed
+    // first when the window is closed versus changing the scene. We let the
+    // computer handle the destruction of the music naturally by adding this if
+    // statement.
+    if (mWindow.isOpen()) {
+        getContext().gameSceneMusic.stop();
+        getContext().victoryMusic.stop();
+    }
 }
 
 bool GameScene::input(const sf::Event& e) {
@@ -320,6 +325,7 @@ bool GameScene::update(sf::Time deltaTime) {
                 currentGameState.currentPhase = GameState::Phase::Battle;
                 std::cout << "in battle phase\n";
                 currentGameState.resetTurnsToZero();
+                mConfirmSound.play();
             }
         }
         mPreparationButtons[0].update(deltaTime);
@@ -345,7 +351,6 @@ bool GameScene::update(sf::Time deltaTime) {
                     300);
             }
         } else if (currentGameState.getTurn() == 1) {
-
             mWhosTurnText.setFillColor(sf::Color::Red);
             mWhosTurnValueText.setFillColor(sf::Color::Red);
             mWhosTurnValueText.setString("2");
@@ -364,7 +369,7 @@ bool GameScene::update(sf::Time deltaTime) {
                 currentGameState.currentPhase = GameState::Phase::Transition;
 
                 mTransition.setCharacterSize(110);
-                mTransition.setString("BATTLE!");
+                mTransition.setString("BATTLE!");  // Try to add BATTLE
                 mTransition.setPosition(
                     windowSize.x / 2 - mTransition.getGlobalBounds().width / 2,
                     windowSize.y / 2 -
@@ -376,8 +381,7 @@ bool GameScene::update(sf::Time deltaTime) {
     } else if (currentGameState.currentPhase == GameState::Phase::Battle) {
         currentGameState.gameTime += deltaTime;
 
-        if(currentGameState.getPlayer() == 0)
-        {
+        if (currentGameState.getPlayer() == 0) {
             mWhosTurnValueText.setString("2");
             mWhosTurnText.setFillColor(sf::Color::Red);
             mWhosTurnValueText.setFillColor(sf::Color::Red);
@@ -389,10 +393,8 @@ bool GameScene::update(sf::Time deltaTime) {
             mYourShipsValueText.setFillColor(sf::Color::Red);
             mEnemyShipsText.setFillColor(sf::Color::Red);
             mEnemyShipsValueText.setFillColor(sf::Color::Red);
-            
-        }
-        else if (currentGameState.getPlayer() == 1)
-        {
+
+        } else if (currentGameState.getPlayer() == 1) {
             mWhosTurnValueText.setString("1");
             mWhosTurnText.setFillColor(sf::Color::Green);
             mWhosTurnValueText.setFillColor(sf::Color::Green);
@@ -407,37 +409,37 @@ bool GameScene::update(sf::Time deltaTime) {
         }
 
         std::string currentTurn;
-        if (currentGameState.getTurn()+1 < 10)
-        {
+        if (currentGameState.getTurn() + 1 < 10) {
             currentTurn += "0";
         }
-        currentTurn += std::to_string(currentGameState.getTurn()+1);
+        currentTurn += std::to_string(currentGameState.getTurn() + 1);
         mTurnCounterValueText.setString(currentTurn);
 
         std::string player1Ships;
-        if (currentGameState.numberOfShips[0] < 10)
-        {
+        if (currentGameState.numberOfShips[0] < 10) {
             player1Ships += "0";
         }
         player1Ships += std::to_string(currentGameState.numberOfShips[0]);
         mYourShipsValueText.setString(player1Ships);
 
         std::string player2Ships;
-        if (currentGameState.numberOfShips[1] < 10)
-        {
+        if (currentGameState.numberOfShips[1] < 10) {
             player2Ships += "0";
         }
         player2Ships += std::to_string(currentGameState.numberOfShips[1]);
         mEnemyShipsValueText.setString(player2Ships);
-        
+
         std::string gameClock;
-        gameClock += std::to_string((int)currentGameState.gameTime.asSeconds()/60);
+        gameClock +=
+            std::to_string((int)currentGameState.gameTime.asSeconds() / 60);
         gameClock += ":";
-        if ((int)currentGameState.gameTime.asSeconds()%60 < 10) {
+        if ((int)currentGameState.gameTime.asSeconds() % 60 < 10) {
             gameClock += "0";
-            gameClock += std::to_string((int)currentGameState.gameTime.asSeconds());
+            gameClock +=
+                std::to_string((int)currentGameState.gameTime.asSeconds() % 60);
         } else {
-            gameClock += std::to_string((int)currentGameState.gameTime.asSeconds() % 60);
+            gameClock +=
+                std::to_string((int)currentGameState.gameTime.asSeconds() % 60);
         }
         mGameClockValueText.setString(gameClock);
 
