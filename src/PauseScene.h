@@ -17,6 +17,12 @@ class PauseScene : public Scene {
     sf::Text mPauseText;
     Button mContinueButton;
     Button mExitButton;
+
+    sf::Sprite mHit;
+    sf::Text mHitText;
+    sf::Sprite mMiss;
+    sf::Text mMissText;
+    sf::Text mLegendText;
 };
 
 #endif

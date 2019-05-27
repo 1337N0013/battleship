@@ -364,7 +364,7 @@ bool GameScene::update(sf::Time deltaTime) {
                 currentGameState.currentPhase = GameState::Phase::Transition;
 
                 mTransition.setCharacterSize(110);
-                mTransition.setString("BATTLE!");
+                mTransition.setString("BATTLE!"); //Try to add BATTLE 
                 mTransition.setPosition(
                     windowSize.x / 2 - mTransition.getGlobalBounds().width / 2,
                     windowSize.y / 2 -
