@@ -43,12 +43,11 @@ GameScene::GameScene(SceneStack& stack, Context& context)
       mTurnCounterValueText("", context.sevenSegment),
       mYourShipsValueText("", context.sevenSegment),
       mEnemyShipsValueText("", context.sevenSegment),
-      mWhosTurn(),
-      mGameClock(),
-      mTurnCounter(),
-      mYourShips(),
-      mEnemyShips() {
+      mConfirmSound(mConfirmSoundBuffer) {
     getContext().mainMenuMusic.stop();
+
+    mConfirmSoundBuffer.loadFromFile("res/audio/sfx/confirm.ogg");
+    mConfirmSound.setPitch(1.2);
 
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
@@ -320,6 +319,7 @@ bool GameScene::update(sf::Time deltaTime) {
                 currentGameState.currentPhase = GameState::Phase::Battle;
                 std::cout << "in battle phase\n";
                 currentGameState.resetTurnsToZero();
+                mConfirmSound.play();
             }
         }
         mPreparationButtons[0].update(deltaTime);

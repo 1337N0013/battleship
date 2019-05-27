@@ -69,6 +69,9 @@ class GameScene : public Scene {
     sf::Text mTransition;
     sf::Text mTransitionSubtitle;
 
+    sf::SoundBuffer mConfirmSoundBuffer;
+    sf::Sound mConfirmSound;
+
     sf::Text mWhosTurnText;
     sf::Text mGameClockText;
     sf::Text mTurnCounterText;
