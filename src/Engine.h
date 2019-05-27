@@ -23,6 +23,12 @@ class Engine {
     sf::Texture mGrille;
     sf::Texture mThreeStars;
     sf::Texture mMedal;
+    // sf::SoundBuffer mConfirm;
+    // sf::SoundBuffer mSplash;
+    // sf::SoundBuffer mExplode;
+    // sf::Sound mConfirmSFX;
+    // sf::Sound mSplashSFX;
+    // sf::Sound mExplodeSFX;
     sf::Music mMainMenuMusic;
     sf::Music mGameSceneMusic;
     sf::Music mVictoryMusic;

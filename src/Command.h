@@ -123,6 +123,10 @@ class PlaceShip : public Command {
    private:
     GameScene::GameState& mGameState;
     BoardCell& mCell;
+    // JOSIAH WAS HERE
+    sf::SoundBuffer mConfirm;
+    sf::Sound mConfirmSFX; 
+    
 };
 
 class Attack : public Command {
@@ -137,6 +141,8 @@ class Attack : public Command {
    private:
     GameScene::GameState& mGameState;
     BoardCell& mCell;
+    sf::SoundBuffer mSplash, mExplode;
+    sf::Sound mSplashSFX, mExplodeSFX;
 };
 
 class ChangeGameState : public Command {

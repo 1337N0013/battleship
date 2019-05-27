@@ -16,6 +16,12 @@ class Scene {
                 sf::Texture& gameBackground, sf::Texture& greenLed,
                 sf::Texture& redLed, sf::Texture& yellowLed, 
                 sf::Texture& grille,
+                // sf::SoundBuffer& confirm, 
+                // sf::SoundBuffer& splash, 
+                // sf::SoundBuffer& explode, 
+                // sf::Sound& confirmSFX, 
+                // sf::Sound& splashSFX, 
+                // sf::Sound& explodeSFX, 
                 sf::Music& mainMenuMusic, sf::Music& gameSceneMusic,
                 sf::Music& victoryMusic, sf::Texture& threeStars,
                 sf::Texture& medal);
@@ -29,6 +35,12 @@ class Scene {
         sf::Texture& redLed; 
         sf::Texture& yellowLed;
         sf::Texture& grille;
+        // sf::SoundBuffer& confirm; 
+        // sf::SoundBuffer& splash; 
+        // sf::SoundBuffer& explode; 
+        // sf::Sound& confirmSFX;
+        // sf::Sound& splashSFX;
+        // sf::Sound& explodeSFX;
         sf::Music& mainMenuMusic;
         sf::Music& gameSceneMusic;
         sf::Music& victoryMusic;
