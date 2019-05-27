@@ -435,7 +435,7 @@ bool GameScene::update(sf::Time deltaTime) {
         gameClock += ":";
         if ((int)currentGameState.gameTime.asSeconds()%60 < 10) {
             gameClock += "0";
-            gameClock += std::to_string((int)currentGameState.gameTime.asSeconds());
+            gameClock += std::to_string((int)currentGameState.gameTime.asSeconds() % 60);
         } else {
             gameClock += std::to_string((int)currentGameState.gameTime.asSeconds() % 60);
         }
