@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Button.h"
+#include "GameScene.h"
 
 class BoardCell : public Button {
    public:
@@ -16,11 +17,11 @@ class BoardCell : public Button {
 
    public:
     BoardCell(sf::Vector2u coord, BoardCell::State state,
-              Scene::Context& context);
+              Scene::Context& context, GameScene::GameState& gameState);
     BoardCell(unsigned int x, unsigned int y, BoardCell::State state,
-              Scene::Context& context);
-    BoardCell(sf::Vector2u coord, Scene::Context& context);
-    BoardCell(unsigned int x, unsigned int y, Scene::Context& context);
+              Scene::Context& context, GameScene::GameState& gameState);
+    BoardCell(sf::Vector2u coord, Scene::Context& context, GameScene::GameState& gameState);
+    BoardCell(unsigned int x, unsigned int y, Scene::Context& context, GameScene::GameState& gameState);
     BoardCell(const BoardCell&);
 
     void setState(State state);
@@ -36,13 +37,16 @@ class BoardCell : public Button {
 
    private:
     BoardCell::State mCurrentState;
-    sf::Vector2u mCoord;
+    GameScene::GameState& mGameState;
 
+    sf::Vector2u mCoord;
     bool wasCoordSet;
 
     sf::Texture& mShipTexture;
     sf::Texture& mHitTexture;
     sf::Texture& mMissTexture;
+
+    sf::Sprite mStateSprite;
 
     Scene::Context& mContext;
 };

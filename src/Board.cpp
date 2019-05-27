@@ -11,7 +11,7 @@ Board::Board(GameScene::GameState& state, Scene::Context& context)
     for (int i = 0; i < 10; i++) {
         std::vector<BoardCell> row;
         for (int j = 0; j < 10; j++) {
-            row.emplace_back(BoardCell(i, j, context));
+            row.emplace_back(BoardCell(i, j, context, state));
         }
         mCells.push_back(row);
     }
