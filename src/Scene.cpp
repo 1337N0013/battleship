@@ -4,15 +4,14 @@
 Scene::Scene(SceneStack& stack, Context& context)
     : mStack(stack), mContext(context) {}
 
-Scene::Context::Context(sf::RenderWindow& window, sf::Font& font, 
-                        sf::Font& sevenSegment,
-                        GameSettings& gameSettings, sf::Texture& background,
-                        sf::Texture& gameBackground, sf::Texture& greenLed,
-                        sf::Texture& redLed, sf::Texture& yellowLed,
-                        sf::Texture& grille,
-                        sf::Music& mainMenuMusic, sf::Music& gameSceneMusic,
-                        sf::Music& victoryMusic, sf::Texture& threeStars,
-                        sf::Texture& medal)
+Scene::Context::Context(sf::RenderWindow& window, sf::Font& font,
+                        sf::Font& sevenSegment, GameSettings& gameSettings,
+                        sf::Texture& background, sf::Texture& gameBackground,
+                        sf::Texture& greenLed, sf::Texture& redLed,
+                        sf::Texture& yellowLed, sf::Texture& grille,
+                        sf::Texture& ship, sf::Music& mainMenuMusic,
+                        sf::Music& gameSceneMusic, sf::Music& victoryMusic,
+                        sf::Texture& threeStars, sf::Texture& medal)
     : window(window),
       font(font),
       sevenSegment(sevenSegment),
@@ -22,7 +21,8 @@ Scene::Context::Context(sf::RenderWindow& window, sf::Font& font,
       greenLed(greenLed),
       redLed(redLed),
       yellowLed(yellowLed),
-      grille(grille),      
+      grille(grille),
+      ship(ship),
       mainMenuMusic(mainMenuMusic),
       gameSceneMusic(gameSceneMusic),
       victoryMusic(victoryMusic),

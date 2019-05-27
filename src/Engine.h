@@ -23,6 +23,7 @@ class Engine {
     sf::Texture mGrille;
     sf::Texture mThreeStars;
     sf::Texture mMedal;
+    sf::Texture mShip;
     sf::Music mMainMenuMusic;
     sf::Music mGameSceneMusic;
     sf::Music mVictoryMusic;

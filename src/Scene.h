@@ -11,11 +11,10 @@ class Scene {
    public:
     struct Context {
         Context(sf::RenderWindow& window, sf::Font& font,
-                sf::Font& sevenSegment,
-                GameSettings& gameSettings, sf::Texture& background,
-                sf::Texture& gameBackground, sf::Texture& greenLed,
-                sf::Texture& redLed, sf::Texture& yellowLed, 
-                sf::Texture& grille,
+                sf::Font& sevenSegment, GameSettings& gameSettings,
+                sf::Texture& background, sf::Texture& gameBackground,
+                sf::Texture& greenLed, sf::Texture& redLed,
+                sf::Texture& yellowLed, sf::Texture& grille, sf::Texture& ship,
                 sf::Music& mainMenuMusic, sf::Music& gameSceneMusic,
                 sf::Music& victoryMusic, sf::Texture& threeStars,
                 sf::Texture& medal);
@@ -26,9 +25,10 @@ class Scene {
         sf::Texture& background;
         sf::Texture& gameBackground;
         sf::Texture& greenLed;
-        sf::Texture& redLed; 
+        sf::Texture& redLed;
         sf::Texture& yellowLed;
         sf::Texture& grille;
+        sf::Texture& ship;
         sf::Music& mainMenuMusic;
         sf::Music& gameSceneMusic;
         sf::Music& victoryMusic;
