@@ -26,6 +26,9 @@ class Engine {
     sf::Texture mShip;
     sf::Texture mHit;
     sf::Texture mMiss;
+    sf::SoundBuffer mConfirm;
+    sf::SoundBuffer mExplode;
+    sf::SoundBuffer mSplash;
     sf::Music mMainMenuMusic;
     sf::Music mGameSceneMusic;
     sf::Music mVictoryMusic;

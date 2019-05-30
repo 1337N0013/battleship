@@ -15,9 +15,11 @@ class Scene {
                 sf::Texture& background, sf::Texture& gameBackground,
                 sf::Texture& greenLed, sf::Texture& redLed,
                 sf::Texture& yellowLed, sf::Texture& grille, sf::Texture& ship,
-                sf::Texture& hit, sf::Texture& miss, sf::Music& mainMenuMusic,
-                sf::Music& gameSceneMusic, sf::Music& victoryMusic,
-                sf::Texture& threeStars, sf::Texture& medal);
+                sf::Texture& hit, sf::Texture& miss, sf::SoundBuffer& confirm,
+                sf::SoundBuffer& explode, sf::SoundBuffer& splash,
+                sf::Music& mainMenuMusic, sf::Music& gameSceneMusic,
+                sf::Music& victoryMusic, sf::Texture& threeStars,
+                sf::Texture& medal);
         sf::RenderWindow& window;
         sf::Font& font;
         sf::Font& sevenSegment;
@@ -31,11 +33,14 @@ class Scene {
         sf::Texture& ship;
         sf::Texture& hit;
         sf::Texture& miss;
+        sf::Texture& threeStars;
+        sf::Texture& medal;
+        sf::SoundBuffer& confirm;
+        sf::SoundBuffer& explode;
+        sf::SoundBuffer& splash;
         sf::Music& mainMenuMusic;
         sf::Music& gameSceneMusic;
         sf::Music& victoryMusic;
-        sf::Texture& threeStars;
-        sf::Texture& medal;
     };
 
     enum class ID { None, MainMenu, Game, Settings, Pause };

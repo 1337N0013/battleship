@@ -435,12 +435,9 @@ bool GameScene::update(sf::Time deltaTime) {
         gameClock += ":";
         if ((int)currentGameState.gameTime.asSeconds() % 60 < 10) {
             gameClock += "0";
-            gameClock +=
-                std::to_string((int)currentGameState.gameTime.asSeconds() % 60);
-        } else {
-            gameClock +=
-                std::to_string((int)currentGameState.gameTime.asSeconds() % 60);
         }
+        gameClock +=
+            std::to_string((int)currentGameState.gameTime.asSeconds() % 60);
         mGameClockValueText.setString(gameClock);
 
         int winner;
@@ -502,9 +499,12 @@ bool GameScene::update(sf::Time deltaTime) {
                 timeString +=
                     std::to_string((int)currentGameState.gameTime.asSeconds() /
                                    60) +
-                    ":" +
-                    std::to_string((int)currentGameState.gameTime.asSeconds() %
-                                   60);
+                    ":";
+                if ((int)currentGameState.gameTime.asSeconds() % 60 < 10) {
+                    timeString += "0";
+                }
+                timeString += std::to_string(
+                    (int)currentGameState.gameTime.asSeconds() % 60);
             }
             mTime.setString(timeString);
             mTime.setPosition(
