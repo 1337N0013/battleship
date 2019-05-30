@@ -1,18 +1,23 @@
 #include "Engine.h"
 #include <iostream>
-#include "Scene.h"
-#include "MainMenuScene.h"
 #include "GameScene.h"
-#include "SettingsScene.h"
+#include "MainMenuScene.h"
 #include "PauseScene.h"
+#include "Scene.h"
+#include "SettingsScene.h"
 
 using std::cout;
 
 Engine::Engine()
-    : mWindow(sf::VideoMode(windowWidth, windowHeight), "Battleship", sf::Style::Titlebar | sf::Style::Close),
+    : mWindow(sf::VideoMode(windowWidth, windowHeight), "Battleship",
+              sf::Style::Titlebar | sf::Style::Close),
       mFont(),
       mGameSettings(),
-      mSceneStack(Scene::Context(mWindow, mFont, mSevenSegment, mGameSettings, mBackground, mGameBackground, mGreenLed, mRedLed, mYellowLed, mGrille, mShip, mHit, mMiss, mMainMenuMusic, mGameSceneMusic, mVictoryMusic, mThreeStars, mMedal)),
+      mSceneStack(Scene::Context(
+          mWindow, mFont, mSevenSegment, mGameSettings, mBackground,
+          mGameBackground, mGreenLed, mRedLed, mYellowLed, mGrille, mShip, mHit,
+          mMiss, mConfirm, mExplode, mSplash, mMainMenuMusic, mGameSceneMusic,
+          mVictoryMusic, mThreeStars, mMedal)),
       mFpsCounter(),
       mFpsTime(sf::Time::Zero) {
     mWindow.setFramerateLimit(120);
@@ -25,47 +30,64 @@ Engine::Engine()
         throw std::runtime_error("Could not load font.");
     }
 
-    if(!mBackground.loadFromFile("res/img/title/bg.png", sf::IntRect(0, 0, 1999, 1123))) {
+    if (!mBackground.loadFromFile("res/img/title/bg.png",
+                                  sf::IntRect(0, 0, 1999, 1123))) {
         throw std::runtime_error("Could not load res/img/title/bg.png");
     }
 
-    if(!mGameBackground.loadFromFile("res/img/platform/metal_bg.png", sf::IntRect(0, 0, 1999, 1123))) {
-        throw std::runtime_error("Could not load res/img/platform/metal_bg.png");
+    if (!mGameBackground.loadFromFile("res/img/platform/metal_bg.png",
+                                      sf::IntRect(0, 0, 1999, 1123))) {
+        throw std::runtime_error(
+            "Could not load res/img/platform/metal_bg.png");
     }
 
-    if(!mGreenLed.loadFromFile("res/img/platform/led_green.png")) {
-        throw std::runtime_error("Could not load res/img/platform/led_green.png");
+    if (!mGreenLed.loadFromFile("res/img/platform/led_green.png")) {
+        throw std::runtime_error(
+            "Could not load res/img/platform/led_green.png");
     }
 
-    if(!mRedLed.loadFromFile("res/img/platform/led_red.png")) {
+    if (!mRedLed.loadFromFile("res/img/platform/led_red.png")) {
         throw std::runtime_error("Could not load res/img/platform/led_red.png");
     }
 
-    if(!mYellowLed.loadFromFile("res/img/platform/led_yellow.png")) {
-        throw std::runtime_error("Could not load res/img/platform/led_yellow.png");
+    if (!mYellowLed.loadFromFile("res/img/platform/led_yellow.png")) {
+        throw std::runtime_error(
+            "Could not load res/img/platform/led_yellow.png");
     }
 
-    if(!mGrille.loadFromFile("res/img/platform/grille.png")) {
+    if (!mGrille.loadFromFile("res/img/platform/grille.png")) {
         throw std::runtime_error("Could not load res/img/platform/grille.png");
     }
 
-    if(!mShip.loadFromFile("res/img/platform/ship.png")) {
+    if (!mShip.loadFromFile("res/img/platform/ship.png")) {
         throw std::runtime_error("Could not load res/img/platform/ship.png");
     }
 
-    if(!mHit.loadFromFile("res/img/platform/hit.png")) {
+    if (!mHit.loadFromFile("res/img/platform/hit.png")) {
         throw std::runtime_error("Could not load res/img/platform/hit.png");
     }
 
-    if(!mMiss.loadFromFile("res/img/platform/miss.png")) {
+    if (!mMiss.loadFromFile("res/img/platform/miss.png")) {
         throw std::runtime_error("Could not load res/img/platform/miss.png");
     }
 
-    if(!mThreeStars.loadFromFile("res/img/victory/3stars.png")) {
+    if (!mConfirm.loadFromFile("res/audio/sfx/confirm.ogg")) {
+        throw std::runtime_error("Could not load res/audio/sfx/confirm.ogg");
+    }
+
+    if (!mExplode.loadFromFile("res/audio/sfx/explode.ogg")) {
+        throw std::runtime_error("Could not load res/audio/sfx/explode.ogg");
+    }
+
+    if (!mSplash.loadFromFile("res/audio/sfx/splash.ogg")) {
+        throw std::runtime_error("Could not load res/audio/sfx/splash.ogg");
+    }
+
+    if (!mThreeStars.loadFromFile("res/img/victory/3stars.png")) {
         throw std::runtime_error("Could not load res/img/victory/3stars.png");
     }
 
-    if(!mMedal.loadFromFile("res/img/victory/medal.png")) {
+    if (!mMedal.loadFromFile("res/img/victory/medal.png")) {
         throw std::runtime_error("Could not load res/img/victory/medal.png");
     }
 
@@ -81,15 +103,15 @@ Engine::Engine()
         throw std::runtime_error("Could not load res/audio/explode.ogg");
     }; */
 
-    if(!mMainMenuMusic.openFromFile("res/audio/main.ogg")){
+    if (!mMainMenuMusic.openFromFile("res/audio/main.ogg")) {
         throw std::runtime_error("Could not load res/audio/main.ogg");
     };
 
-    if(!mGameSceneMusic.openFromFile("res/audio/game1.ogg")){
+    if (!mGameSceneMusic.openFromFile("res/audio/game1.ogg")) {
         throw std::runtime_error("Could not load res/audio/game1.ogg");
     }
 
-    if(!mVictoryMusic.openFromFile("res/audio/victory.ogg")){
+    if (!mVictoryMusic.openFromFile("res/audio/victory.ogg")) {
         throw std::runtime_error("Could not load res/audio/victory.ogg");
     }
 

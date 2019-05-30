@@ -10,9 +10,10 @@ Scene::Context::Context(sf::RenderWindow& window, sf::Font& font,
                         sf::Texture& greenLed, sf::Texture& redLed,
                         sf::Texture& yellowLed, sf::Texture& grille,
                         sf::Texture& ship, sf::Texture& hit, sf::Texture& miss,
-                        sf::Music& mainMenuMusic, sf::Music& gameSceneMusic,
-                        sf::Music& victoryMusic, sf::Texture& threeStars,
-                        sf::Texture& medal)
+                        sf::SoundBuffer& confirm, sf::SoundBuffer& explode,
+                        sf::SoundBuffer& splash, sf::Music& mainMenuMusic,
+                        sf::Music& gameSceneMusic, sf::Music& victoryMusic,
+                        sf::Texture& threeStars, sf::Texture& medal)
     : window(window),
       font(font),
       sevenSegment(sevenSegment),
@@ -26,11 +27,14 @@ Scene::Context::Context(sf::RenderWindow& window, sf::Font& font,
       ship(ship),
       hit(hit),
       miss(miss),
+      confirm(confirm),
+      explode(explode),
+      splash(splash),
+      threeStars(threeStars),
+      medal(medal),
       mainMenuMusic(mainMenuMusic),
       gameSceneMusic(gameSceneMusic),
-      victoryMusic(victoryMusic),
-      threeStars(threeStars),
-      medal(medal) {}
+      victoryMusic(victoryMusic) {}
 
 void Scene::requestScenePush(Scene::ID sceneID) { mStack.pushScene(sceneID); }
 void Scene::requestScenePop() { mStack.popScene(); }
