@@ -25,7 +25,7 @@ Board::Board(GameScene::GameState& state, Scene::Context& context)
             mCells[i][j].rectangle.setOutlineThickness(2);
             mCells[i][j].rectangle.setOutlineColor(sf::Color::Black);
             mCells[i][j].onClickCommand.reset(
-                new GameCommands::PlaceShip(mGameState, mCells[i][j]));
+                new GameCommands::PlaceShip(mGameState, mCells[i][j], context.confirm));
             mCells[i][j].setStateColor(Button::State::Default,
                                        sf::Color(12, 25, 42));
 
@@ -91,7 +91,7 @@ unsigned int Board::getNumberOfShips() {
 void Board::setBattlePhase() {
     for (auto i = mCells.begin(); i != mCells.end(); i++) {
         for (auto j = i->begin(); j != i->end(); j++) {
-            j->onClickCommand.reset(new GameCommands::Attack(mGameState, *j));
+            j->onClickCommand.reset(new GameCommands::Attack(mGameState, *j, mContext));
         }
     }
 }

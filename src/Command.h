@@ -119,10 +119,10 @@ namespace GameCommands {
 
 class PlaceShip : public Command {
    public:
-    PlaceShip(GameScene::GameState& state, BoardCell& cell);
-    PlaceShip(GameScene::GameState& state, Board board, sf::Vector2u coord);
+    PlaceShip(GameScene::GameState& state, BoardCell& cell, sf::SoundBuffer& sound);
+    PlaceShip(GameScene::GameState& state, Board board, sf::Vector2u coord, sf::SoundBuffer& sound);
     PlaceShip(GameScene::GameState& state, Board board, unsigned int x,
-              unsigned int y);
+              unsigned int y, sf::SoundBuffer& sound);
     ~PlaceShip();
     void execute();
 
@@ -130,23 +130,23 @@ class PlaceShip : public Command {
     GameScene::GameState& mGameState;
     BoardCell& mCell;
     // JOSIAH WAS HERE
-    sf::SoundBuffer mConfirm;
+    sf::SoundBuffer& mConfirm;
     sf::Sound mConfirmSFX;
 };
 
 class Attack : public Command {
    public:
-    Attack(GameScene::GameState& state, BoardCell& cell);
-    Attack(GameScene::GameState& state, Board board, sf::Vector2u coord);
+    Attack(GameScene::GameState& state, BoardCell& cell, Scene::Context& context);
+    Attack(GameScene::GameState& state, Board board, sf::Vector2u coord, Scene::Context& context);
     Attack(GameScene::GameState& state, Board board, unsigned int x,
-           unsigned int y);
+           unsigned int y, Scene::Context& context);
     ~Attack();
     void execute();
 
    private:
     GameScene::GameState& mGameState;
     BoardCell& mCell;
-    sf::SoundBuffer mSoundBuffer;
+    Scene::Context& mContext;
     sf::Sound mSFX;
 };
 

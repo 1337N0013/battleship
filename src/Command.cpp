@@ -1,6 +1,6 @@
 #include "Command.h"
-#include "Button.h"
 #include <iostream>
+#include "Button.h"
 
 Command::~Command() {}
 
@@ -100,18 +100,15 @@ void DecreaseBoard::execute() {
 
 namespace GameCommands {
 
-PlaceShip::PlaceShip(GameScene::GameState& state, BoardCell& cell)
-    : mGameState(state), mCell(cell), mConfirmSFX(mConfirm) {
-    mConfirm.loadFromFile("res/audio/sfx/confirm.ogg");
-    mConfirmSFX.setPitch(1);
-    mConfirmSFX.setVolume(100);
-}
+PlaceShip::PlaceShip(GameScene::GameState& state, BoardCell& cell,
+                     sf::SoundBuffer& sound)
+    : mGameState(state), mCell(cell), mConfirm(sound), mConfirmSFX(mConfirm) {}
 PlaceShip::PlaceShip(GameScene::GameState& state, Board board,
-                     sf::Vector2u coord)
-    : mGameState(state), mCell(board[coord.x][coord.y]) {}
+                     sf::Vector2u coord, sf::SoundBuffer& sound)
+    : mGameState(state), mCell(board[coord.x][coord.y]), mConfirm(sound) {}
 PlaceShip::PlaceShip(GameScene::GameState& state, Board board, unsigned int x,
-                     unsigned int y)
-    : mGameState(state), mCell(board[x][y]) {}
+                     unsigned int y, sf::SoundBuffer& sound)
+    : mGameState(state), mCell(board[x][y]), mConfirm(sound) {}
 PlaceShip::~PlaceShip() {}
 void PlaceShip::execute() {
     if (mCell.getState() == BoardCell::State::None &&
@@ -131,13 +128,15 @@ void PlaceShip::execute() {
               << " OUT OF " << mGameState.maxShips << "\n";
 }
 
-Attack::Attack(GameScene::GameState& state, BoardCell& cell)
-    : mGameState(state), mCell(cell) {}
-Attack::Attack(GameScene::GameState& state, Board board, sf::Vector2u coord)
-    : mGameState(state), mCell(board[coord.x][coord.y]) {}
+Attack::Attack(GameScene::GameState& state, BoardCell& cell,
+               Scene::Context& context)
+    : mGameState(state), mCell(cell), mContext(context) {}
+Attack::Attack(GameScene::GameState& state, Board board, sf::Vector2u coord,
+               Scene::Context& context)
+    : mGameState(state), mCell(board[coord.x][coord.y]), mContext(context) {}
 Attack::Attack(GameScene::GameState& state, Board board, unsigned int x,
-               unsigned int y)
-    : mGameState(state), mCell(board[x][y]) {}
+               unsigned int y, Scene::Context& context)
+    : mGameState(state), mCell(board[x][y]), mContext(context) {}
 Attack::~Attack() {}
 void Attack::execute() {
     if (mCell.getState() == BoardCell::State::Ship &&
@@ -146,8 +145,7 @@ void Attack::execute() {
         std::cout << "PLAYER " << mGameState.getPlayer() + 1 << " HIT ("
                   << mCell.getCoord().x << ", " << mCell.getCoord().y << ")\n";
 
-        mSoundBuffer.loadFromFile("res/audio/sfx/explode.ogg");
-        mSFX.setBuffer(mSoundBuffer);
+        mSFX.setBuffer(mContext.explode);
         mSFX.play();
 
         mCell.setState(BoardCell::State::Hit);
@@ -161,8 +159,7 @@ void Attack::execute() {
                   << " OUT OF " << mGameState.maxShips << "\n";
 
         // JOSIAH WAS HERE
-        mSoundBuffer.loadFromFile("res/audio/sfx/splash.ogg");
-        mSFX.setBuffer(mSoundBuffer);
+        mSFX.setBuffer(mContext.splash);
         mSFX.play();
 
         mCell.setState(BoardCell::State::Miss);
