@@ -26,17 +26,6 @@ BoardCell::BoardCell(unsigned int x, unsigned int y, Scene::Context& context,
     : BoardCell(sf::Vector2u(x, y), BoardCell::State::Inactive, context,
                 gameState) {}
 
-BoardCell::BoardCell(const BoardCell& bc)
-    : Button("", bc.mContext.font),
-      mContext(bc.mContext),
-      mGameState(bc.mGameState),
-      mCurrentState(bc.mCurrentState),
-      mCoord(bc.mCoord),
-      wasCoordSet(false),
-      mShipTexture(bc.mContext.ship),
-      mHitTexture(bc.mContext.hit),
-      mMissTexture(bc.mContext.miss) {}
-
 void BoardCell::setState(BoardCell::State state) { mCurrentState = state; }
 
 void BoardCell::setState(Button::State state) { Button::setState(state); }
