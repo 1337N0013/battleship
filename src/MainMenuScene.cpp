@@ -31,7 +31,7 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
     exitButton.setCharacterSize(20);
     exitButton.setPosition(creditsButton.getPosition().x,
                            creditsButton.getPosition().y + 50);
-    exitButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this));
+    exitButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this, context.confirm));
 
     mBackgroundSprite.setOrigin(999.5f, 561.5f);
     mBackgroundSprite.setPosition(512, 384);

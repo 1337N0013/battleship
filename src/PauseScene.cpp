@@ -25,7 +25,7 @@ PauseScene::PauseScene(SceneStack& stack, Context& context)
     mContinueButton.setCharacterSize(20);
     mContinueButton.setPosition(100, mExitButton.getPosition().y-50);
     mContinueButton.setSize(buttonSize);
-    mContinueButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this));
+    mContinueButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this, context.confirm));
 
     mLegendText.setPosition(100,200);
     mLegendText.setCharacterSize(20);

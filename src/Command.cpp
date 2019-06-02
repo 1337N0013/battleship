@@ -22,9 +22,15 @@ void ChangeScene::execute() {
     mScene.requestScenePush(mSceneID);
 }
 
-RemoveScene::RemoveScene(Scene& currentScene) : mScene(currentScene) {}
+RemoveScene::RemoveScene(Scene& currentScene, sf::SoundBuffer& sound)
+    : mScene(currentScene), mSound(sound) {
+    mSound.setPitch(0.8);
+}
 RemoveScene::~RemoveScene() {}
-void RemoveScene::execute() { mScene.requestScenePop(); }
+void RemoveScene::execute() {
+    mSound.play();
+    mScene.requestScenePop();
+}
 
 ChangeAndRemoveScene::ChangeAndRemoveScene(Scene& currentScene,
                                            Scene::ID sceneID)
