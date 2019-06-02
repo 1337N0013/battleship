@@ -43,7 +43,7 @@ class Scene {
         sf::Music& victoryMusic;
     };
 
-    enum class ID { None, MainMenu, Game, Settings, Pause };
+    enum class ID { None, MainMenu, Game, Settings, Pause, Credits };
 
    public:
     Scene(SceneStack& stack, Context& context);
