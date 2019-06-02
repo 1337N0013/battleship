@@ -26,7 +26,13 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
         new SceneCommand::ChangeScene(*this, Scene::ID::Settings));
         
     exitButton.setCharacterSize(20);
+<<<<<<< HEAD
     exitButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this));
+=======
+    exitButton.setPosition(creditsButton.getPosition().x,
+                           creditsButton.getPosition().y + 50);
+    exitButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this, context.confirm));
+>>>>>>> 391d320... Add sound to SceneCommand::RemoveScene
 
     mBackgroundSprite.setOrigin(999.5f, 561.5f);
     mBackgroundSprite.setPosition(512, 384);
