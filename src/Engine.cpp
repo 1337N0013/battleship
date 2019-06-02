@@ -184,7 +184,7 @@ void Engine::draw() {
 
     mSceneStack.draw();
 
-    mWindow.draw(mFpsCounter);
+    // mWindow.draw(mFpsCounter);
 
     mWindow.display();
 }
