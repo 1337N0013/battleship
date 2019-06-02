@@ -1,13 +1,11 @@
 #include "Engine.h"
 #include <iostream>
+#include "CreditsScene.h"
 #include "GameScene.h"
 #include "MainMenuScene.h"
 #include "PauseScene.h"
 #include "Scene.h"
 #include "SettingsScene.h"
-#include "CreditsScene.h"
-
-using std::cout;
 
 Engine::Engine()
     : mWindow(sf::VideoMode(windowWidth, windowHeight), "Battleship",
@@ -162,11 +160,6 @@ void Engine::input() {
             mWindow.close();
         }
     }
-
-    // realtime handling
-    // if (windowFocus) {
-
-    // }
 }
 
 void Engine::update(sf::Time deltaTime) {

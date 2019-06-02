@@ -1,11 +1,11 @@
 #ifndef CREDITSSCENE_H
 #define CREDITSSCENE_H
 
-#include "Scene.h"
 #include "Button.h"
+#include "Scene.h"
 
 class CreditsScene : public Scene {
-    public:
+   public:
     CreditsScene(SceneStack& stack, Context context);
     ~CreditsScene();
 
@@ -13,7 +13,7 @@ class CreditsScene : public Scene {
     void draw();
     bool update(sf::Time deltatTime);
 
-    private:
+   private:
     sf::RenderWindow& mWindow;
 
     sf::RectangleShape mBackground;

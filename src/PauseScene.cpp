@@ -1,15 +1,18 @@
-#include "Command.h"
 #include "PauseScene.h"
+#include "Command.h"
 
 PauseScene::PauseScene(SceneStack& stack, Context& context)
-    : Scene(stack, context),  
+    : Scene(stack, context),
       mPauseText("Paused", context.font),
       mContinueButton("Continue", context.font),
       mExitButton("Quit", context.font),
-      mHit(context.hit), mMiss(context.miss),
-      mHitText("- HIT", context.font), mMissText("- MISS", context.font),
+      mHit(context.hit),
+      mMiss(context.miss),
+      mHitText("- HIT", context.font),
+      mMissText("- MISS", context.font),
       mLegendText("LENGEND:", context.font) {
-    mBackground.setSize(sf::Vector2f(context.window.getSize().x, context.window.getSize().y));
+    mBackground.setSize(
+        sf::Vector2f(context.window.getSize().x, context.window.getSize().y));
     mBackground.setFillColor(sf::Color(0, 0, 0, 200));
 
     mPauseText.setCharacterSize(20);
@@ -23,28 +26,29 @@ PauseScene::PauseScene(SceneStack& stack, Context& context)
     mExitButton.onClickCommand.reset(new SceneCommand::ReturnToMainMenu(*this));
 
     mContinueButton.setCharacterSize(20);
-    mContinueButton.setPosition(100, mExitButton.getPosition().y-50);
+    mContinueButton.setPosition(100, mExitButton.getPosition().y - 50);
     mContinueButton.setSize(buttonSize);
-    mContinueButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this, context.confirm));
+    mContinueButton.onClickCommand.reset(
+        new SceneCommand::RemoveScene(*this, context.confirm));
 
-    mLegendText.setPosition(100,200);
+    mLegendText.setPosition(100, 200);
     mLegendText.setCharacterSize(20);
 
-    mHit.setPosition(100,265);
+    mHit.setPosition(100, 265);
     mHit.setScale(0.05f, 0.05f);
-    mHitText.setPosition(200,280);
+    mHitText.setPosition(200, 280);
     mHitText.setCharacterSize(30);
 
-    mMiss.setPosition(100,365);
-    mMiss.setScale(0.05f, 0.05f);   
-    mMissText.setPosition(200,380);
-    mMissText.setCharacterSize(30); 
+    mMiss.setPosition(100, 365);
+    mMiss.setScale(0.05f, 0.05f);
+    mMissText.setPosition(200, 380);
+    mMissText.setCharacterSize(30);
 }
 
 PauseScene::~PauseScene() {}
 
 bool PauseScene::input(const sf::Event& e) {
-    switch(e.type) {
+    switch (e.type) {
         case sf::Event::KeyReleased: {
             if (e.key.code == sf::Keyboard::Escape) {
                 requestScenePop();

@@ -32,19 +32,6 @@ void BoardCell::setState(Button::State state) { Button::setState(state); }
 
 BoardCell::State BoardCell::getState() { return mCurrentState; }
 
-// void BoardCell::setCoord(sf::Vector2u coord) {
-//     if (wasCoordSet) {
-//         std::cout << "Board cell was already set";
-//         return;
-//     }
-//     mCoord = coord;
-//     wasCoordSet = true;
-// }
-
-// void BoardCell::setCoord(unsigned int x, unsigned int y) {
-//     setCoord(sf::Vector2u(x, y));
-// }
-
 sf::Vector2u BoardCell::getCoord() { return mCoord; }
 
 bool BoardCell::input(sf::Event e) {

@@ -309,7 +309,6 @@ bool GameScene::update(sf::Time deltaTime) {
             board->update(deltaTime);
         }
     }
-    // std::cout << "PLAYER " << currentGameState.getPlayer() << "\n";
 
     sf::Vector2f windowSize(getContext().window.getSize().x,
                             getContext().window.getSize().y);
@@ -323,7 +322,6 @@ bool GameScene::update(sf::Time deltaTime) {
                     playerBoards[i]->setBattlePhase();
                 }
                 currentGameState.currentPhase = GameState::Phase::Battle;
-                std::cout << "in battle phase\n";
                 currentGameState.resetTurnsToZero();
                 mConfirmSound.play();
             }
@@ -451,8 +449,6 @@ bool GameScene::update(sf::Time deltaTime) {
         }
         if (winner != -1) {
             currentGameState.currentPhase = GameState::Phase::Victory;
-            std::cout << "PLAYER " << winner + 1 << " WINS\n";
-            std::cout << "VICTORY PHASE\n";
 
             std::string playerWinText = "PLAYER " + std::to_string(winner + 1);
             mPlayerWin.setString(playerWinText);

@@ -1,8 +1,8 @@
 #ifndef SETTINGSSCENE_H
 #define SETTINGSSCENE_H
 
-#include "Scene.h"
 #include "Button.h"
+#include "Scene.h"
 
 class SettingsScene : public Scene {
    public:

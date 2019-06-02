@@ -1,11 +1,11 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
-#include <SFML/Audio.hpp>
-#include "SceneStack.h"
 #include "GameSettings.h"
+#include "SceneStack.h"
 
 constexpr unsigned int windowWidth = 1024, windowHeight = 768;
 
