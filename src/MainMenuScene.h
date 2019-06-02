@@ -23,7 +23,7 @@ class MainMenuScene : public Scene {
 
     sf::Text title;
     sf::Time titleBlinkTime;
-    Button playButton, exitButton;
+    Button playButton, exitButton, creditsButton;
 };
 
 #endif
