@@ -5,6 +5,7 @@
 #include "PauseScene.h"
 #include "Scene.h"
 #include "SettingsScene.h"
+#include "CreditsScene.h"
 
 using std::cout;
 
@@ -148,6 +149,7 @@ void Engine::registerScenes() {
     mSceneStack.registerScene<GameScene>(Scene::ID::Game);
     mSceneStack.registerScene<SettingsScene>(Scene::ID::Settings);
     mSceneStack.registerScene<PauseScene>(Scene::ID::Pause);
+    mSceneStack.registerScene<CreditsScene>(Scene::ID::Credits);
 }
 
 void Engine::input() {
@@ -182,7 +184,7 @@ void Engine::draw() {
 
     mSceneStack.draw();
 
-    mWindow.draw(mFpsCounter);
+    // mWindow.draw(mFpsCounter);
 
     mWindow.display();
 }

@@ -11,11 +11,9 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
       playButton(mWindowSize.x / 2 - 150, mWindowSize.y / 2 + 165, 300, 30,
                  std::string("Play"), context.font),
       exitButton(0, 0, 300, 30, std::string("Exit"), context.font),
+      creditsButton("Credits", context.font),
       mBackgroundSprite(context.background),
       mMainMenuMusic(context.mainMenuMusic) {
-    exitButton.setPosition(playButton.getPosition().x,
-                           playButton.getPosition().y + 50);
-
     title.setCharacterSize(20);
     title.setPosition(mWindowSize.x / 2 - title.getLocalBounds().width / 2,
                       100);
@@ -25,8 +23,15 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
     playButton.onClickCommand.reset(
         new SceneCommand::ChangeScene(*this, Scene::ID::Settings));
         
+    creditsButton.setCharacterSize(20);
+    creditsButton.setSize(sf::Vector2f(300, 30));
+    creditsButton.setPosition(playButton.getPosition().x, playButton.getPosition().y + 50);
+    creditsButton.onClickCommand.reset(new SceneCommand::ChangeScene(*this, Scene::ID::Credits));
+
     exitButton.setCharacterSize(20);
-    exitButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this));
+    exitButton.setPosition(creditsButton.getPosition().x,
+                           creditsButton.getPosition().y + 50);
+    exitButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this, context.confirm));
 
     mBackgroundSprite.setOrigin(999.5f, 561.5f);
     mBackgroundSprite.setPosition(512, 384);
@@ -54,6 +59,7 @@ bool MainMenuScene::input(const sf::Event& e) {
     }
     playButton.handleInput(e);
     exitButton.handleInput(e);
+    creditsButton.handleInput(e);
     return true;
 }
 
@@ -62,11 +68,13 @@ void MainMenuScene::draw() {
     mWindow.draw(title);
     mWindow.draw(playButton);
     mWindow.draw(exitButton);
+    mWindow.draw(creditsButton);
 }
 
 bool MainMenuScene::update(sf::Time deltaTime) {
     playButton.update(deltaTime);
     exitButton.update(deltaTime);
+    creditsButton.update(deltaTime);
     titleBlinkTime += deltaTime;
     
     if(titleBlinkTime.asSeconds() > 0.5)

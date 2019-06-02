@@ -37,12 +37,13 @@ class ChangeScene : public Command {
 
 class RemoveScene : public Command {
    public:
-    RemoveScene(Scene& currentScene);
+    RemoveScene(Scene& currentScene, sf::SoundBuffer& sound);
     ~RemoveScene();
     void execute();
 
    private:
     Scene& mScene;
+    sf::Sound mSound;
 };
 
 class ChangeAndRemoveScene : public Command {

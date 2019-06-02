@@ -3,15 +3,17 @@
 #include "Command.h"
 
 Board::Board(GameScene::GameState& state, Scene::Context& context)
-    : mContext(context), mGameState(state), mCells() {
+    : mContext(context), mGameState(state) {
     // initialize mCells first
     // attempting to insert this loop into the following loop
     // causes some weird error where only one square
     // is drawn on the screen
+    mCells.reserve(10);
     for (int i = 0; i < 10; i++) {
         std::vector<BoardCell> row;
+        row.reserve(10);
         for (int j = 0; j < 10; j++) {
-            row.emplace_back(BoardCell(i, j, context, state));
+            row.emplace_back(i, j, context, state);
         }
         mCells.push_back(row);
     }

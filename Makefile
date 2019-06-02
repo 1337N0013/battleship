@@ -2,8 +2,8 @@ CC = g++
 CPP_PREFLAGS = -std=c++17 -g
 LINK_FLAGS = -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system
 
-bin/main: obj/main.o obj/Scene.o obj/SceneStack.o obj/Command.o obj/GameSettings.o obj/Button.o obj/MainMenuScene.o obj/GameScene.o obj/SettingsScene.o obj/PauseScene.o obj/Board.o obj/BoardCell.o obj/Engine.o
-	$(CC) $(CPP_PREFLAGS) -o bin/main obj/main.o obj/Scene.o obj/SceneStack.o obj/Command.o obj/GameSettings.o obj/Button.o obj/MainMenuScene.o obj/GameScene.o obj/SettingsScene.o obj/PauseScene.o obj/Board.o obj/BoardCell.o obj/Engine.o $(LINK_FLAGS)
+bin/main: obj/main.o obj/Scene.o obj/SceneStack.o obj/Command.o obj/GameSettings.o obj/Button.o obj/MainMenuScene.o obj/GameScene.o obj/SettingsScene.o obj/PauseScene.o obj/CreditsScene.o obj/Board.o obj/BoardCell.o obj/Engine.o
+	$(CC) $(CPP_PREFLAGS) -o bin/main obj/main.o obj/Scene.o obj/SceneStack.o obj/Command.o obj/GameSettings.o obj/Button.o obj/MainMenuScene.o obj/GameScene.o obj/SettingsScene.o obj/PauseScene.o obj/CreditsScene.o obj/Board.o obj/BoardCell.o obj/Engine.o $(LINK_FLAGS)
 
 obj/main.o: src/main.cpp
 	$(CC) $(CPP_PREFLAGS) -o obj/main.o -c src/main.cpp $(LINK_FLAGS)
@@ -31,6 +31,9 @@ obj/GameScene.o: src/GameScene.cpp src/GameScene.h
 
 obj/SettingsScene.o: src/SettingsScene.cpp src/SettingsScene.h
 	$(CC) $(CPP_PREFLAGS) -o obj/SettingsScene.o -c src/SettingsScene.cpp $(LINK_FLAGS)
+
+obj/CreditsScene.o: src/CreditsScene.cpp src/CreditsScene.h
+	$(CC) $(CPP_PREFLAGS) -o obj/CreditsScene.o -c src/CreditsScene.cpp $(LINK_FLAGS)
 
 obj/PauseScene.o: src/PauseScene.cpp src/PauseScene.h
 	$(CC) $(CPP_PREFLAGS) -o obj/PauseScene.o -c src/PauseScene.cpp $(LINK_FLAGS)
