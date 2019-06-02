@@ -121,17 +121,11 @@ void PlaceShip::execute() {
         mGameState.numberOfShips[mGameState.getPlayer()] <
             mGameState.maxShips) {
         mGameState.numberOfShips[mGameState.getPlayer()]++;
-        std::cout << "PLAYER " << mGameState.getPlayer() + 1
-                  << " PLACED SHIP AT (" << mCell.getCoord().x << ", "
-                  << mCell.getCoord().y << ")\n";
+
         // JOSIAH WAS HERE
         mConfirmSFX.play();
         mCell.setState(BoardCell::State::Ship);
     }
-    std::cout << "AT (" << mCell.getCoord().x << ", " << mCell.getCoord().y
-              << ")\n";
-    std::cout << "SHIPS: " << mGameState.numberOfShips[mGameState.getPlayer()]
-              << " OUT OF " << mGameState.maxShips << "\n";
 }
 
 Attack::Attack(GameScene::GameState& state, BoardCell& cell,
@@ -148,8 +142,6 @@ void Attack::execute() {
     if (mCell.getState() == BoardCell::State::Ship &&
         mGameState.numberOfShips[mGameState.getPlayer()] > 0) {
         mGameState.numberOfShips[mGameState.getPlayer()]--;
-        std::cout << "PLAYER " << mGameState.getPlayer() + 1 << " HIT ("
-                  << mCell.getCoord().x << ", " << mCell.getCoord().y << ")\n";
 
         mSFX.setBuffer(mContext.explode);
         mSFX.play();
@@ -158,12 +150,6 @@ void Attack::execute() {
         mCell.setState(Button::State::Hovered);
         mGameState.incrementTurn();
     } else if (mCell.getState() == BoardCell::State::None) {
-        std::cout << "PLAYER " << mGameState.getPlayer() + 1 << " MISSED AT ("
-                  << mCell.getCoord().x << ", " << mCell.getCoord().y << ")\n";
-        std::cout << "SHIPS: "
-                  << mGameState.numberOfShips[mGameState.getPlayer()]
-                  << " OUT OF " << mGameState.maxShips << "\n";
-
         // JOSIAH WAS HERE
         mSFX.setBuffer(mContext.splash);
         mSFX.play();
@@ -172,7 +158,6 @@ void Attack::execute() {
         mCell.setState(Button::State::Hovered);
         mGameState.incrementTurn();
     }
-    std::cout << "TURN IS NOW " << mGameState.getTurn() << "\n";
 }
 
 ChangeGameState::ChangeGameState(GameScene::GameState& gameState,

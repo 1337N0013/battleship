@@ -2,8 +2,6 @@
 #include <iostream>
 #include "Command.h"
 
-using std::cout;
-
 sf::Vector2i Button::lastMousePos = sf::Vector2i(0, 0);
 
 Button::Button(const float left, const float top, const sf::Vector2f& size,

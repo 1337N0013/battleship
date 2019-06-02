@@ -21,7 +21,6 @@ Board::Board(GameScene::GameState& state, Scene::Context& context)
     // set properties of each cell
     for (int i = 0; i < 10; i++) {
         for (int j = 0; j < 10; j++) {
-            std::cout << i << ", " << j << std::endl;
             mCells[i][j].setSize(sf::Vector2f(64, 64));
             mCells[i][j].setPosition(69 * i + 40, 69 * j + 40);
             mCells[i][j].rectangle.setOutlineThickness(2);
@@ -49,10 +48,6 @@ Board::Board(GameScene::GameState& state, Scene::Context& context)
                 mCells[i][j].setStateColor(Button::State::Released,
                                            sf::Color(222, 173, 31));
                 mCells[i][j].setState(BoardCell::State::None);
-            }
-
-            if (mCells[i][j].getState() == BoardCell::State::None) {
-                std::cout << i << ", " << j << " ACTIVE\n";
             }
         }
     }

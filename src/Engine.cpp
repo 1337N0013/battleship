@@ -7,8 +7,6 @@
 #include "Scene.h"
 #include "SettingsScene.h"
 
-using std::cout;
-
 Engine::Engine()
     : mWindow(sf::VideoMode(windowWidth, windowHeight), "Battleship",
               sf::Style::Titlebar | sf::Style::Close),
