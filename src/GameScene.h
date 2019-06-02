@@ -1,7 +1,6 @@
 #ifndef GAMESCENE_H
 #define GAMESCENE_H
 
-// #include "Board.h"
 #include "Button.h"
 #include "GameSettings.h"
 #include "Scene.h"
@@ -82,7 +81,6 @@ class GameScene : public Scene {
     sf::Text mTurnCounterValueText;
     sf::Text mYourShipsValueText;
     sf::Text mEnemyShipsValueText;
-
 
     // JOSIAH AND THOMAS WERE HERE
     sf::RectangleShape mWhosTurn, mGameClock, mTurnCounter, mYourShips,

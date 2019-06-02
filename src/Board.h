@@ -3,8 +3,8 @@
 
 #include <SFML/Graphics.hpp>
 #include "BoardCell.h"
-#include "Scene.h"
 #include "GameScene.h"
+#include "Scene.h"
 
 class Board : public sf::Drawable {
    public:
@@ -25,7 +25,7 @@ class Board : public sf::Drawable {
 
     sf::Text mLetters[10];
     sf::Text mNumbers[10];
-    
+
     Scene::Context& mContext;
 };
 

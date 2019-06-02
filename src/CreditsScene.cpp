@@ -50,7 +50,8 @@ CreditsScene::CreditsScene(SceneStack& stack, Context context)
             mReturnToMainMenu.getGlobalBounds().width,
         mWindow.getSize().y - mCredits.getPosition().y -
             mReturnToMainMenu.getGlobalBounds().height);
-    mReturnToMainMenu.onClickCommand.reset(new SceneCommand::RemoveScene(*this, context.confirm));
+    mReturnToMainMenu.onClickCommand.reset(
+        new SceneCommand::RemoveScene(*this, context.confirm));
 }
 
 CreditsScene::~CreditsScene() {}

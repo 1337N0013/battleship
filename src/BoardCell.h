@@ -20,8 +20,10 @@ class BoardCell : public Button {
               Scene::Context& context, GameScene::GameState& gameState);
     BoardCell(unsigned int x, unsigned int y, BoardCell::State state,
               Scene::Context& context, GameScene::GameState& gameState);
-    BoardCell(sf::Vector2u coord, Scene::Context& context, GameScene::GameState& gameState);
-    BoardCell(unsigned int x, unsigned int y, Scene::Context& context, GameScene::GameState& gameState);
+    BoardCell(sf::Vector2u coord, Scene::Context& context,
+              GameScene::GameState& gameState);
+    BoardCell(unsigned int x, unsigned int y, Scene::Context& context,
+              GameScene::GameState& gameState);
 
     void setState(State state);
     void setState(Button::State state);

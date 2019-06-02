@@ -1,6 +1,6 @@
-#include "Command.h"
 #include "MainMenuScene.h"
 #include <iostream>
+#include "Command.h"
 
 MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
@@ -22,16 +22,19 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
     playButton.setCharacterSize(20);
     playButton.onClickCommand.reset(
         new SceneCommand::ChangeScene(*this, Scene::ID::Settings));
-        
+
     creditsButton.setCharacterSize(20);
     creditsButton.setSize(sf::Vector2f(300, 30));
-    creditsButton.setPosition(playButton.getPosition().x, playButton.getPosition().y + 50);
-    creditsButton.onClickCommand.reset(new SceneCommand::ChangeScene(*this, Scene::ID::Credits));
+    creditsButton.setPosition(playButton.getPosition().x,
+                              playButton.getPosition().y + 50);
+    creditsButton.onClickCommand.reset(
+        new SceneCommand::ChangeScene(*this, Scene::ID::Credits));
 
     exitButton.setCharacterSize(20);
     exitButton.setPosition(creditsButton.getPosition().x,
                            creditsButton.getPosition().y + 50);
-    exitButton.onClickCommand.reset(new SceneCommand::RemoveScene(*this, context.confirm));
+    exitButton.onClickCommand.reset(
+        new SceneCommand::RemoveScene(*this, context.confirm));
 
     mBackgroundSprite.setOrigin(999.5f, 561.5f);
     mBackgroundSprite.setPosition(512, 384);
@@ -41,7 +44,7 @@ MainMenuScene::MainMenuScene(SceneStack& stack, Context& context)
     mMainMenuMusic.setPitch(1);
     mMainMenuMusic.setVolume(15);
     mMainMenuMusic.setLoop(true);
-    mMainMenuMusic.play();    
+    mMainMenuMusic.play();
 }
 
 MainMenuScene::~MainMenuScene() {}
@@ -76,15 +79,11 @@ bool MainMenuScene::update(sf::Time deltaTime) {
     exitButton.update(deltaTime);
     creditsButton.update(deltaTime);
     titleBlinkTime += deltaTime;
-    
-    if(titleBlinkTime.asSeconds() > 0.5)
-    {
-        if (title.getFillColor() == sf::Color::White)
-        {
+
+    if (titleBlinkTime.asSeconds() > 0.5) {
+        if (title.getFillColor() == sf::Color::White) {
             title.setFillColor(sf::Color::Transparent);
-        }
-        else
-        {
+        } else {
             title.setFillColor(sf::Color::White);
         }
         titleBlinkTime = sf::Time::Zero;

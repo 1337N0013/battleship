@@ -2,14 +2,13 @@
 #define BUTTON_H
 
 #include <SFML/Graphics.hpp>
-#include <unordered_map>
 #include <memory>
+#include <unordered_map>
 #include "Scene.h"
 
 class Command;
 
 class Button : public sf::Drawable, public sf::Transformable {
-
     sf::Font& mFont;
     sf::FloatRect labelBounds;
     static sf::Vector2i lastMousePos;

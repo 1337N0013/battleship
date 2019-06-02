@@ -26,8 +26,8 @@ Board::Board(GameScene::GameState& state, Scene::Context& context)
             mCells[i][j].setPosition(69 * i + 40, 69 * j + 40);
             mCells[i][j].rectangle.setOutlineThickness(2);
             mCells[i][j].rectangle.setOutlineColor(sf::Color::Black);
-            mCells[i][j].onClickCommand.reset(
-                new GameCommands::PlaceShip(mGameState, mCells[i][j], context.confirm));
+            mCells[i][j].onClickCommand.reset(new GameCommands::PlaceShip(
+                mGameState, mCells[i][j], context.confirm));
             mCells[i][j].setStateColor(Button::State::Default,
                                        sf::Color(12, 25, 42));
 
@@ -71,7 +71,7 @@ Board::Board(GameScene::GameState& state, Scene::Context& context)
         mNumbers[i].setString(std::to_string(i + 1));
         mNumbers[i].setFillColor(sf::Color::White);
     }
-    mNumbers[9].setPosition(7,mNumbers[9].getPosition().y);
+    mNumbers[9].setPosition(7, mNumbers[9].getPosition().y);
 }
 
 Board::~Board() {}
@@ -93,7 +93,8 @@ unsigned int Board::getNumberOfShips() {
 void Board::setBattlePhase() {
     for (auto i = mCells.begin(); i != mCells.end(); i++) {
         for (auto j = i->begin(); j != i->end(); j++) {
-            j->onClickCommand.reset(new GameCommands::Attack(mGameState, *j, mContext));
+            j->onClickCommand.reset(
+                new GameCommands::Attack(mGameState, *j, mContext));
         }
     }
 }

@@ -1,8 +1,8 @@
 #ifndef PAUSESCENE_H
 #define PAUSESCENE_H
 
-#include "Scene.h"
 #include "Button.h"
+#include "Scene.h"
 
 class PauseScene : public Scene {
    public:

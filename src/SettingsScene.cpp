@@ -1,5 +1,5 @@
-#include "Command.h"
 #include "SettingsScene.h"
+#include "Command.h"
 
 SettingsScene::SettingsScene(SceneStack& stack, Context& context)
     : Scene(stack, context),
@@ -12,10 +12,11 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
       mDecreaseBoard("-", context.font),
       mHit(context.hit),
       mMiss(context.miss),
-      mHitText("- HIT", context.font), 
+      mHitText("- HIT", context.font),
       mMissText("- MISS", context.font),
       mLegendText("LENGEND:", context.font),
-      playButton(100, context.window.getSize().y-100-30, 300, 30, "Play", context.font) {
+      playButton(100, context.window.getSize().y - 100 - 30, 300, 30, "Play",
+                 context.font) {
     mBackground.setPosition(0, 0);
     sf::Vector2f windowSize(context.window.getSize().x,
                             context.window.getSize().y);
@@ -33,12 +34,14 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
     mDecreaseShips.setCharacterSize(20);
     mDecreaseShips.setPosition(500, 190);
     mDecreaseShips.setSize(buttonSize);
-    mDecreaseShips.onClickCommand.reset(new SettingsCommand::DecreaseShips(context));
+    mDecreaseShips.onClickCommand.reset(
+        new SettingsCommand::DecreaseShips(context));
 
     mIncreaseShips.setCharacterSize(20);
     mIncreaseShips.setPosition(550, 190);
     mIncreaseShips.setSize(buttonSize);
-    mIncreaseShips.onClickCommand.reset(new SettingsCommand::IncreaseShips(context));
+    mIncreaseShips.onClickCommand.reset(
+        new SettingsCommand::IncreaseShips(context));
 
     mBoardSizeText.setCharacterSize(20);
     mBoardSizeText.setPosition(100, 250);
@@ -46,24 +49,26 @@ SettingsScene::SettingsScene(SceneStack& stack, Context& context)
     mDecreaseBoard.setCharacterSize(20);
     mDecreaseBoard.setPosition(500, 240);
     mDecreaseBoard.setSize(buttonSize);
-    mDecreaseBoard.onClickCommand.reset(new SettingsCommand::DecreaseBoard(context));
+    mDecreaseBoard.onClickCommand.reset(
+        new SettingsCommand::DecreaseBoard(context));
 
     mIncreaseBoard.setCharacterSize(20);
     mIncreaseBoard.setPosition(550, 240);
     mIncreaseBoard.setSize(buttonSize);
-    mIncreaseBoard.onClickCommand.reset(new SettingsCommand::IncreaseBoard(context));
+    mIncreaseBoard.onClickCommand.reset(
+        new SettingsCommand::IncreaseBoard(context));
 
-    mLegendText.setPosition(100,350);
+    mLegendText.setPosition(100, 350);
     mLegendText.setCharacterSize(20);
 
-    mHit.setPosition(100,420);
+    mHit.setPosition(100, 420);
     mHit.setScale(0.04f, 0.04f);
-    mHitText.setPosition(180,430);
+    mHitText.setPosition(180, 430);
     mHitText.setCharacterSize(20);
 
-    mMiss.setPosition(100,520);
-    mMiss.setScale(0.04f, 0.04f);   
-    mMissText.setPosition(180,530);
+    mMiss.setPosition(100, 520);
+    mMiss.setScale(0.04f, 0.04f);
+    mMissText.setPosition(180, 530);
     mMissText.setCharacterSize(20);
 
     playButton.setCharacterSize(20);
@@ -141,9 +146,9 @@ void SettingsScene::draw() {
 
 bool SettingsScene::update(sf::Time deltaTime) {
     unsigned int tiles = getContext().gameSettings.getBoardSize().x *
-                               getContext().gameSettings.getBoardSize().y;
+                         getContext().gameSettings.getBoardSize().y;
     if (getContext().gameSettings.getNumberOfShips() > tiles / 2) {
-        getContext().gameSettings.setNumberOfShips(tiles/2);
+        getContext().gameSettings.setNumberOfShips(tiles / 2);
     }
 
     mNumberOfShipsText.setString(
