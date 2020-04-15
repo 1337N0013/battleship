@@ -12,29 +12,27 @@ This should create a folder named `battleship` into the current folder. You can 
 
 ## Dependencies
 
-Make sure SFML is installed correctly on your system. SFML can be downloaded from [here.](https://www.sfml-dev.org/download.php)
-There are tutorials on how to install it on the website.
-
-Also make sure `make` is installed on your system. There should be tutorials online for Windows systems if you're using MinGW.
+Make sure `make` is installed on your system. There should be tutorials online for Windows systems if you're using MinGW.
 
 ## Compiling
 
-While in the `battleship` folder, type
+While in the `battleship` folder, enter
 ```
 make
 ```
-into your console. This creates a `main` binary inside `bin/` and `.o` files inside `obj/`.
-On Windows systems, you'll have to create the `bin/` and `obj/` folders yourself.
+into your console. This creates a `battleship` binary at the directory root and `.o` files inside `obj/`.
+On Windows systems, you might have to create the `obj/` folder yourself.
 
-You can then run the binary with
+You can then run the binary with on MacOS or Linux systems.
 ```
-./bin/main
+./battleship
 ```
-or
+
+If you're on a Windows system, enter
 ```
-\bin\main
+battleship.exe
 ```
-on Windows systems.
+or simply double click it.
 
 ## Cleaning Compiled Files
 
@@ -43,4 +41,4 @@ To remove the compiled files, type
 make clean
 ```
 Sometimes things result in segfaults. Try using this and recompiling before moving on.
-On Windows systems, you'll have to delete the files inside `bin/` and `obj/` yourself.
+On Windows systems, you might have to delete `battleship.exe` and `obj/` yourself.
