@@ -1,7 +1,1 @@
-.DS_Store
-.vscode/*
-bin/*
-obj/*
-20190428 final project battleship.code-workspace
-concept/*
-battleship.exe
+build
