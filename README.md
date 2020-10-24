@@ -5,40 +5,44 @@ Final project for CMSC 21
 ## Downloading the Project
 
 `cd` into the folder where you want to put Battleship, then enter
+
 ```
-git clone https://github.com/1337N0013/battleship.git
+$ git clone https://github.com/1337N0013/battleship.git
 ```
+
 This should create a folder named `battleship` into the current folder. You can then `cd` into the `battleship` folder.
 
 ## Dependencies
 
-Make sure `make` is installed on your system. There should be tutorials online for Windows systems if you're using MinGW.
+You'll need the following tools to build the game:
+
+- CMake
+- Ninja
 
 ## Compiling
 
-While in the `battleship` folder, enter
-```
-make
-```
-into your console. This creates a `battleship` binary at the directory root and `.o` files inside `obj/`.
-On Windows systems, you might have to create the `obj/` folder yourself.
+In `battleship`, create a `build` folder, then `cd` into it.
 
-You can then run the binary with on MacOS or Linux systems.
-```
-./battleship
+```shell
+$ mkdir build
+$ cd build
 ```
 
-If you're on a Windows system, enter
-```
-battleship.exe
-```
-or simply double click it.
+If you have CMake and Ninja properly installed, you can enter the following commands to build the game.
 
-## Cleaning Compiled Files
+```shell
+$ cmake -G Ninja ..
+$ ninja
+```
 
-To remove the compiled files, type
+When it's done compiling, you can run the game with:
+
+```shell
+$ ./battleship
 ```
-make clean
+
+Or if you're on Windows:
+
+```shell
+> battleship.exe
 ```
-Sometimes things result in segfaults. Try using this and recompiling before moving on.
-On Windows systems, you might have to delete `battleship.exe` and `obj/` yourself.
